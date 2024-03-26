@@ -1,4 +1,7 @@
 from django.db import models
+from django.core.validators import MinValueValidator
+
+
 
 # Create your models here.
 class Promotion(models.Model):
@@ -15,9 +18,9 @@ class Product(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(default = '-')
     description = models.TextField()
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    unit_price = models.DecimalField(max_digits=6, decimal_places=2, validators=[MinValueValidator(1)])
     inventory = models.IntegerField()
-    last_updated = models.DateTimeField(auto_now = True)
+    last_update = models.DateTimeField(auto_now = True)
     category = models.ForeignKey(Collection, on_delete=models.PROTECT) 
     # Models. protct, if we accidentally delete collection we don't hae to delete all the products in that category
     promotions = models.ManyToManyField(Promotion)
@@ -63,7 +66,6 @@ class Order(models.Model):
                                       default = PAYMENT_PENDING)
     customer = models.ForeignKey(Customer, on_delete = models.PROTECT)
     #if we delete the customer we don't delete Orders because the orders are our sells so they don't have to be deleted
-    item = models.ForeignKey(Product, on_delete= models.CASCADE)
     
     
 class OrderItem(models.Model):
