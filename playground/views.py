@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q,F
 
-from store.models import Product
+from store.models import Product, OrderItem, Order
 # Create your views here.
 
 
@@ -37,13 +37,31 @@ def say_hello(request):
     
     querryset = Product.objects.filter(Q(category_id = 3) | ~Q(title__icontains = 'Coffe')) #Negate the second argument
     
-    #Referencing the objects using F Object
-    
+    #Referencing the objects using F Object    
     querryset = Product.objects.filter(category_id = F('inventory')) # Display all the products with inventory that equals to category
     
     product = Product.objects.order_by('unit_price')[0] # Display first product ascendingly on unit price
     product = Product.objects.aearliest('unit_price') # Same as above
     product = Product.objects.latest('unit_price') # Display the last product ascendingly on unit price
     product = Product.objects.order_by('-unit_price') # Display products Descendingly on unit price
-     
-    return render(request, 'hello_world.html',{'title':'Mr Phase', 'products': list(querryset)})
+    querryset = Product.objects.all().order_by('-unit_price')[:5] #Display first 5 objects 
+    querryset = Product.objects.all().values('unit_price','inventory', 'title') #Selecting certain Features
+    querryset = Product.objects.all().values('unit_price','inventory', 'title', 'category__title') #Selecting certain Features but also from another table
+    querryset = Product.objects.all().order_by('title').filter(category__title = 'beauty')
+    
+    # Selecting the products that have been ordered (From Product table to OrderItem table)
+    # and display only those products that have been ordered then solt them by their title
+    OrderedItems = OrderItem.objects.values('product_id').distinct()
+    querryset = Product.objects.all().filter(id__in=OrderedItems).order_by('title')
+    # End of the task
+    
+    ## Selecting a related Objects
+    querryset = Product.objects.select_related('category').all()
+    
+    querryset = Product.objects.prefetch_related('promotions').select_related('category').all()
+    
+    OrderQuerryset = Order.objects.prefetch_related('orderitem_set__product').select_related('customer').order_by('-placed_at')[:5]
+
+    
+    return render(request, 'hello_world.html',{'title':'Mr Phase',
+                                               'orders': list(OrderQuerryset)})

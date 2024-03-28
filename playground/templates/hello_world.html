@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+ 
+
 <body>
     {% if title %}
     <h1>Hello {{title}}</h1>
     {% else %}
     <h2>Hello World</h2>
     {% endif %}
-    {% for product in products %}
+    {% for order in orders %}
     <ul>
-        <li>{{product.title}}</li>
+        <!-- <li>{{product.id}}. <b>{{product.title}}</b> The Category is: <i>{{product.category.title}}</i></li> -->
+
+        <li>{{order.id}} -> {{order.customer.first_name}} -> {{product.title}}</li>
+        
     </ul>
     {% endfor %}
 </body>
+
 </html>
