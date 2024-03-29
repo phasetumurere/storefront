@@ -14,14 +14,17 @@
     {% else %}
     <h2>Hello World</h2>
     {% endif %}
-    {% for order in orders %}
+    <!-- Was retreiving the data from database and I has removed this loop currently -->
+    <!-- {% for order in orders %}
     <ul>
-        <!-- <li>{{product.id}}. <b>{{product.title}}</b> The Category is: <i>{{product.category.title}}</i></li> -->
+        <li>{{product.id}}. <b>{{product.title}}</b> The Category is: <i>{{product.category.title}}</i></li> 
 
         <li>{{order.id}} -> {{order.customer.first_name}} -> {{product.title}}</li>
         
     </ul>
-    {% endfor %}
+    {% endfor %} -->
+<p>{{products_count}}</p>
+{{fourth_category_products_count}}
 </body>
 
 </html>
