@@ -24,7 +24,17 @@
     </ul>
     {% endfor %} -->
 <p>{{products_count}}</p>
-{{fourth_category_products_count}}
+<ul>
+<!-- 
+    {% for customer in customers %}
+    <li>{{customer.first_name}}</li>
+    <li>customer.last_name</li> 
+{% endfor %} -->
+{% for customer in customer_and_orders%}
+    <li>{{customer}}</li>
+{% endfor %}
+</ul>
+
 </body>
 
 </html>
