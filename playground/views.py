@@ -4,12 +4,13 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q,F, Func, Value, ExpressionWrapper
 from django.db.models.functions import Concat
 from django.db.models.aggregates import Sum, Avg, Min, Max, Count
-from store.models import Product, OrderItem, Order, Customer
+from store.models import Product, OrderItem, Order, Customer, Collection
 
 #Imports for generic relationships
 from django.contrib.contenttypes.models import ContentType
 from store.models import Product
 from tags.models import TaggedItem
+from tags.models import TaggedItemManager
 
 
 
@@ -98,12 +99,25 @@ from tags.models import TaggedItem
 
 
 def generic_relationship(request):
-    content_type = ContentType.objects.get_for_model(Product) # this stores the ID of the product in ContentType table
-    queryset = TaggedItem.objects.\
-        select_related('tag').\
-        filter(
-        content_type = content_type,
-        object_id = 1        
-    )
+    queryset = TaggedItem.objects.get_tags_for(Product, 1)
+    
+    querry_set = Product.objects.all()
+    list(querry_set)
+    
+    # # Create a new Collection
+    # collection = Collection()
+    # collection.title = 'Mododka'
+    # collection.featured_product = Product(pk=1)
+    # collection.save()
+    
+    #Updating Collection
+    # collection = Collection.objects.get(pk=11)
+    Collection.objects.filter(pk=6).update(featured_product=1)
+    
+    # Delete the collection
+    Collection.objects.get(pk=12).delete()
+    
+
     return render(request, 'hello_world.html', {'tags': list(queryset)})
+       
        
