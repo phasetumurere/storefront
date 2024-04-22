@@ -5,6 +5,7 @@ from django.db.models import Q,F, Func, Value, ExpressionWrapper
 from django.db.models.functions import Concat
 from django.db.models.aggregates import Sum, Avg, Min, Max, Count
 from store.models import Product, OrderItem, Order, Customer, Collection
+from django.db import transaction # Saving OrderItem since it has a relationship between them
 
 #Imports for generic relationships
 from django.contrib.contenttypes.models import ContentType
@@ -112,11 +113,28 @@ def generic_relationship(request):
     
     #Updating Collection
     # collection = Collection.objects.get(pk=11)
-    Collection.objects.filter(pk=6).update(featured_product=1)
+    # Collection.objects.filter(pk=6).update(featured_product=1)
     
-    # Delete the collection
-    Collection.objects.get(pk=12).delete()
+    # # Delete the collection
+    # Collection.objects.get(pk=12).delete()
     
-
+    ############### Saving the data let say that want to save Order item but also saving order ###########
+    
+    with transaction.atomic():
+        order = Order()
+        order.customer_id = 1
+        order.save()
+        
+        item = OrderItem()
+        item.order = order
+        item.product_id = 1
+        item.quantity = 1
+        item.unit_price = 10
+        item.save()
+    
     return render(request, 'hello_world.html', {'tags': list(queryset)})
 
+
+
+    
+   
