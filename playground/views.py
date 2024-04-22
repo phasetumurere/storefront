@@ -119,5 +119,4 @@ def generic_relationship(request):
     
 
     return render(request, 'hello_world.html', {'tags': list(queryset)})
-       
-       
+
