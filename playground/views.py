@@ -133,8 +133,3 @@ def generic_relationship(request):
         item.save()
     
     return render(request, 'hello_world.html', {'tags': list(queryset)})
-
-
-
-    
-   
