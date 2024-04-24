@@ -13,6 +13,12 @@ class Collection(models.Model):
     title = models.CharField(max_length=255)
     featured_product = models.ForeignKey('Product', blank=True, null=True, on_delete=models.SET_NULL,related_name='+')
     
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        ordering = ['title']
+    
     
 class Product(models.Model):
     title = models.CharField(max_length=255)
@@ -25,6 +31,13 @@ class Product(models.Model):
     # Models. protct, if we accidentally delete collection we don't hae to delete all the products in that category
     promotions = models.ManyToManyField(Promotion)
 
+    # Displaying the list of products intead of default objects in Admin panel.
+    def __str__(self):
+        return self.title
+    
+    #Sort products in Admin panel
+    class Meta:
+        ordering = ['title']
     
     
 class Customer(models.Model):
@@ -48,6 +61,11 @@ class Customer(models.Model):
                                   choices = MEMBERSHIP_CHOICES, 
                                   default=MEMBERSHIP_SILVER)
     
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}' 
+    
+    class Meta:
+        ordering = ['first_name','last_name']
     
     
 class Order(models.Model):
@@ -67,6 +85,7 @@ class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete = models.PROTECT)
     #if we delete the customer we don't delete Orders because the orders are our sells so they don't have to be deleted
     
+    #Sorting the customer
     
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete= models.PROTECT)
