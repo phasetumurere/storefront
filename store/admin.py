@@ -22,8 +22,12 @@ class CollectionAdminModel(admin.ModelAdmin):
     def products_count(self, collection):
         url = (reverse('admin:store_product_changelist')+
                '?'+urlencode(
-                   {'collection__id': str(collection.id)}
+                   {'category__id': str(collection.id)}
                    )) # Url for the clicked products
+        # url = f'product/?collection_id={5}'
+        if collection.products_count == 0:
+            url = 0
+            return url
         return format_html('<a href="{}">{}', url, collection.products_count)
              
     def get_queryset(self, request):
@@ -57,6 +61,12 @@ class CustomerModelAdmin(admin.ModelAdmin):
     list_editable = ['membership']
     ordering = ['first_name', 'last_name']
     list_per_page = 10
+    # @admin.display(ordering='first_name')
+    # def order(self, order):
+    #     url = (reverse('admin:store_order_changelist')+
+    #     '?'+urlencode({'order_id': str(order.id)}))                
+    #     return format_html('<a href="{}">{}', url, order.id)
+        #  order.first_name
     
     
 @admin.register(models.Order)
