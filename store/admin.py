@@ -57,17 +57,29 @@ class ProductAdminModel(admin.ModelAdmin):
 
 @admin.register(models.Customer)
 class CustomerModelAdmin(admin.ModelAdmin):
-    list_display = ['first_name', 'last_name', 'membership']
+    list_display = ['first_name', 'last_name', 'membership', 'id','orders_count']
     list_editable = ['membership']
     ordering = ['first_name', 'last_name']
     list_per_page = 10
-    # @admin.display(ordering='first_name')
-    # def order(self, order):
-    #     url = (reverse('admin:store_order_changelist')+
-    #     '?'+urlencode({'order_id': str(order.id)}))                
-    #     return format_html('<a href="{}">{}', url, order.id)
-        #  order.first_name
     
+    @admin.display(ordering='first_name')
+    def orders_count(self, customer):
+
+        url = (reverse('admin:store_order_changelist')+
+        '?'+urlencode({'customer_id': str(customer.id)})) 
+        if customer.order_set.count()==0: #if no order then no need of a clickable link to the order's made bya that customer
+            url = 0  
+            return url            
+        else:
+            return format_html('<a href="{}">{}', url, customer.order_set.count())
+    #order_set attribute is automatically created by Django when you define a foreign key from Order to Customer
+    
+    
+    # def get_queryset(self, request):
+    #     return super().get_queryset(request).annotate(
+    #         orders_count = Count('order')
+    #         )
+ 
     
 @admin.register(models.Order)
 class OrderModelAdmin(admin.ModelAdmin):
