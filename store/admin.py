@@ -25,15 +25,16 @@ class CollectionAdminModel(admin.ModelAdmin):
                    {'category__id': str(collection.id)}
                    )) # Url for the clicked products
         # url = f'product/?collection_id={5}'
-        if collection.products_count == 0:
+        if collection.product_set.count()== 0:
             url = 0
             return url
-        return format_html('<a href="{}">{}', url, collection.products_count)
+        return format_html('<a href="{}">{}', url, collection.product_set.count())
+    # collection.products_count == collection.product_set.count()
              
-    def get_queryset(self, request):
-        return super().get_queryset(request).annotate(
-            products_count = Count('product')
-            )
+    # def get_queryset(self, request):
+    #     return super().get_queryset(request).annotate(
+    #         products_count = Count('product')
+    #         )
       
 
 # Register your models here.
@@ -59,8 +60,10 @@ class ProductAdminModel(admin.ModelAdmin):
 class CustomerModelAdmin(admin.ModelAdmin):
     list_display = ['first_name', 'last_name', 'membership', 'id','orders_count']
     list_editable = ['membership']
-    ordering = ['first_name', 'last_name']
     list_per_page = 10
+    ordering = ['first_name', 'last_name']
+    search_fields = ['first_name__istartswith', 'last_name__istartswith']
+
     
     @admin.display(ordering='first_name')
     def orders_count(self, customer):
@@ -69,9 +72,9 @@ class CustomerModelAdmin(admin.ModelAdmin):
         '?'+urlencode({'customer_id': str(customer.id)})) 
         if customer.order_set.count()==0: #if no order then no need of a clickable link to the order's made bya that customer
             url = 0  
-            return url            
+            return url           
         else:
-            return format_html('<a href="{}">{}', url, customer.order_set.count())
+            return format_html('<a href="{}">{} Orders', url, customer.order_set.count())
     #order_set attribute is automatically created by Django when you define a foreign key from Order to Customer
     
     
