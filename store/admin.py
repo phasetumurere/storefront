@@ -1,5 +1,6 @@
 from typing import Any
 from django.contrib import admin, messages
+from django.contrib.contenttypes.admin import GenericTabularInline #Help us to add Generic relationship (Add a Tag)
 from django.db.models.query import QuerySet
 from django.http import HttpRequest
 from django.db.models import Count
@@ -7,6 +8,8 @@ from django.db.models import Count
 from django.urls import reverse
 from django.utils.html import format_html
 from urllib.parse import urlencode
+
+from tags.models import TaggedItem
 
 
 
@@ -52,7 +55,13 @@ class InventoryFiltering(admin.SimpleListFilter):
         if self.value()=='>10':
             return queryset.filter(inventory__gt=10)
       
-
+# #Add a Tag on the Product using Generic Relationship
+# class TagInline(GenericTabularInline):
+#     autocomplete_fields = ['tag']
+#     model = TaggedItem
+    
+    
+    
 # Register your models here.
 @admin.register(models.Product)
 class ProductAdminModel(admin.ModelAdmin):
@@ -65,7 +74,9 @@ class ProductAdminModel(admin.ModelAdmin):
     list_per_page = 10
     list_select_related = ['category']
     list_filter = ['category', 'last_update', InventoryFiltering] #Add Custome filter of Inventory
+    # inlines =[TagInline]
     search_fields = ['title_istartswith']
+    
     
     def category_title(self, product):
         return product.category.title
