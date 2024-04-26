@@ -22,14 +22,14 @@ class Collection(models.Model):
     
 class Product(models.Model):
     title = models.CharField(max_length=255)
-    slug = models.SlugField(default = '-')
-    description = models.TextField()
+    slug = models.SlugField()
+    description = models.TextField(null = True, blank=True)
     unit_price = models.DecimalField(max_digits=6, decimal_places=2, validators=[MinValueValidator(1)])
-    inventory = models.IntegerField()
+    inventory = models.IntegerField(validators=[MinValueValidator(2)])
     last_update = models.DateTimeField(auto_now = True)
     category = models.ForeignKey(Collection, on_delete=models.PROTECT) 
     # Models. protct, if we accidentally delete collection we don't hae to delete all the products in that category
-    promotions = models.ManyToManyField(Promotion)
+    promotions = models.ManyToManyField(Promotion, blank=True)
 
     # Displaying the list of products intead of default objects in Admin panel.
     def __str__(self):
