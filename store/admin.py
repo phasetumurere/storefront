@@ -75,7 +75,9 @@ class ProductAdminModel(admin.ModelAdmin):
     list_select_related = ['category']
     list_filter = ['category', 'last_update', InventoryFiltering] #Add Custome filter of Inventory
     # inlines =[TagInline]
-    search_fields = ['title_istartswith']
+    search_fields = ['title__istartswith']
+        # search_fields = ['first_name__istartswith', 'last_name__istartswith']
+
     
     
     def category_title(self, product):
