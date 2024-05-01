@@ -1,7 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from rest_framework.decorators import api_view 
+from rest_framework.response import Response
 
 # Create your views here.
 
-def store_home(request):
-    return render(request, 'all_products.html')
+@api_view()
+def product_list(request):
+    return Response('All the Products Home Page') #Replaced Response with HttpResponse
+
+
+def orders(request):
+    return HttpResponse('Orders')
+
+
+@api_view()
+def product_details(request,id):
+    return Response(f'Product {id} details') 
