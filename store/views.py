@@ -9,11 +9,15 @@ from .serializers import ProductSerializer
 
 # Create your views here.
 
-@api_view()
+@api_view(['GET', 'POST'])
 def product_list(request):
-    querryset = Product.objects.select_related('category').all()
-    serializer = ProductSerializer(querryset, many=True, context={'request': request})
-    return Response(serializer.data)
+    if request.method == 'GET':
+        querryset = Product.objects.select_related('category').all()
+        serializer = ProductSerializer(querryset, many=True, context={'request': request})
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = ProductSerializer(data = request.data)
+        return Response('OK')
 
 
 def orders(request):
