@@ -18,22 +18,20 @@ class ProductSerializer(serializers.ModelSerializer):
     # ####### Modal Serialization###
     class Meta:
         model = Product
-        fields = ['id', 'title', 'category','unit_price', 'price_with_tax']
+        fields = ['id', 'title', 'collection','price', 'price_with_tax']
     # id = serializers.IntegerField()
     # title = serializers.CharField(max_length=255)
-    # price = serializers.DecimalField(max_digits=6, decimal_places=2, source="unit_price")
+    price = serializers.DecimalField(max_digits=6, decimal_places=2, source="unit_price")
     price_with_tax = serializers.SerializerMethodField(method_name= 'calculate_tax')
-    # # collection = serializers.PrimaryKeyRelatedField(queryset= Collection.objects.all(), source = 'category') #First way to Serialize a Relationship by it's ID
-    # # collection = serializers.StringRelatedField( source='category') #Second way to Serialize a Relationship by it's name
+    # # # collection = serializers.PrimaryKeyRelatedField(queryset= Collection.objects.all(), source = 'category') #First way to Serialize a Relationship by it's ID
+    collection = serializers.StringRelatedField(source='category') #Second way to Serialize a Relationship by it's name
     # # collection = CollectionSerializer(source='category') ## Second way to Serialize a Relationship by it's object Instatiation
         
-    # collection = serializers.HyperlinkedRelatedField(
+    # category = serializers.HyperlinkedRelatedField(
     #     queryset=Collection.objects.all(),
-    #     view_name= 'collection-details',
-    #     source='category'
+    #     view_name= 'collection-details'
+    #     # source='category'
     # )
-
-
     
     
     def calculate_tax(self, product: Product):
