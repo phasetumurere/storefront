@@ -18,7 +18,7 @@ class ProductSerializer(serializers.ModelSerializer):
     # ####### Modal Serialization###
     class Meta:
         model = Product
-        fields = ['id', 'title', 'inventory','category', 'price', 'price_with_tax']
+        fields = ['id', 'title', 'slug', 'description', 'inventory','category', 'price', 'price_with_tax']
     # id = serializers.IntegerField()
     # title = serializers.CharField(max_length=255)
     price = serializers.DecimalField(max_digits=6, decimal_places=2, source="unit_price")
