@@ -18,13 +18,13 @@ class ProductSerializer(serializers.ModelSerializer):
     # ####### Modal Serialization###
     class Meta:
         model = Product
-        fields = ['id', 'title', 'collection','price', 'price_with_tax']
+        fields = ['id', 'title', 'inventory','category', 'price', 'price_with_tax']
     # id = serializers.IntegerField()
     # title = serializers.CharField(max_length=255)
     price = serializers.DecimalField(max_digits=6, decimal_places=2, source="unit_price")
     price_with_tax = serializers.SerializerMethodField(method_name= 'calculate_tax')
     # # # collection = serializers.PrimaryKeyRelatedField(queryset= Collection.objects.all(), source = 'category') #First way to Serialize a Relationship by it's ID
-    collection = serializers.StringRelatedField(source='category') #Second way to Serialize a Relationship by it's name
+    # category = serializers.StringRelatedField() #Second way to Serialize a Relationship by it's name
     # # collection = CollectionSerializer(source='category') ## Second way to Serialize a Relationship by it's object Instatiation
         
     # category = serializers.HyperlinkedRelatedField(
@@ -42,4 +42,20 @@ class ProductSerializer(serializers.ModelSerializer):
     #     if data['password']!= data['confirm_password']:
     #         return serializers.ValidationError("Passwords not match")
     #     return data 
+    
+    
+    # ## we can also overlide how    product is created
+    # def create(self, validated_data):
+    #     product = Product(**validated_data) #Unpack validated data
+    #     product.other = 23
+    #     product.whatever = "what ever the value"
+    #     product.save()
+    #     return product
+    
+    # ## Overlide update product
+    # def update(self, instance, validated_data):
+    #     instance.unit_price = validated_data.get('unit_price')
+    #     instance.quantity = validated_data.get('quantity')
+    #     instance.save()
+    #     return instance
     

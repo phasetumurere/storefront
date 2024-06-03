@@ -16,19 +16,22 @@ def product_list(request):
         querryset = Product.objects.all().select_related('category').all().order_by('-unit_price')[:4]
         serializer = ProductSerializer(querryset, many=True, context={'request': request})
         return Response(serializer.data)
-    elif request.method == 'POST':        
-        serializer = ProductSerializer(data = request.data)
-        # data validation
-        serializer.is_valid(raise_exception=True)
-        serializer.validated_data
-        return Response('OK')
+    elif request.method == 'POST': 
+        # serializer = ProductSerializer(data = request.data)
         # if serializer.is_valid():
         #     serializer.validated_data
         #     return Response('OK')
 
         # else:
         #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+       
+        serializer = ProductSerializer(data = request.data)
+        # data validation
+        serializer.is_valid(raise_exception=True)
+        serializer.validated_data
+        serializer.save()
+        return Response('OK')
+      
 
 def orders(request):
     return HttpResponse('Orders') 
