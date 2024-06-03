@@ -38,3 +38,8 @@ class ProductSerializer(serializers.ModelSerializer):
         return product.unit_price * Decimal(1.1)
     
     
+    # def password_varidation(self, data):
+    #     if data['password']!= data['confirm_password']:
+    #         return serializers.ValidationError("Passwords not match")
+    #     return data 
+    
