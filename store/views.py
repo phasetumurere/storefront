@@ -84,7 +84,7 @@ def collection_details(request,id):
     elif request.method == 'DELETE':
         if collection.product_set.count() > 0:
             return Response({'error':'This Collection can not be deleted because it has associated products'}, 
-                            status= status.HTTP_204_NO_CONTENT)
+                            status= status.HTTP_400_BAD_REQUEST)
         collection.delete()
         return Response({'message': f'Collection {collection.title} Deleted'},status.HTTP_204_NO_CONTENT)
     
