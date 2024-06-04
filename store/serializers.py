@@ -2,9 +2,9 @@ from rest_framework import serializers
 from .models import Product, Collection
 from decimal import Decimal
 
-class CollectionSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
-    title = serializers.CharField(max_length= 255)
+# class CollectionSerializer(serializers.Serializer):
+#     id = serializers.IntegerField()
+#     title = serializers.CharField(max_length= 255)
     
     
 class CollectionSerializer(serializers.ModelSerializer):
