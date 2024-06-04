@@ -10,9 +10,9 @@ from decimal import Decimal
 class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collection
-        fields = ['id', 'title', 'products_associated']
+        fields = ['id', 'title', 'product_count']
         
-    products_associated = serializers.SerializerMethodField(method_name='products_associated_count')
+    product_count = serializers.SerializerMethodField(method_name='products_associated_count')
     
 
     def products_associated_count(self, collection: Collection):
