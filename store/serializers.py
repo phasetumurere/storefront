@@ -24,11 +24,13 @@ class ProductSerializer(serializers.ModelSerializer):
     # ####### Modal Serialization###
     class Meta:
         model = Product
+        # fields = ['id', 'title', 'slug', 'description', 'inventory','category', 'price', 'price_with_tax', 'associated_orders']
         fields = ['id', 'title', 'slug', 'description', 'inventory','category', 'price', 'price_with_tax']
     # id = serializers.IntegerField()
     # title = serializers.CharField(max_length=255)
     price = serializers.DecimalField(max_digits=6, decimal_places=2, source="unit_price")
     price_with_tax = serializers.SerializerMethodField(method_name= 'calculate_tax')
+    # associated_orders = serializers.SerializerMethodField(method_name= 'order_count')
     # # # collection = serializers.PrimaryKeyRelatedField(queryset= Collection.objects.all(), source = 'category') #First way to Serialize a Relationship by it's ID
     # category = serializers.StringRelatedField() #Second way to Serialize a Relationship by it's name
     # # collection = CollectionSerializer(source='category') ## Second way to Serialize a Relationship by it's object Instatiation
@@ -42,6 +44,10 @@ class ProductSerializer(serializers.ModelSerializer):
     
     def calculate_tax(self, product: Product):
         return product.unit_price * Decimal(1.1)
+    
+    
+    # def order_count(self, product: Product):
+    #     return product.orderitem_set.count()
     
     
     # def password_varidation(self, data):
