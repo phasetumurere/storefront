@@ -13,6 +13,7 @@ class CollectionSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'product_count']
         
     product_count = serializers.SerializerMethodField(method_name='products_associated_count')
+    # product_count = serializers.IntegerField(read_only=True)
     
 
     def products_associated_count(self, collection: Collection):

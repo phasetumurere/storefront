@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from rest_framework.decorators import api_view 
 from rest_framework.response import Response
 from rest_framework.views import APIView #Class based Views
+from rest_framework.mixins import ListModelMixin, CreateModelMixin #Create a re useable codes
+from rest_framework.generics import ListCreateAPIView
 
 from rest_framework import status
 
@@ -11,23 +13,37 @@ from .models import Product, Collection
 from .serializers import ProductSerializer, CollectionSerializer
 
 
-# Class based Views
-class ProductList(APIView):
-    def get(self, request):
-        querryset = Product.objects.all().select_related('category').all().order_by('-unit_price')[:4]
-        serializer = ProductSerializer(querryset, many=True, context={'request': request})
-        return Response(serializer.data)
+#Generic Views
+class ProductList(ListCreateAPIView):
+    # def get_queryset(self):
+    #     return Product.objects.all().select_related('category').all().order_by('-unit_price')[:4]
     
-    def post(self, request):
-        serializer = ProductSerializer(data = request.data)
-        # data validation
-        serializer.is_valid(raise_exception=True)
-        serializer.validated_data
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
-        
+    # def get_serializer_class(self):
+    #     return ProductSerializer
+    
+    queryset = Product.objects.all().select_related('category').all().order_by('-unit_price')[:4]
+    serializer_class = ProductSerializer
+    
+    def get_serializer_context(self):
+        return {'request': self.request}
+    
 
+# # Class based Views
+# class ProductLists(APIView):
+#     def get(self, request):
+#         querryset = Product.objects.all().select_related('category').all().order_by('-unit_price')[:4]
+#         serializer = ProductSerializer(querryset, many=True, context={'request': request})
+#         return Response(serializer.data)
+    
+#     def post(self, request):
+#         serializer = ProductSerializer(data = request.data)
+#         # data validation
+#         serializer.is_valid(raise_exception=True)
+#         serializer.validated_data
+#         serializer.save()
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+    
 # Create your views here.
 #Function based Views
 # @api_view(['GET', 'POST'])
@@ -97,21 +113,48 @@ class ProductDetails(APIView):
 #         return Response({'message':f'Product {product.title} Have Deleted Succesifully!'}, status= status.HTTP_204_NO_CONTENT) 
     
 
-@api_view(['GET', 'POST'])    
-def collections_list(request):
-    if request.method == 'GET':
-        querryset = Collection.objects.all()
-        serializer = CollectionSerializer(querryset, many=True, context = {'request': request})
-        return Response(serializer.data, status= status.HTTP_200_OK)
-    elif request.method == 'POST':
-        serializer = CollectionSerializer(data= request.data)
-        # if serializer.is_valid():
-        #     serializer.save()
-        #     return Response(serializer.data, status= status.HTTP_201_CREATED)
-        serializer.is_valid(raise_exception=True)
-        serializer.validated_data
-        serializer.save()
-        return Response(serializer.data, status= status.HTTP_201_CREATED)
+# Collection Generic Views
+class CollectionList(ListCreateAPIView):
+    queryset = Collection.objects.all()
+    serializer_class = CollectionSerializer
+    
+    def get_serializer_context(self):
+        return {'request': self.request}
+
+# CollectionList Class Based View
+# class CollectionLists(APIView):
+#     def get(self, request):
+#         querryset = Collection.objects.all()
+#         serializer = CollectionSerializer(querryset, many=True, context = {'request': request})
+#         return Response(serializer.data, status= status.HTTP_200_OK)
+    
+#     def post(self, request):
+#         serializer = CollectionSerializer(data= request.data)
+#         # if serializer.is_valid():
+#         #     serializer.save()
+#         #     return Response(serializer.data, status= status.HTTP_201_CREATED)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.validated_data
+#         serializer.save()
+#         return Response(serializer.data, status= status.HTTP_201_CREATED)
+        
+        
+# Collection Function Base View        
+# @api_view(['GET', 'POST'])    
+# def collections_list(request):
+#     if request.method == 'GET':
+#         querryset = Collection.objects.all()
+#         serializer = CollectionSerializer(querryset, many=True, context = {'request': request})
+#         return Response(serializer.data, status= status.HTTP_200_OK)
+#     elif request.method == 'POST':
+#         serializer = CollectionSerializer(data= request.data)
+#         # if serializer.is_valid():
+#         #     serializer.save()
+#         #     return Response(serializer.data, status= status.HTTP_201_CREATED)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.validated_data
+#         serializer.save()
+#         return Response(serializer.data, status= status.HTTP_201_CREATED)
         
 
 @api_view(['GET', 'PUT','DELETE'])
