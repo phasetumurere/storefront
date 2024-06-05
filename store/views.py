@@ -3,53 +3,98 @@ from django.http import HttpResponse
 
 from rest_framework.decorators import api_view 
 from rest_framework.response import Response
+from rest_framework.views import APIView #Class based Views
 
 from rest_framework import status
 
 from .models import Product, Collection
 from .serializers import ProductSerializer, CollectionSerializer
 
-# Create your views here.
-@api_view(['GET', 'POST'])
-def product_list(request):
-    if request.method == 'GET':
+
+# Class based Views
+class ProductList(APIView):
+    def get(self, request):
         querryset = Product.objects.all().select_related('category').all().order_by('-unit_price')[:4]
         serializer = ProductSerializer(querryset, many=True, context={'request': request})
         return Response(serializer.data)
-    elif request.method == 'POST': 
-        # serializer = ProductSerializer(data = request.data)
-        # if serializer.is_valid():
-        #     serializer.validated_data
-        #     return Response('OK')
-
-        # else:
-        #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-       
+    
+    def post(self, request):
         serializer = ProductSerializer(data = request.data)
         # data validation
         serializer.is_valid(raise_exception=True)
         serializer.validated_data
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        
+
+# Create your views here.
+#Function based Views
+# @api_view(['GET', 'POST'])
+# def product_list(request):
+#     if request.method == 'GET':
+#         querryset = Product.objects.all().select_related('category').all().order_by('-unit_price')[:4]
+#         serializer = ProductSerializer(querryset, many=True, context={'request': request})
+#         return Response(serializer.data)
+#     elif request.method == 'POST': 
+#         # serializer = ProductSerializer(data = request.data)
+#         # if serializer.is_valid():
+#         #     serializer.validated_data
+#         #     return Response('OK')
+
+#         # else:
+#         #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+       
+#         serializer = ProductSerializer(data = request.data)
+#         # data validation
+#         serializer.is_valid(raise_exception=True)
+#         serializer.validated_data
+#         serializer.save()
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
       
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def product_details(request,id): 
-    product = get_object_or_404(Product, pk=id)
-    if request.method == 'GET':          
+
+class ProductDetails(APIView):
+
+    def get(self, request,id):
+        product = get_object_or_404(Product, pk=id)
         serializer = ProductSerializer(product)
-        return Response(serializer.data) 
-    elif request.method == 'PUT':
-        serializer = ProductSerializer(data = request.data)
+        return Response(serializer.data)  
+    
+    def put(self, request,id):
+        product = get_object_or_404(Product, pk=id)
+        serializer = ProductSerializer(product, data = request.data)
         serializer.is_valid(raise_exception=True)
         serializer.validated_data
         serializer.save()
         return Response(serializer.data, status= status.HTTP_201_CREATED)
-    elif request.method == 'DELETE':
+    
+    def delete(self, request,id):
+        product = get_object_or_404(Product, pk=id)
         if product.orderitem_set.count()>0:
             return Response({'error':'This product can not be deleted because it is associated with Order Item.'},status= status.HTTP_405_METHOD_NOT_ALLOWED)
         product.delete()
         return Response({'message':f'Product {product.title} Have Deleted Succesifully!'}, status= status.HTTP_204_NO_CONTENT) 
+         
+   
+# Product Details Function based View     
+# @api_view(['GET', 'PUT', 'DELETE'])
+# def product_details(request,id): 
+#     product = get_object_or_404(Product, pk=id)
+#     if request.method == 'GET':          
+#         serializer = ProductSerializer(product)
+#         return Response(serializer.data) 
+#     elif request.method == 'PUT':
+#         serializer = ProductSerializer(data = request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.validated_data
+#         serializer.save()
+#         return Response(serializer.data, status= status.HTTP_201_CREATED)
+#     elif request.method == 'DELETE':
+#         if product.orderitem_set.count()>0:
+#             return Response({'error':'This product can not be deleted because it is associated with Order Item.'},status= status.HTTP_405_METHOD_NOT_ALLOWED)
+#         product.delete()
+#         return Response({'message':f'Product {product.title} Have Deleted Succesifully!'}, status= status.HTTP_204_NO_CONTENT) 
     
 
 @api_view(['GET', 'POST'])    
