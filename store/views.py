@@ -191,7 +191,7 @@ class CollectionViewset(ModelViewSet):
 
 class ReviewViewSet(ModelViewSet):
     queryset = Review.objects.all()
-    serializers = ReviewSerializer
+    serializer_class = ReviewSerializer
     
 
 # Collection Generic Views

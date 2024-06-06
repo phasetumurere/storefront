@@ -771,6 +771,14 @@
         "documentation": {}
     },
     {
+        "label": "routers",
+        "importPath": "rest_framework_nested",
+        "description": "rest_framework_nested",
+        "isExtraImport": true,
+        "detail": "rest_framework_nested",
+        "documentation": {}
+    },
+    {
         "label": "api_view",
         "importPath": "rest_framework.decorators",
         "description": "rest_framework.decorators",
@@ -1176,7 +1184,16 @@
         "kind": 5,
         "importPath": "store.urls",
         "description": "store.urls",
-        "peekOfCode": "router = DefaultRouter() # By using this Defaut \nrouter.register('products', views.ProductViewSet)\nrouter.register('collections', views.CollectionViewset)\n# pprint(router.urls)\nurlpatterns = [\n     path('', include(router.urls)),\n     path('orders/', views.orders)   \n]\n# urlpatterns = [\n#     path('', include(router.urls)),",
+        "peekOfCode": "router = routers.DefaultRouter() # By using this Defaut \nrouter.register('products', views.ProductViewSet)\nrouter.register('collections', views.CollectionViewset)\n#chird router \nproduct_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')\n#By setting loopup to product means that we gonna have product_pk\nproduct_router.register('review', views.ReviewViewSet, basename='product_review')\n# pprint(router.urls)\nurlpatterns = [\n     path('', include(router.urls+product_router.urls)),",
+        "detail": "store.urls",
+        "documentation": {}
+    },
+    {
+        "label": "product_router",
+        "kind": 5,
+        "importPath": "store.urls",
+        "description": "store.urls",
+        "peekOfCode": "product_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')\n#By setting loopup to product means that we gonna have product_pk\nproduct_router.register('review', views.ReviewViewSet, basename='product_review')\n# pprint(router.urls)\nurlpatterns = [\n     path('', include(router.urls+product_router.urls)),\n     path('orders/', views.orders)   \n]\n# urlpatterns = [\n#     path('', include(router.urls)),",
         "detail": "store.urls",
         "documentation": {}
     },
@@ -1185,7 +1202,7 @@
         "kind": 5,
         "importPath": "store.urls",
         "description": "store.urls",
-        "peekOfCode": "urlpatterns = [\n     path('', include(router.urls)),\n     path('orders/', views.orders)   \n]\n# urlpatterns = [\n#     path('', include(router.urls)),\n#     # path('products/', views.ProductList.as_view()),\n#     path('orders/', views.orders)\n#     # path('products/<int:pk>', views.ProductDetails.as_view()),\n#     # path('collections/', views.CollectionList.as_view()),",
+        "peekOfCode": "urlpatterns = [\n     path('', include(router.urls+product_router.urls)),\n     path('orders/', views.orders)   \n]\n# urlpatterns = [\n#     path('', include(router.urls)),\n#     # path('products/', views.ProductList.as_view()),\n#     path('orders/', views.orders)\n#     # path('products/<int:pk>', views.ProductDetails.as_view()),\n#     # path('collections/', views.CollectionList.as_view()),",
         "detail": "store.urls",
         "documentation": {}
     },
@@ -1212,7 +1229,7 @@
         "kind": 6,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "class ReviewViewSet(ModelViewSet):\n    queryset = Review.objects.all()\n    serializers = ReviewSerializer\n# Collection Generic Views\n# class CollectionList(ListCreateAPIView):\n#     queryset = Collection.objects.all()\n#     serializer_class = CollectionSerializer\n#     def get_serializer_context(self):\n#         return {'request': self.request}\n##### Collection List Class & Function Based Views #####",
+        "peekOfCode": "class ReviewViewSet(ModelViewSet):\n    queryset = Review.objects.all()\n    serializer_class = ReviewSerializer\n# Collection Generic Views\n# class CollectionList(ListCreateAPIView):\n#     queryset = Collection.objects.all()\n#     serializer_class = CollectionSerializer\n#     def get_serializer_context(self):\n#         return {'request': self.request}\n##### Collection List Class & Function Based Views #####",
         "detail": "store.views",
         "documentation": {}
     },

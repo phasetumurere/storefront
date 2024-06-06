@@ -3,15 +3,22 @@ from django.urls.conf import include
 from rest_framework.routers import SimpleRouter,DefaultRouter
 from pprint import pprint
 
+from rest_framework_nested import routers
+
 from . import views
 
-router = DefaultRouter() # By using this Defaut 
+#Parent router
+router = routers.DefaultRouter() # By using this Defaut 
 router.register('products', views.ProductViewSet)
 router.register('collections', views.CollectionViewset)
 
+#chird router 
+product_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')
+#By setting loopup to product means that we gonna have product_pk
+product_router.register('review', views.ReviewViewSet, basename='product_review')
 # pprint(router.urls)
 urlpatterns = [
-     path('', include(router.urls)),
+     path('', include(router.urls+product_router.urls)),
      path('orders/', views.orders)   
 ]
 # urlpatterns = [
