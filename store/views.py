@@ -11,8 +11,8 @@ from rest_framework.views import APIView #Class based Views
 from rest_framework.viewsets import ModelViewSet
 
 
-from .models import Collection, OrderItem, Product
-from .serializers import ProductSerializer, CollectionSerializer
+from .models import Collection, OrderItem, Product, Review
+from .serializers import CollectionSerializer, ProductSerializer, ReviewSerializer
 
 
 # Product View set
@@ -189,6 +189,10 @@ class CollectionViewset(ModelViewSet):
     #     return Response({'message': f'Collection {collection.title} Deleted'},status.HTTP_204_NO_CONTENT)
      
 
+class ReviewViewSet(ModelViewSet):
+    queryset = Review.objects.all()
+    serializers = ReviewSerializer
+    
 
 # Collection Generic Views
 # class CollectionList(ListCreateAPIView):

@@ -1208,6 +1208,15 @@
         "documentation": {}
     },
     {
+        "label": "ReviewViewSet",
+        "kind": 6,
+        "importPath": "store.views",
+        "description": "store.views",
+        "peekOfCode": "class ReviewViewSet(ModelViewSet):\n    queryset = Review.objects.all()\n    serializers = ReviewSerializer\n# Collection Generic Views\n# class CollectionList(ListCreateAPIView):\n#     queryset = Collection.objects.all()\n#     serializer_class = CollectionSerializer\n#     def get_serializer_context(self):\n#         return {'request': self.request}\n##### Collection List Class & Function Based Views #####",
+        "detail": "store.views",
+        "documentation": {}
+    },
+    {
         "label": "orders",
         "kind": 2,
         "importPath": "store.views",
