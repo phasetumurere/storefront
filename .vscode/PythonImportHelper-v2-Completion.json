@@ -113,6 +113,22 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -958,6 +974,15 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "store.migrations.0005_alter_product_inventory_alter_product_promotions_and_more",
+        "description": "store.migrations.0005_alter_product_inventory_alter_product_promotions_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('store', '0004_alter_product_description'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='product',\n            name='inventory',\n            field=models.IntegerField(validators=[django.core.validators.MinValueValidator(2)]),\n        ),",
+        "detail": "store.migrations.0005_alter_product_inventory_alter_product_promotions_and_more",
+        "documentation": {}
+    },
+    {
         "label": "CollectionAdminModel",
         "kind": 6,
         "importPath": "store.admin",
@@ -1088,7 +1113,7 @@
         "kind": 6,
         "importPath": "store.models",
         "description": "store.models",
-        "peekOfCode": "class Cart(models.Model):\n    created_at = models.DateTimeField(auto_now_add=True)\nclass CartItem(models.Model):\n    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)\n    product = models.ForeignKey(Product, on_delete=models.CASCADE)\n    quantity = models.PositiveIntegerField()",
+        "peekOfCode": "class Cart(models.Model):\n    created_at = models.DateTimeField(auto_now_add=True)\nclass CartItem(models.Model):\n    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)\n    product = models.ForeignKey(Product, on_delete=models.CASCADE)\n    quantity = models.PositiveIntegerField()\nclass Review(models.Model):\n    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name= 'reviews')\n    name = models.CharField(max_length=255)\n    description = models.TextField()",
         "detail": "store.models",
         "documentation": {}
     },
@@ -1097,7 +1122,16 @@
         "kind": 6,
         "importPath": "store.models",
         "description": "store.models",
-        "peekOfCode": "class CartItem(models.Model):\n    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)\n    product = models.ForeignKey(Product, on_delete=models.CASCADE)\n    quantity = models.PositiveIntegerField()",
+        "peekOfCode": "class CartItem(models.Model):\n    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)\n    product = models.ForeignKey(Product, on_delete=models.CASCADE)\n    quantity = models.PositiveIntegerField()\nclass Review(models.Model):\n    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name= 'reviews')\n    name = models.CharField(max_length=255)\n    description = models.TextField()\n    date = models.DateTimeField(auto_now_add=True)",
+        "detail": "store.models",
+        "documentation": {}
+    },
+    {
+        "label": "Review",
+        "kind": 6,
+        "importPath": "store.models",
+        "description": "store.models",
+        "peekOfCode": "class Review(models.Model):\n    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name= 'reviews')\n    name = models.CharField(max_length=255)\n    description = models.TextField()\n    date = models.DateTimeField(auto_now_add=True)",
         "detail": "store.models",
         "documentation": {}
     },
@@ -1124,7 +1158,7 @@
         "kind": 5,
         "importPath": "store.urls",
         "description": "store.urls",
-        "peekOfCode": "router = DefaultRouter() # By using this Defaut \nrouter.register('products', views.ProductViewSet)\nrouter.register('collections', views.CollectionViewset)\npprint(router.urls)\nurlpatterns = [\n     path('', include(router.urls)),\n     path('orders/', views.orders)   \n]\n# urlpatterns = [\n#     path('', include(router.urls)),",
+        "peekOfCode": "router = DefaultRouter() # By using this Defaut \nrouter.register('products', views.ProductViewSet)\nrouter.register('collections', views.CollectionViewset)\n# pprint(router.urls)\nurlpatterns = [\n     path('', include(router.urls)),\n     path('orders/', views.orders)   \n]\n# urlpatterns = [\n#     path('', include(router.urls)),",
         "detail": "store.urls",
         "documentation": {}
     },

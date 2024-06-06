@@ -9,7 +9,7 @@ router = DefaultRouter() # By using this Defaut
 router.register('products', views.ProductViewSet)
 router.register('collections', views.CollectionViewset)
 
-pprint(router.urls)
+# pprint(router.urls)
 urlpatterns = [
      path('', include(router.urls)),
      path('orders/', views.orders)   
