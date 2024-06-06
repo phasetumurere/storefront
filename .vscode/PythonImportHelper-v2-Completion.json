@@ -1175,7 +1175,7 @@
         "kind": 6,
         "importPath": "store.serializers",
         "description": "store.serializers",
-        "peekOfCode": "class ReviewSerializer(serializers.ModelSerializer):    \n    class Meta:\n        model = Review\n        fields = ['id', 'name', 'product', 'description']\n    # def order_count(self, product: Product):\n    #     return product.orderitem_set.count()\n    # def password_varidation(self, data):\n    #     if data['password']!= data['confirm_password']:\n    #         return serializers.ValidationError(\"Passwords not match\")\n    #     return data ",
+        "peekOfCode": "class ReviewSerializer(serializers.ModelSerializer):    \n    class Meta:\n        model = Review\n        fields = ['id', 'name', 'description']\n    def create(self, validated_data):\n        product_id = self.context['product_id']\n        return Review.objects.create(product_id=product_id, **validated_data)\n    # def order_count(self, product: Product):\n    #     return product.orderitem_set.count()\n    # def password_varidation(self, data):",
         "detail": "store.serializers",
         "documentation": {}
     },
@@ -1229,7 +1229,7 @@
         "kind": 6,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "class ReviewViewSet(ModelViewSet):\n    queryset = Review.objects.all()\n    serializer_class = ReviewSerializer\n# Collection Generic Views\n# class CollectionList(ListCreateAPIView):\n#     queryset = Collection.objects.all()\n#     serializer_class = CollectionSerializer\n#     def get_serializer_context(self):\n#         return {'request': self.request}\n##### Collection List Class & Function Based Views #####",
+        "peekOfCode": "class ReviewViewSet(ModelViewSet):\n    queryset = Review.objects.all()\n    serializer_class = ReviewSerializer\n    def get_queryset(self):\n        return Review.objects.all().filter(product_id = self.kwargs['product_pk'])\n    def get_serializer_context(self):\n        return {'product_id': self.kwargs['product_pk']}\n# Collection Generic Views\n# class CollectionList(ListCreateAPIView):\n#     queryset = Collection.objects.all()",
         "detail": "store.views",
         "documentation": {}
     },

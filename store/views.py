@@ -193,6 +193,13 @@ class ReviewViewSet(ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     
+    def get_queryset(self):
+        return Review.objects.all().filter(product_id = self.kwargs['product_pk'])
+    
+    
+    def get_serializer_context(self):
+        return {'product_id': self.kwargs['product_pk']}
+    
 
 # Collection Generic Views
 # class CollectionList(ListCreateAPIView):
