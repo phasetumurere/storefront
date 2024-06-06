@@ -8,11 +8,28 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework.mixins import ListModelMixin, CreateModelMixin #Create a re useable codes
 from rest_framework.response import Response
 from rest_framework.views import APIView #Class based Views
+from rest_framework.viewsets import ModelViewSet
 
 
 from .models import Product, Collection
 from .serializers import ProductSerializer, CollectionSerializer
 
+
+# Product View set
+class ProductViewSet(ModelViewSet):
+    
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    def get_serializer_context(self):
+        return {'request': self.request}
+    
+    def delete(self, request,pk):
+        product = get_object_or_404(Product, pk=pk)
+        if product.orderitem_set.count()>0:
+            return Response({'error':'This product can not be deleted because it is associated with Order Item.'},status= status.HTTP_405_METHOD_NOT_ALLOWED)
+        product.delete()
+        return Response({'message':f'Product {product.title} Have Deleted Succesifully!'}, status= status.HTTP_204_NO_CONTENT) 
+     
 
 #Generic Views
 class ProductList(ListCreateAPIView):
@@ -75,11 +92,13 @@ class ProductList(ListCreateAPIView):
     
 #Product Details Generic View
 class ProductDetails(RetrieveUpdateDestroyAPIView):
-    def get_queryset(self):
-        return Product.objects.all()
+    # def get_queryset(self):
+    #     return Product.objects.all()
+    queryset = Product.objects.all()
     
-    def get_serializer_class(self):
-        return ProductSerializer
+    # def get_serializer_class(self):
+    #     return ProductSerializer
+    serializer_class = ProductSerializer
     
     def delete(self, request,pk):
         product = get_object_or_404(Product, pk=pk)
@@ -136,6 +155,25 @@ class ProductDetails(RetrieveUpdateDestroyAPIView):
     
 # }
  
+ 
+# Collection Viewset
+class CollectionViewset(ModelViewSet):
+    queryset = Collection.objects.all()
+    serializer_class = CollectionSerializer 
+       
+    def get_serializer_context(self):
+        return {'request': self.request}
+    
+    def delete(self, request, pk):
+        collection = get_object_or_404(Collection, pk=pk)
+        if collection.product_set.count() > 0:
+            return Response({'error':'This Collection can not be deleted because it has associated products'}, 
+                            status= status.HTTP_400_BAD_REQUEST)
+        collection.delete()
+        return Response({'message': f'Collection {collection.title} Deleted'},status.HTTP_204_NO_CONTENT)
+     
+
+
 # Collection Generic Views
 class CollectionList(ListCreateAPIView):
     queryset = Collection.objects.all()
@@ -185,10 +223,12 @@ class CollectionList(ListCreateAPIView):
 
 # Collection Details Generic View
 class CollectionDetails(RetrieveUpdateDestroyAPIView):
-    def get_queryset(self):
-        return Collection.objects.all()
-    def get_serializer_class(self):
-        return CollectionSerializer
+    queryset = Collection.objects.all()
+    serializer_class = CollectionSerializer
+    # def get_queryset(self):
+    #     return Collection.objects.all()
+    # def get_serializer_class(self):
+    #     return CollectionSerializer
     
     def delete(self, request, pk):
         collection = get_object_or_404(Collection, pk=pk)
