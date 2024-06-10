@@ -795,6 +795,14 @@
         "documentation": {}
     },
     {
+        "label": "SearchFilter",
+        "importPath": "rest_framework.filters",
+        "description": "rest_framework.filters",
+        "isExtraImport": true,
+        "detail": "rest_framework.filters",
+        "documentation": {}
+    },
+    {
         "label": "api_view",
         "importPath": "rest_framework.decorators",
         "description": "rest_framework.decorators",
@@ -1252,7 +1260,7 @@
         "kind": 6,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "class ProductViewSet(ModelViewSet):\n    queryset = Product.objects.all()\n    serializer_class = ProductSerializer\n    filter_backends = [DjangoFilterBackend]\n    # filterset_fields = ['category_id']\n    filterset_class = ProductFilter\n    # def get_queryset(self):\n    #     queryset = Product.objects.all()\n    #     category_id = self.request.query_params.get('category_id')\n    #     if category_id is not None:",
+        "peekOfCode": "class ProductViewSet(ModelViewSet):\n    queryset = Product.objects.all()\n    serializer_class = ProductSerializer\n    filter_backends = [DjangoFilterBackend, SearchFilter]\n    # filterset_fields = ['category_id']\n    filterset_class = ProductFilter\n    search_fields = ['title', 'description']\n    # search_fields = ['title', 'description', 'category__title'] # Search in related data\n    # def get_queryset(self):\n    #     queryset = Product.objects.all()",
         "detail": "store.views",
         "documentation": {}
     },
