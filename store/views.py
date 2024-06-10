@@ -13,6 +13,7 @@ from rest_framework.viewsets import ModelViewSet
 
 
 from storefront.settings import REST_FRAMEWORK
+from store.filters import ProductFilter
 from .models import Collection, OrderItem, Product, Review
 from .serializers import CollectionSerializer, ProductSerializer, ReviewSerializer
 
@@ -23,7 +24,8 @@ class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['category_id']
+    # filterset_fields = ['category_id']
+    filterset_class = ProductFilter
 
     # def get_queryset(self):
     #     queryset = Product.objects.all()
