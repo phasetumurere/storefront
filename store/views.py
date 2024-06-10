@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
+from django_filters.rest_framework import DjangoFilterBackend #Perform filters (any field in any model)
 
 from rest_framework import status
 
@@ -11,6 +12,7 @@ from rest_framework.views import APIView #Class based Views
 from rest_framework.viewsets import ModelViewSet
 
 
+from storefront.settings import REST_FRAMEWORK
 from .models import Collection, OrderItem, Product, Review
 from .serializers import CollectionSerializer, ProductSerializer, ReviewSerializer
 
@@ -19,14 +21,17 @@ from .serializers import CollectionSerializer, ProductSerializer, ReviewSerializ
 class ProductViewSet(ModelViewSet):
     
     queryset = Product.objects.all()
-    def get_queryset(self):
-        queryset = Product.objects.all()
-        category_id = self.request.query_params.get('category_id')
-        if category_id is not None:
-            queryset = queryset.filter(category_id = category_id)
-        return queryset
-    
     serializer_class = ProductSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['category_id']
+
+    # def get_queryset(self):
+    #     queryset = Product.objects.all()
+    #     category_id = self.request.query_params.get('category_id')
+    #     if category_id is not None:
+    #         queryset = queryset.filter(category_id = category_id)
+    #     return queryset
+    
     def get_serializer_context(self):
         return {'request': self.request}
     

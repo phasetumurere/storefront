@@ -779,6 +779,14 @@
         "documentation": {}
     },
     {
+        "label": "DjangoFilterBackend",
+        "importPath": "django_filters.rest_framework",
+        "description": "django_filters.rest_framework",
+        "isExtraImport": true,
+        "detail": "django_filters.rest_framework",
+        "documentation": {}
+    },
+    {
         "label": "api_view",
         "importPath": "rest_framework.decorators",
         "description": "rest_framework.decorators",
@@ -840,6 +848,14 @@
         "description": "rest_framework.viewsets",
         "isExtraImport": true,
         "detail": "rest_framework.viewsets",
+        "documentation": {}
+    },
+    {
+        "label": "REST_FRAMEWORK",
+        "importPath": "storefront.settings",
+        "description": "storefront.settings",
+        "isExtraImport": true,
+        "detail": "storefront.settings",
         "documentation": {}
     },
     {
@@ -1211,7 +1227,7 @@
         "kind": 6,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "class ProductViewSet(ModelViewSet):\n    queryset = Product.objects.all()\n    serializer_class = ProductSerializer\n    def get_serializer_context(self):\n        return {'request': self.request}\n    def destroy(self, request, *args, **kwargs):\n        if OrderItem.objects.filter(product_id = kwargs['pk']).count() > 0:\n            return Response({'error':'This product can not be deleted because it is associated with Order Item.'},\n                            status= status.HTTP_405_METHOD_NOT_ALLOWED)\n        return super().destroy(request, *args, **kwargs)",
+        "peekOfCode": "class ProductViewSet(ModelViewSet):\n    queryset = Product.objects.all()\n    serializer_class = ProductSerializer\n    filter_backends = [DjangoFilterBackend]\n    filterset_fields = ['category_id']\n    # def get_queryset(self):\n    #     queryset = Product.objects.all()\n    #     category_id = self.request.query_params.get('category_id')\n    #     if category_id is not None:\n    #         queryset = queryset.filter(category_id = category_id)",
         "detail": "store.views",
         "documentation": {}
     },
@@ -1283,7 +1299,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "ALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'rest_framework',",
+        "peekOfCode": "ALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'django_filters',",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -1292,7 +1308,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "INSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'rest_framework',\n    \"debug_toolbar\",\n    'playground',",
+        "peekOfCode": "INSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'django_filters',\n    'rest_framework',\n    \"debug_toolbar\",",
         "detail": "storefront.settings",
         "documentation": {}
     },
