@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend #Perform filters (any field in any model)
-from rest_framework.filters import SearchFilter
+from rest_framework.filters import SearchFilter, OrderingFilter
 
 from rest_framework import status
 
@@ -24,12 +24,13 @@ class ProductViewSet(ModelViewSet):
     
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     
     # filterset_fields = ['category_id']
     filterset_class = ProductFilter
     search_fields = ['title', 'description']
     # search_fields = ['title', 'description', 'category__title'] # Search in related data
+    ordering_fields = ['unit_price', 'last_update']
     
 
     # def get_queryset(self):

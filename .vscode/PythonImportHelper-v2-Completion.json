@@ -803,6 +803,14 @@
         "documentation": {}
     },
     {
+        "label": "OrderingFilter",
+        "importPath": "rest_framework.filters",
+        "description": "rest_framework.filters",
+        "isExtraImport": true,
+        "detail": "rest_framework.filters",
+        "documentation": {}
+    },
+    {
         "label": "api_view",
         "importPath": "rest_framework.decorators",
         "description": "rest_framework.decorators",
@@ -1260,7 +1268,7 @@
         "kind": 6,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "class ProductViewSet(ModelViewSet):\n    queryset = Product.objects.all()\n    serializer_class = ProductSerializer\n    filter_backends = [DjangoFilterBackend, SearchFilter]\n    # filterset_fields = ['category_id']\n    filterset_class = ProductFilter\n    search_fields = ['title', 'description']\n    # search_fields = ['title', 'description', 'category__title'] # Search in related data\n    # def get_queryset(self):\n    #     queryset = Product.objects.all()",
+        "peekOfCode": "class ProductViewSet(ModelViewSet):\n    queryset = Product.objects.all()\n    serializer_class = ProductSerializer\n    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]\n    # filterset_fields = ['category_id']\n    filterset_class = ProductFilter\n    search_fields = ['title', 'description']\n    # search_fields = ['title', 'description', 'category__title'] # Search in related data\n    ordering_fields = ['unit_price', 'last_update']\n    # def get_queryset(self):",
         "detail": "store.views",
         "documentation": {}
     },
