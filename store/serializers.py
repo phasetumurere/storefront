@@ -34,7 +34,9 @@ class ProductSerializer(serializers.ModelSerializer):
     price_with_tax = serializers.SerializerMethodField(method_name= 'calculate_tax')
     # associated_orders = serializers.SerializerMethodField(method_name= 'order_count')
     # # # collection = serializers.PrimaryKeyRelatedField(queryset= Collection.objects.all(), source = 'category') #First way to Serialize a Relationship by it's ID
+    # reviews = serializers.PrimaryKeyRelatedField(queryset= Review.objects.all()) #First way to Serialize a Relationship by it's ID
     # category = serializers.StringRelatedField() #Second way to Serialize a Relationship by it's name
+    # reviews = serializers.StringRelatedField() #Second way to Serialize a Relationship by it's name
     # # collection = CollectionSerializer(source='category') ## Second way to Serialize a Relationship by it's object Instatiation
         
     # category = serializers.HyperlinkedRelatedField(

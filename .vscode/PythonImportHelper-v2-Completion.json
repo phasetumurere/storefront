@@ -1139,7 +1139,7 @@
         "kind": 6,
         "importPath": "store.models",
         "description": "store.models",
-        "peekOfCode": "class CartItem(models.Model):\n    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)\n    product = models.ForeignKey(Product, on_delete=models.CASCADE)\n    quantity = models.PositiveIntegerField()\nclass Review(models.Model):\n    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name= 'reviews')\n    name = models.CharField(max_length=255)\n    description = models.TextField()\n    date = models.DateTimeField(auto_now_add=True)",
+        "peekOfCode": "class CartItem(models.Model):\n    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)\n    product = models.ForeignKey(Product, on_delete=models.CASCADE)\n    quantity = models.PositiveIntegerField()\nclass Review(models.Model):\n    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name= 'reviews')\n    name = models.CharField(max_length=255)\n    description = models.TextField()\n    date = models.DateTimeField(auto_now_add=True)\n    def __str__(self):",
         "detail": "store.models",
         "documentation": {}
     },
@@ -1148,7 +1148,7 @@
         "kind": 6,
         "importPath": "store.models",
         "description": "store.models",
-        "peekOfCode": "class Review(models.Model):\n    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name= 'reviews')\n    name = models.CharField(max_length=255)\n    description = models.TextField()\n    date = models.DateTimeField(auto_now_add=True)",
+        "peekOfCode": "class Review(models.Model):\n    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name= 'reviews')\n    name = models.CharField(max_length=255)\n    description = models.TextField()\n    date = models.DateTimeField(auto_now_add=True)\n    def __str__(self):\n        return self.name",
         "detail": "store.models",
         "documentation": {}
     },
@@ -1184,7 +1184,7 @@
         "kind": 5,
         "importPath": "store.urls",
         "description": "store.urls",
-        "peekOfCode": "router = routers.DefaultRouter() # By using this Defaut \nrouter.register('products', views.ProductViewSet)\nrouter.register('collections', views.CollectionViewset)\n#chird router \nproduct_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')\n#By setting loopup to product means that we gonna have product_pk\nproduct_router.register('review', views.ReviewViewSet, basename='product_review')\n# pprint(router.urls)\nurlpatterns = [\n     path('', include(router.urls+product_router.urls)),",
+        "peekOfCode": "router = routers.DefaultRouter() # By using this Defaut \nrouter.register('products', views.ProductViewSet, basename='products')\nrouter.register('collections', views.CollectionViewset)\n#chird router \nproduct_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')\n#By setting loopup to product means that we gonna have product_pk\nproduct_router.register('review', views.ReviewViewSet, basename='product_review')\n# pprint(router.urls)\nurlpatterns = [\n     path('', include(router.urls+product_router.urls)),",
         "detail": "store.urls",
         "documentation": {}
     },

@@ -9,7 +9,7 @@ from . import views
 
 #Parent router
 router = routers.DefaultRouter() # By using this Defaut 
-router.register('products', views.ProductViewSet)
+router.register('products', views.ProductViewSet, basename='products')
 router.register('collections', views.CollectionViewset)
 
 #chird router 

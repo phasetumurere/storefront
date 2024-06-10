@@ -19,6 +19,13 @@ from .serializers import CollectionSerializer, ProductSerializer, ReviewSerializ
 class ProductViewSet(ModelViewSet):
     
     queryset = Product.objects.all()
+    def get_queryset(self):
+        queryset = Product.objects.all()
+        category_id = self.request.query_params.get('category_id')
+        if category_id is not None:
+            queryset = queryset.filter(category_id = category_id)
+        return queryset
+    
     serializer_class = ProductSerializer
     def get_serializer_context(self):
         return {'request': self.request}
