@@ -715,6 +715,14 @@
         "documentation": {}
     },
     {
+        "label": "PageNumberPagination",
+        "importPath": "rest_framework.pagination",
+        "description": "rest_framework.pagination",
+        "isExtraImport": true,
+        "detail": "rest_framework.pagination",
+        "documentation": {}
+    },
+    {
         "label": "FilterSet",
         "importPath": "django_filters.rest_framework",
         "description": "django_filters.rest_framework",
@@ -880,14 +888,6 @@
         "description": "storefront.settings",
         "isExtraImport": true,
         "detail": "storefront.settings",
-        "documentation": {}
-    },
-    {
-        "label": "ProductFilter",
-        "importPath": "store.filters",
-        "description": "store.filters",
-        "isExtraImport": true,
-        "detail": "store.filters",
         "documentation": {}
     },
     {
@@ -1111,6 +1111,15 @@
         "documentation": {}
     },
     {
+        "label": "DefaultPagination",
+        "kind": 6,
+        "importPath": "store.default_pagination",
+        "description": "store.default_pagination",
+        "peekOfCode": "class DefaultPagination(PageNumberPagination):\n    page_size = 10",
+        "detail": "store.default_pagination",
+        "documentation": {}
+    },
+    {
         "label": "ProductFilter",
         "kind": 6,
         "importPath": "store.filters",
@@ -1268,7 +1277,7 @@
         "kind": 6,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "class ProductViewSet(ModelViewSet):\n    queryset = Product.objects.all()\n    serializer_class = ProductSerializer\n    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]\n    # filterset_fields = ['category_id']\n    filterset_class = ProductFilter\n    search_fields = ['title', 'description']\n    # search_fields = ['title', 'description', 'category__title'] # Search in related data\n    ordering_fields = ['unit_price', 'last_update']\n    # def get_queryset(self):",
+        "peekOfCode": "class ProductViewSet(ModelViewSet):\n    queryset = Product.objects.all()\n    serializer_class = ProductSerializer\n    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]\n    # filterset_fields = ['category_id']\n    filterset_class = ProductFilter\n    search_fields = ['title', 'description']\n    # search_fields = ['title', 'description', 'category__title'] # Search in related data\n    ordering_fields = ['unit_price', 'last_update']\n    # pagination_class = PageNumberPagination #Pagination Locally",
         "detail": "store.views",
         "documentation": {}
     },
@@ -1439,7 +1448,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False",
+        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -1448,7 +1457,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False\n}",
+        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,\n    # 'PAGE_SIZE':10,",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -1457,7 +1466,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "STATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False\n}",
+        "peekOfCode": "STATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,\n    # 'PAGE_SIZE':10,\n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', Set Pagination Globry \n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', #next pge gonna take to product and skip other 10 but we use the upone\n}",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -1466,7 +1475,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False\n}",
+        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,\n    # 'PAGE_SIZE':10,\n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', Set Pagination Globry \n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', #next pge gonna take to product and skip other 10 but we use the upone\n}",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -1475,7 +1484,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "REST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False\n}",
+        "peekOfCode": "REST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,\n    # 'PAGE_SIZE':10,\n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', Set Pagination Globry \n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', #next pge gonna take to product and skip other 10 but we use the upone\n}",
         "detail": "storefront.settings",
         "documentation": {}
     },

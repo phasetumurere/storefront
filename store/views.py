@@ -1,10 +1,11 @@
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend #Perform filters (any field in any model)
-from rest_framework.filters import SearchFilter, OrderingFilter
+
 
 from rest_framework import status
-
+from rest_framework.filters import SearchFilter, OrderingFilter
+# from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import api_view 
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.mixins import ListModelMixin, CreateModelMixin #Create a re useable codes
@@ -14,7 +15,8 @@ from rest_framework.viewsets import ModelViewSet
 
 
 from storefront.settings import REST_FRAMEWORK
-from store.filters import ProductFilter
+from .default_pagination import DefaultPagination
+from .filters import ProductFilter
 from .models import Collection, OrderItem, Product, Review
 from .serializers import CollectionSerializer, ProductSerializer, ReviewSerializer
 
@@ -31,6 +33,8 @@ class ProductViewSet(ModelViewSet):
     search_fields = ['title', 'description']
     # search_fields = ['title', 'description', 'category__title'] # Search in related data
     ordering_fields = ['unit_price', 'last_update']
+    # pagination_class = PageNumberPagination #Pagination Locally
+    pagination_class = DefaultPagination
     
 
     # def get_queryset(self):
