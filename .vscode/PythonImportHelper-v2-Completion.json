@@ -739,6 +739,14 @@
         "documentation": {}
     },
     {
+        "label": "uuid4",
+        "importPath": "uuid",
+        "description": "uuid",
+        "isExtraImport": true,
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
         "label": "serializers",
         "importPath": "rest_framework",
         "description": "rest_framework",
@@ -1187,7 +1195,7 @@
         "kind": 6,
         "importPath": "store.models",
         "description": "store.models",
-        "peekOfCode": "class Address(models.Model):\n    city = models.CharField(max_length= 255)\n    street = models.CharField(max_length= 255)\n    customer = models.OneToOneField(Customer, \n                                    on_delete = models.CASCADE, \n                                    primary_key = True)\nclass Cart(models.Model):\n    created_at = models.DateTimeField(auto_now_add=True)\nclass CartItem(models.Model):\n    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)",
+        "peekOfCode": "class Address(models.Model):\n    city = models.CharField(max_length= 255)\n    street = models.CharField(max_length= 255)\n    customer = models.OneToOneField(Customer, \n                                    on_delete = models.CASCADE, \n                                    primary_key = True)\nclass Cart(models.Model):\n    id = models.GUIDField(primary_key=True, default = uuid4)\n    created_at = models.DateTimeField(auto_now_add=True)\nclass CartItem(models.Model):",
         "detail": "store.models",
         "documentation": {}
     },
@@ -1196,7 +1204,7 @@
         "kind": 6,
         "importPath": "store.models",
         "description": "store.models",
-        "peekOfCode": "class Cart(models.Model):\n    created_at = models.DateTimeField(auto_now_add=True)\nclass CartItem(models.Model):\n    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)\n    product = models.ForeignKey(Product, on_delete=models.CASCADE)\n    quantity = models.PositiveIntegerField()\nclass Review(models.Model):\n    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name= 'reviews')\n    name = models.CharField(max_length=255)\n    description = models.TextField()",
+        "peekOfCode": "class Cart(models.Model):\n    id = models.GUIDField(primary_key=True, default = uuid4)\n    created_at = models.DateTimeField(auto_now_add=True)\nclass CartItem(models.Model):\n    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)\n    product = models.ForeignKey(Product, on_delete=models.CASCADE)\n    quantity = models.PositiveIntegerField()\nclass Review(models.Model):\n    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name= 'reviews')\n    name = models.CharField(max_length=255)",
         "detail": "store.models",
         "documentation": {}
     },
