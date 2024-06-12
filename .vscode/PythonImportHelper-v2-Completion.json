@@ -154,6 +154,22 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -1090,6 +1106,15 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "store.migrations.0007_alter_cartitem_cart_alter_cartitem_unique_together",
+        "description": "store.migrations.0007_alter_cartitem_cart_alter_cartitem_unique_together",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('store', '0006_alter_cart_id'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='cartitem',\n            name='cart',\n            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='items', to='store.cart'),\n        ),",
+        "detail": "store.migrations.0007_alter_cartitem_cart_alter_cartitem_unique_together",
+        "documentation": {}
+    },
+    {
         "label": "CollectionAdminModel",
         "kind": 6,
         "importPath": "store.admin",
@@ -1238,7 +1263,7 @@
         "kind": 6,
         "importPath": "store.models",
         "description": "store.models",
-        "peekOfCode": "class Cart(models.Model):\n    id = models.UUIDField(primary_key=True, default = uuid4)\n    created_at = models.DateTimeField(auto_now_add=True)\nclass CartItem(models.Model):\n    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items') #items from cartitem_set\n    product = models.ForeignKey(Product, on_delete=models.CASCADE)\n    quantity = models.PositiveIntegerField()\nclass Review(models.Model):\n    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name= 'reviews')\n    name = models.CharField(max_length=255)",
+        "peekOfCode": "class Cart(models.Model):\n    id = models.UUIDField(primary_key=True, default = uuid4)\n    created_at = models.DateTimeField(auto_now_add=True)\nclass CartItem(models.Model):\n    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items') #items from cartitem_set\n    product = models.ForeignKey(Product, on_delete=models.CASCADE)\n    quantity = models.PositiveIntegerField()\n    class Meta:\n        unique_together = [['cart', 'product']]\nclass Review(models.Model):",
         "detail": "store.models",
         "documentation": {}
     },
@@ -1247,7 +1272,7 @@
         "kind": 6,
         "importPath": "store.models",
         "description": "store.models",
-        "peekOfCode": "class CartItem(models.Model):\n    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items') #items from cartitem_set\n    product = models.ForeignKey(Product, on_delete=models.CASCADE)\n    quantity = models.PositiveIntegerField()\nclass Review(models.Model):\n    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name= 'reviews')\n    name = models.CharField(max_length=255)\n    description = models.TextField()\n    date = models.DateTimeField(auto_now_add=True)\n    def __str__(self):",
+        "peekOfCode": "class CartItem(models.Model):\n    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items') #items from cartitem_set\n    product = models.ForeignKey(Product, on_delete=models.CASCADE)\n    quantity = models.PositiveIntegerField()\n    class Meta:\n        unique_together = [['cart', 'product']]\nclass Review(models.Model):\n    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name= 'reviews')\n    name = models.CharField(max_length=255)\n    description = models.TextField()",
         "detail": "store.models",
         "documentation": {}
     },
