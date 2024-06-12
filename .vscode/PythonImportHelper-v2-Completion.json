@@ -138,6 +138,22 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -651,6 +667,23 @@
         "documentation": {}
     },
     {
+        "label": "uuid",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uuid",
+        "description": "uuid",
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "uuid4",
+        "importPath": "uuid",
+        "description": "uuid",
+        "isExtraImport": true,
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
         "label": "Any",
         "importPath": "typing",
         "description": "typing",
@@ -736,14 +769,6 @@
         "description": "django_filters.rest_framework",
         "isExtraImport": true,
         "detail": "django_filters.rest_framework",
-        "documentation": {}
-    },
-    {
-        "label": "uuid4",
-        "importPath": "uuid",
-        "description": "uuid",
-        "isExtraImport": true,
-        "detail": "uuid",
         "documentation": {}
     },
     {
@@ -1056,6 +1081,15 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "store.migrations.0006_alter_cart_id",
+        "description": "store.migrations.0006_alter_cart_id",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('store', '0005_alter_product_inventory_alter_product_promotions_and_more'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='cart',\n            name='id',\n            field=models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False),\n        ),",
+        "detail": "store.migrations.0006_alter_cart_id",
+        "documentation": {}
+    },
+    {
         "label": "CollectionAdminModel",
         "kind": 6,
         "importPath": "store.admin",
@@ -1195,7 +1229,7 @@
         "kind": 6,
         "importPath": "store.models",
         "description": "store.models",
-        "peekOfCode": "class Address(models.Model):\n    city = models.CharField(max_length= 255)\n    street = models.CharField(max_length= 255)\n    customer = models.OneToOneField(Customer, \n                                    on_delete = models.CASCADE, \n                                    primary_key = True)\nclass Cart(models.Model):\n    id = models.GUIDField(primary_key=True, default = uuid4)\n    created_at = models.DateTimeField(auto_now_add=True)\nclass CartItem(models.Model):",
+        "peekOfCode": "class Address(models.Model):\n    city = models.CharField(max_length= 255)\n    street = models.CharField(max_length= 255)\n    customer = models.OneToOneField(Customer, \n                                    on_delete = models.CASCADE, \n                                    primary_key = True)\nclass Cart(models.Model):\n    id = models.UUIDField(primary_key=True, default = uuid4)\n    created_at = models.DateTimeField(auto_now_add=True)\nclass CartItem(models.Model):",
         "detail": "store.models",
         "documentation": {}
     },
@@ -1204,7 +1238,7 @@
         "kind": 6,
         "importPath": "store.models",
         "description": "store.models",
-        "peekOfCode": "class Cart(models.Model):\n    id = models.GUIDField(primary_key=True, default = uuid4)\n    created_at = models.DateTimeField(auto_now_add=True)\nclass CartItem(models.Model):\n    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)\n    product = models.ForeignKey(Product, on_delete=models.CASCADE)\n    quantity = models.PositiveIntegerField()\nclass Review(models.Model):\n    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name= 'reviews')\n    name = models.CharField(max_length=255)",
+        "peekOfCode": "class Cart(models.Model):\n    id = models.UUIDField(primary_key=True, default = uuid4)\n    created_at = models.DateTimeField(auto_now_add=True)\nclass CartItem(models.Model):\n    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)\n    product = models.ForeignKey(Product, on_delete=models.CASCADE)\n    quantity = models.PositiveIntegerField()\nclass Review(models.Model):\n    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name= 'reviews')\n    name = models.CharField(max_length=255)",
         "detail": "store.models",
         "documentation": {}
     },
