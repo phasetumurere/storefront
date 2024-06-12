@@ -1,6 +1,6 @@
 import django.db
 from rest_framework import serializers
-from .models import Collection, Product, Review
+from .models import Cart, Collection, Product, Review
 from decimal import Decimal
 
 # class CollectionSerializer(serializers.Serializer):
@@ -60,7 +60,16 @@ class ReviewSerializer(serializers.ModelSerializer):
         return Review.objects.create(product_id=product_id, **validated_data)
             
     
-    
+
+class CartSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    created_at = serializers.DateTimeField(read_only=True)
+    class Meta:
+        model = Cart
+        fields = ['id', 'created_at'] 
+        
+
+   
     # def order_count(self, product: Product):
     #     return product.orderitem_set.count()
     

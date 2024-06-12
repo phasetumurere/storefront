@@ -11,6 +11,7 @@ from . import views
 router = routers.DefaultRouter() # By using this Defaut 
 router.register('products', views.ProductViewSet, basename='products')
 router.register('collections', views.CollectionViewset)
+router.register('carts', views.CartViewSet)
 
 #chird router 
 product_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')
@@ -19,7 +20,7 @@ product_router.register('review', views.ReviewViewSet, basename='product_review'
 # pprint(router.urls)
 urlpatterns = [
      path('', include(router.urls+product_router.urls)),
-     path('orders/', views.orders)   
+     path('orders/', views.orders) ,
 ]
 # urlpatterns = [
 #     path('', include(router.urls)),

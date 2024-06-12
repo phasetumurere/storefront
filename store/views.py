@@ -11,14 +11,15 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework.mixins import ListModelMixin, CreateModelMixin #Create a re useable codes
 from rest_framework.response import Response
 from rest_framework.views import APIView #Class based Views
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
 
 from storefront.settings import REST_FRAMEWORK
+from store.admin import OrderModelAdmin
 from .default_pagination import DefaultPagination
 from .filters import ProductFilter
-from .models import Collection, OrderItem, Product, Review
-from .serializers import CollectionSerializer, ProductSerializer, ReviewSerializer
+from .models import Cart, Collection, OrderItem, Product, Review
+from .serializers import CartSerializer, CollectionSerializer, ProductSerializer, ReviewSerializer
 
 
 # Product View set
@@ -120,7 +121,7 @@ class ProductViewSet(ModelViewSet):
 # # #         return Response(serializer.data, status=status.HTTP_201_CREATED)
      
 # # }
-    
+
 #Product Details Generic View
 # class ProductDetails(RetrieveUpdateDestroyAPIView):
 #     # def get_queryset(self):
@@ -224,6 +225,11 @@ class ReviewViewSet(ModelViewSet):
     def get_serializer_context(self):
         return {'product_id': self.kwargs['product_pk']}
     
+
+class CartViewSet(ModelViewSet):
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
+
 
 # Collection Generic Views
 # class CollectionList(ListCreateAPIView):
