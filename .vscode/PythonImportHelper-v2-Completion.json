@@ -908,6 +908,22 @@
         "documentation": {}
     },
     {
+        "label": "RetrieveModelMixin",
+        "importPath": "rest_framework.mixins",
+        "description": "rest_framework.mixins",
+        "isExtraImport": true,
+        "detail": "rest_framework.mixins",
+        "documentation": {}
+    },
+    {
+        "label": "DestroyModelMixin",
+        "importPath": "rest_framework.mixins",
+        "description": "rest_framework.mixins",
+        "isExtraImport": true,
+        "detail": "rest_framework.mixins",
+        "documentation": {}
+    },
+    {
         "label": "Response",
         "importPath": "rest_framework.response",
         "description": "rest_framework.response",
@@ -1324,7 +1340,25 @@
         "kind": 6,
         "importPath": "store.serializers",
         "description": "store.serializers",
-        "peekOfCode": "class ReviewSerializer(serializers.ModelSerializer):    \n    class Meta:\n        model = Review\n        fields = ['id', 'name', 'description']\n    def create(self, validated_data):\n        product_id = self.context['product_id']\n        return Review.objects.create(product_id=product_id, **validated_data)\nclass CartSerializer(serializers.ModelSerializer):\n    id = serializers.UUIDField(read_only=True)\n    created_at = serializers.DateTimeField(read_only=True)",
+        "peekOfCode": "class ReviewSerializer(serializers.ModelSerializer):    \n    class Meta:\n        model = Review\n        fields = ['id', 'name', 'description']\n    def create(self, validated_data):\n        product_id = self.context['product_id']\n        return Review.objects.create(product_id=product_id, **validated_data)\nclass SimpleProductSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Product",
+        "detail": "store.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "SimpleProductSerializer",
+        "kind": 6,
+        "importPath": "store.serializers",
+        "description": "store.serializers",
+        "peekOfCode": "class SimpleProductSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Product\n        fields = ['id', 'title', 'unit_price']\nclass CartItemsSerializer(serializers.ModelSerializer):\n    product = SimpleProductSerializer()\n    total_price = serializers.SerializerMethodField()\n    def get_total_price(self, cart_item: CartItem):\n        return cart_item.quantity * cart_item.product.unit_price\n    class Meta:",
+        "detail": "store.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "CartItemsSerializer",
+        "kind": 6,
+        "importPath": "store.serializers",
+        "description": "store.serializers",
+        "peekOfCode": "class CartItemsSerializer(serializers.ModelSerializer):\n    product = SimpleProductSerializer()\n    total_price = serializers.SerializerMethodField()\n    def get_total_price(self, cart_item: CartItem):\n        return cart_item.quantity * cart_item.product.unit_price\n    class Meta:\n        model = CartItem\n        fields = ['id', 'product', 'quantity', 'total_price']\nclass CartSerializer(serializers.ModelSerializer):\n    id = serializers.UUIDField(read_only=True)",
         "detail": "store.serializers",
         "documentation": {}
     },
@@ -1333,7 +1367,7 @@
         "kind": 6,
         "importPath": "store.serializers",
         "description": "store.serializers",
-        "peekOfCode": "class CartSerializer(serializers.ModelSerializer):\n    id = serializers.UUIDField(read_only=True)\n    created_at = serializers.DateTimeField(read_only=True)\n    class Meta:\n        model = Cart\n        fields = ['id', 'created_at'] \n    # def order_count(self, product: Product):\n    #     return product.orderitem_set.count()\n    # def password_varidation(self, data):\n    #     if data['password']!= data['confirm_password']:",
+        "peekOfCode": "class CartSerializer(serializers.ModelSerializer):\n    id = serializers.UUIDField(read_only=True)\n    created_at = serializers.DateTimeField(read_only=True)\n    items = CartItemsSerializer(many=True, read_only=True)\n    total_price = serializers.SerializerMethodField()\n    def get_total_price(self, cart:Cart):\n        # [item.quantity * item.product.unit_price for item in cart.items.all()] #with this expression we get the list of totals now we need to sum all of them\n        return sum([item.quantity * item.product.unit_price for item in cart.items.all()])\n    class Meta:\n        model = Cart",
         "detail": "store.serializers",
         "documentation": {}
     },
@@ -1342,7 +1376,7 @@
         "kind": 5,
         "importPath": "store.urls",
         "description": "store.urls",
-        "peekOfCode": "router = routers.DefaultRouter() # By using this Defaut \nrouter.register('products', views.ProductViewSet, basename='products')\nrouter.register('collections', views.CollectionViewset)\nrouter.register('carts', views.CartViewSet)\n#chird router \nproduct_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')\n#By setting loopup to product means that we gonna have product_pk\nproduct_router.register('review', views.ReviewViewSet, basename='product_review')\n# pprint(router.urls)\nurlpatterns = [",
+        "peekOfCode": "router = routers.DefaultRouter() # By using this Defaut \nrouter.register('products', views.ProductViewSet, basename='products')\nrouter.register('collections', views.CollectionViewset)\nrouter.register('carts', views.CartViewSet, basename='carts')\n#chird router \nproduct_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')\n#By setting loopup to product means that we gonna have product_pk\nproduct_router.register('review', views.ReviewViewSet, basename='product_review')\ncarts_router = routers.NestedDefaultRouter(router, 'carts', lookup = 'cart') #with this we gona have cart_pk in our CartItemsViewSet\ncarts_router.register('items', views.CartItemsViewSet, basename='cart-items')",
         "detail": "store.urls",
         "documentation": {}
     },
@@ -1351,7 +1385,16 @@
         "kind": 5,
         "importPath": "store.urls",
         "description": "store.urls",
-        "peekOfCode": "product_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')\n#By setting loopup to product means that we gonna have product_pk\nproduct_router.register('review', views.ReviewViewSet, basename='product_review')\n# pprint(router.urls)\nurlpatterns = [\n     path('', include(router.urls+product_router.urls)),\n     path('orders/', views.orders) ,\n]\n# urlpatterns = [\n#     path('', include(router.urls)),",
+        "peekOfCode": "product_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')\n#By setting loopup to product means that we gonna have product_pk\nproduct_router.register('review', views.ReviewViewSet, basename='product_review')\ncarts_router = routers.NestedDefaultRouter(router, 'carts', lookup = 'cart') #with this we gona have cart_pk in our CartItemsViewSet\ncarts_router.register('items', views.CartItemsViewSet, basename='cart-items')\n# pprint(router.urls)\nurlpatterns = [\n     path('', include(router.urls+product_router.urls+carts_router.urls)),\n     path('orders/', views.orders) ,\n     # path('', include(router.urls+carts_router.urls))",
+        "detail": "store.urls",
+        "documentation": {}
+    },
+    {
+        "label": "carts_router",
+        "kind": 5,
+        "importPath": "store.urls",
+        "description": "store.urls",
+        "peekOfCode": "carts_router = routers.NestedDefaultRouter(router, 'carts', lookup = 'cart') #with this we gona have cart_pk in our CartItemsViewSet\ncarts_router.register('items', views.CartItemsViewSet, basename='cart-items')\n# pprint(router.urls)\nurlpatterns = [\n     path('', include(router.urls+product_router.urls+carts_router.urls)),\n     path('orders/', views.orders) ,\n     # path('', include(router.urls+carts_router.urls))\n]\n# urlpatterns = [\n#     path('', include(router.urls)),",
         "detail": "store.urls",
         "documentation": {}
     },
@@ -1360,7 +1403,7 @@
         "kind": 5,
         "importPath": "store.urls",
         "description": "store.urls",
-        "peekOfCode": "urlpatterns = [\n     path('', include(router.urls+product_router.urls)),\n     path('orders/', views.orders) ,\n]\n# urlpatterns = [\n#     path('', include(router.urls)),\n#     # path('products/', views.ProductList.as_view()),\n#     path('orders/', views.orders)\n#     # path('products/<int:pk>', views.ProductDetails.as_view()),\n#     # path('collections/', views.CollectionList.as_view()),",
+        "peekOfCode": "urlpatterns = [\n     path('', include(router.urls+product_router.urls+carts_router.urls)),\n     path('orders/', views.orders) ,\n     # path('', include(router.urls+carts_router.urls))\n]\n# urlpatterns = [\n#     path('', include(router.urls)),\n#     # path('products/', views.ProductList.as_view()),\n#     path('orders/', views.orders)\n#     # path('products/<int:pk>', views.ProductDetails.as_view()),",
         "detail": "store.urls",
         "documentation": {}
     },
@@ -1387,7 +1430,7 @@
         "kind": 6,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "class ReviewViewSet(ModelViewSet):\n    queryset = Review.objects.all()\n    serializer_class = ReviewSerializer\n    def get_queryset(self):\n        return Review.objects.all().filter(product_id = self.kwargs['product_pk'])\n    def get_serializer_context(self):\n        return {'product_id': self.kwargs['product_pk']}\nclass CartViewSet(ModelViewSet):\n    queryset = Cart.objects.all()\n    serializer_class = CartSerializer",
+        "peekOfCode": "class ReviewViewSet(ModelViewSet):\n    queryset = Review.objects.all()\n    serializer_class = ReviewSerializer\n    def get_queryset(self):\n        return Review.objects.all().filter(product_id = self.kwargs['product_pk'])\n    def get_serializer_context(self):\n        return {'product_id': self.kwargs['product_pk']}\nclass CartViewSet(GenericViewSet,\n                  CreateModelMixin, \n                  RetrieveModelMixin, ",
         "detail": "store.views",
         "documentation": {}
     },
@@ -1396,7 +1439,16 @@
         "kind": 6,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "class CartViewSet(ModelViewSet):\n    queryset = Cart.objects.all()\n    serializer_class = CartSerializer\n# Collection Generic Views\n# class CollectionList(ListCreateAPIView):\n#     queryset = Collection.objects.all()\n#     serializer_class = CollectionSerializer\n#     def get_serializer_context(self):\n#         return {'request': self.request}\n##### Collection List Class & Function Based Views #####",
+        "peekOfCode": "class CartViewSet(GenericViewSet,\n                  CreateModelMixin, \n                  RetrieveModelMixin, \n                  DestroyModelMixin):\n    queryset = Cart.objects.prefetch_related('items__product').all() #Gona have multiple Items \n    serializer_class = CartSerializer\nclass CartItemsViewSet(ModelViewSet):\n    # queryset = CartItem.objects.all()\n    serializer_class = CartItemsSerializer\n    def get_queryset(self):",
+        "detail": "store.views",
+        "documentation": {}
+    },
+    {
+        "label": "CartItemsViewSet",
+        "kind": 6,
+        "importPath": "store.views",
+        "description": "store.views",
+        "peekOfCode": "class CartItemsViewSet(ModelViewSet):\n    # queryset = CartItem.objects.all()\n    serializer_class = CartItemsSerializer\n    def get_queryset(self):\n        return CartItem.objects.filter(cart_id = self.kwargs['cart_pk']).select_related('product')\n# Collection Generic Views\n# class CollectionList(ListCreateAPIView):\n#     queryset = Collection.objects.all()\n#     serializer_class = CollectionSerializer\n#     def get_serializer_context(self):",
         "detail": "store.views",
         "documentation": {}
     },

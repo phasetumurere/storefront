@@ -11,16 +11,20 @@ from . import views
 router = routers.DefaultRouter() # By using this Defaut 
 router.register('products', views.ProductViewSet, basename='products')
 router.register('collections', views.CollectionViewset)
-router.register('carts', views.CartViewSet)
+router.register('carts', views.CartViewSet, basename='carts')
 
 #chird router 
 product_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')
 #By setting loopup to product means that we gonna have product_pk
 product_router.register('review', views.ReviewViewSet, basename='product_review')
+
+carts_router = routers.NestedDefaultRouter(router, 'carts', lookup = 'cart') #with this we gona have cart_pk in our CartItemsViewSet
+carts_router.register('items', views.CartItemsViewSet, basename='cart-items')
 # pprint(router.urls)
 urlpatterns = [
-     path('', include(router.urls+product_router.urls)),
+     path('', include(router.urls+product_router.urls+carts_router.urls)),
      path('orders/', views.orders) ,
+     # path('', include(router.urls+carts_router.urls))
 ]
 # urlpatterns = [
 #     path('', include(router.urls)),

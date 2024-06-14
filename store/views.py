@@ -19,7 +19,8 @@ from store.admin import OrderModelAdmin
 from .default_pagination import DefaultPagination
 from .filters import ProductFilter
 from .models import Cart, CartItem, Collection, OrderItem, Product, Review
-from .serializers import CartSerializer, CollectionSerializer, ProductSerializer, ReviewSerializer
+from .serializers import (CartItemsSerializer, CartSerializer, CollectionSerializer,
+    ProductSerializer, ReviewSerializer)
 
 
 # Product View set
@@ -233,13 +234,14 @@ class CartViewSet(GenericViewSet,
     queryset = Cart.objects.prefetch_related('items__product').all() #Gona have multiple Items 
     serializer_class = CartSerializer
     
-    
-    def destroy(self, request, *args, **kwargs):
-        return super().destroy(request, *args, **kwargs)
-    
-    
-    
 
+class CartItemsViewSet(ModelViewSet):
+    # queryset = CartItem.objects.all()
+    serializer_class = CartItemsSerializer
+    
+    def get_queryset(self):
+        return CartItem.objects.filter(cart_id = self.kwargs['cart_pk']).select_related('product')
+   
 
 # Collection Generic Views
 # class CollectionList(ListCreateAPIView):
