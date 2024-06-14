@@ -19,8 +19,8 @@ from store.admin import OrderModelAdmin
 from .default_pagination import DefaultPagination
 from .filters import ProductFilter
 from .models import Cart, CartItem, Collection, OrderItem, Product, Review
-from .serializers import (CartItemsSerializer, CartSerializer, CollectionSerializer,
-    ProductSerializer, ReviewSerializer)
+from .serializers import (AddCartItemSerializer, CartItemsSerializer, CartSerializer,
+    CollectionSerializer, ProductSerializer, ReviewSerializer)
 
 
 # Product View set
@@ -237,10 +237,18 @@ class CartViewSet(GenericViewSet,
 
 class CartItemsViewSet(ModelViewSet):
     # queryset = CartItem.objects.all()
-    serializer_class = CartItemsSerializer
+    # serializer_class = CartItemsSerializer
     
     def get_queryset(self):
         return CartItem.objects.filter(cart_id = self.kwargs['cart_pk']).select_related('product')
+    
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return AddCartItemSerializer       
+        return CartItemsSerializer
+    
+    def get_serializer_context(self):
+        return {'cart_id': self.kwargs['cart_pk']} # I'm going to need this cart_id in Serializer by self.context
    
 
 # Collection Generic Views
