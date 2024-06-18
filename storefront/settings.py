@@ -41,10 +41,10 @@ INSTALLED_APPS = [
     'rest_framework',
     "debug_toolbar",
     'playground',
-    'store',
-    'store_custom',
+    'store',    
     'tags',
-    'likes'
+    'likes',
+    'core'
 ]
 
 MIDDLEWARE = [

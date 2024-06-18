@@ -1,19 +1,170 @@
 [
     {
-        "label": "django.db.models.deletion",
-        "kind": 6,
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
         "isExtraImport": true,
-        "importPath": "django.db.models.deletion",
-        "description": "django.db.models.deletion",
-        "detail": "django.db.models.deletion",
+        "detail": "django.contrib",
         "documentation": {}
     },
     {
-        "label": "settings",
-        "importPath": "django.conf",
-        "description": "django.conf",
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
         "isExtraImport": true,
-        "detail": "django.conf",
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "messages",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "GenericTabularInline",
+        "importPath": "django.contrib.contenttypes.admin",
+        "description": "django.contrib.contenttypes.admin",
+        "isExtraImport": true,
+        "detail": "django.contrib.contenttypes.admin",
+        "documentation": {}
+    },
+    {
+        "label": "GenericTabularInline",
+        "importPath": "django.contrib.contenttypes.admin",
+        "description": "django.contrib.contenttypes.admin",
+        "isExtraImport": true,
+        "detail": "django.contrib.contenttypes.admin",
+        "documentation": {}
+    },
+    {
+        "label": "ProductAdminModel",
+        "importPath": "store.admin",
+        "description": "store.admin",
+        "isExtraImport": true,
+        "detail": "store.admin",
+        "documentation": {}
+    },
+    {
+        "label": "OrderModelAdmin",
+        "importPath": "store.admin",
+        "description": "store.admin",
+        "isExtraImport": true,
+        "detail": "store.admin",
+        "documentation": {}
+    },
+    {
+        "label": "TaggedItem",
+        "importPath": "tags.models",
+        "description": "tags.models",
+        "isExtraImport": true,
+        "detail": "tags.models",
+        "documentation": {}
+    },
+    {
+        "label": "TaggedItem",
+        "importPath": "tags.models",
+        "description": "tags.models",
+        "isExtraImport": true,
+        "detail": "tags.models",
+        "documentation": {}
+    },
+    {
+        "label": "TaggedItemManager",
+        "importPath": "tags.models",
+        "description": "tags.models",
+        "isExtraImport": true,
+        "detail": "tags.models",
+        "documentation": {}
+    },
+    {
+        "label": "TaggedItem",
+        "importPath": "tags.models",
+        "description": "tags.models",
+        "isExtraImport": true,
+        "detail": "tags.models",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "store",
+        "description": "store",
+        "isExtraImport": true,
+        "detail": "store",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
         "documentation": {}
     },
     {
@@ -22,6 +173,14 @@
         "isExtraImport": true,
         "importPath": "django.db",
         "description": "django.db",
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
         "detail": "django.db",
         "documentation": {}
     },
@@ -194,14 +353,6 @@
         "documentation": {}
     },
     {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
         "label": "migrations",
         "importPath": "django.db",
         "description": "django.db",
@@ -226,99 +377,100 @@
         "documentation": {}
     },
     {
-        "label": "admin",
-        "importPath": "django.contrib",
-        "description": "django.contrib",
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
         "isExtraImport": true,
-        "detail": "django.contrib",
+        "detail": "django.test",
         "documentation": {}
     },
     {
-        "label": "admin",
-        "importPath": "django.contrib",
-        "description": "django.contrib",
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
         "isExtraImport": true,
-        "detail": "django.contrib",
+        "detail": "django.test",
         "documentation": {}
     },
     {
-        "label": "admin",
-        "importPath": "django.contrib",
-        "description": "django.contrib",
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
         "isExtraImport": true,
-        "detail": "django.contrib",
+        "detail": "django.test",
         "documentation": {}
     },
     {
-        "label": "messages",
-        "importPath": "django.contrib",
-        "description": "django.contrib",
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
         "isExtraImport": true,
-        "detail": "django.contrib",
+        "detail": "django.test",
         "documentation": {}
     },
     {
-        "label": "admin",
-        "importPath": "django.contrib",
-        "description": "django.contrib",
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
         "isExtraImport": true,
-        "detail": "django.contrib",
+        "detail": "django.test",
         "documentation": {}
     },
     {
-        "label": "admin",
-        "importPath": "django.contrib",
-        "description": "django.contrib",
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
         "isExtraImport": true,
-        "detail": "django.contrib",
+        "detail": "django.shortcuts",
         "documentation": {}
     },
     {
-        "label": "admin",
-        "importPath": "django.contrib",
-        "description": "django.contrib",
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
         "isExtraImport": true,
-        "detail": "django.contrib",
+        "detail": "django.shortcuts",
         "documentation": {}
     },
     {
-        "label": "AppConfig",
-        "importPath": "django.apps",
-        "description": "django.apps",
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
         "isExtraImport": true,
-        "detail": "django.apps",
+        "detail": "django.shortcuts",
         "documentation": {}
     },
     {
-        "label": "AppConfig",
-        "importPath": "django.apps",
-        "description": "django.apps",
+        "label": "get_object_or_404",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
         "isExtraImport": true,
-        "detail": "django.apps",
+        "detail": "django.shortcuts",
         "documentation": {}
     },
     {
-        "label": "AppConfig",
-        "importPath": "django.apps",
-        "description": "django.apps",
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
         "isExtraImport": true,
-        "detail": "django.apps",
+        "detail": "django.shortcuts",
         "documentation": {}
     },
     {
-        "label": "AppConfig",
-        "importPath": "django.apps",
-        "description": "django.apps",
+        "label": "django.db.models.deletion",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "django.apps",
+        "importPath": "django.db.models.deletion",
+        "description": "django.db.models.deletion",
+        "detail": "django.db.models.deletion",
         "documentation": {}
     },
     {
-        "label": "AppConfig",
-        "importPath": "django.apps",
-        "description": "django.apps",
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
         "isExtraImport": true,
-        "detail": "django.apps",
+        "detail": "django.conf",
         "documentation": {}
     },
     {
@@ -367,86 +519,6 @@
         "description": "django.contrib.auth.models",
         "isExtraImport": true,
         "detail": "django.contrib.auth.models",
-        "documentation": {}
-    },
-    {
-        "label": "TestCase",
-        "importPath": "django.test",
-        "description": "django.test",
-        "isExtraImport": true,
-        "detail": "django.test",
-        "documentation": {}
-    },
-    {
-        "label": "TestCase",
-        "importPath": "django.test",
-        "description": "django.test",
-        "isExtraImport": true,
-        "detail": "django.test",
-        "documentation": {}
-    },
-    {
-        "label": "TestCase",
-        "importPath": "django.test",
-        "description": "django.test",
-        "isExtraImport": true,
-        "detail": "django.test",
-        "documentation": {}
-    },
-    {
-        "label": "TestCase",
-        "importPath": "django.test",
-        "description": "django.test",
-        "isExtraImport": true,
-        "detail": "django.test",
-        "documentation": {}
-    },
-    {
-        "label": "TestCase",
-        "importPath": "django.test",
-        "description": "django.test",
-        "isExtraImport": true,
-        "detail": "django.test",
-        "documentation": {}
-    },
-    {
-        "label": "render",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "render",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "get_object_or_404",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "render",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "render",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
         "documentation": {}
     },
     {
@@ -659,38 +731,6 @@
         "documentation": {}
     },
     {
-        "label": "TaggedItem",
-        "importPath": "tags.models",
-        "description": "tags.models",
-        "isExtraImport": true,
-        "detail": "tags.models",
-        "documentation": {}
-    },
-    {
-        "label": "TaggedItemManager",
-        "importPath": "tags.models",
-        "description": "tags.models",
-        "isExtraImport": true,
-        "detail": "tags.models",
-        "documentation": {}
-    },
-    {
-        "label": "TaggedItem",
-        "importPath": "tags.models",
-        "description": "tags.models",
-        "isExtraImport": true,
-        "detail": "tags.models",
-        "documentation": {}
-    },
-    {
-        "label": "TaggedItem",
-        "importPath": "tags.models",
-        "description": "tags.models",
-        "isExtraImport": true,
-        "detail": "tags.models",
-        "documentation": {}
-    },
-    {
         "label": "django.core.validators",
         "kind": 6,
         "isExtraImport": true,
@@ -730,22 +770,6 @@
         "description": "typing",
         "isExtraImport": true,
         "detail": "typing",
-        "documentation": {}
-    },
-    {
-        "label": "GenericTabularInline",
-        "importPath": "django.contrib.contenttypes.admin",
-        "description": "django.contrib.contenttypes.admin",
-        "isExtraImport": true,
-        "detail": "django.contrib.contenttypes.admin",
-        "documentation": {}
-    },
-    {
-        "label": "GenericTabularInline",
-        "importPath": "django.contrib.contenttypes.admin",
-        "description": "django.contrib.contenttypes.admin",
-        "isExtraImport": true,
-        "detail": "django.contrib.contenttypes.admin",
         "documentation": {}
     },
     {
@@ -989,22 +1013,6 @@
         "documentation": {}
     },
     {
-        "label": "OrderModelAdmin",
-        "importPath": "store.admin",
-        "description": "store.admin",
-        "isExtraImport": true,
-        "detail": "store.admin",
-        "documentation": {}
-    },
-    {
-        "label": "ProductAdminModel",
-        "importPath": "store.admin",
-        "description": "store.admin",
-        "isExtraImport": true,
-        "detail": "store.admin",
-        "documentation": {}
-    },
-    {
         "label": "os",
         "kind": 6,
         "isExtraImport": true,
@@ -1038,20 +1046,39 @@
         "documentation": {}
     },
     {
-        "label": "models",
-        "importPath": "store",
-        "description": "store",
-        "isExtraImport": true,
-        "detail": "store",
-        "documentation": {}
-    },
-    {
         "label": "sys",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "sys",
         "description": "sys",
         "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "TagInline",
+        "kind": 6,
+        "importPath": "core.admin",
+        "description": "core.admin",
+        "peekOfCode": "class TagInline(GenericTabularInline):\n    autocomplete_fields = ['tag']\n    model = TaggedItem\nclass CustomProductAdmin(ProductAdminModel):\n    inlines = [TagInline]\nadmin.site.unregister(models.Product)\nadmin.site.register(models.Product, CustomProductAdmin)",
+        "detail": "core.admin",
+        "documentation": {}
+    },
+    {
+        "label": "CustomProductAdmin",
+        "kind": 6,
+        "importPath": "core.admin",
+        "description": "core.admin",
+        "peekOfCode": "class CustomProductAdmin(ProductAdminModel):\n    inlines = [TagInline]\nadmin.site.unregister(models.Product)\nadmin.site.register(models.Product, CustomProductAdmin)",
+        "detail": "core.admin",
+        "documentation": {}
+    },
+    {
+        "label": "CoreConfig",
+        "kind": 6,
+        "importPath": "core.apps",
+        "description": "core.apps",
+        "peekOfCode": "class CoreConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'core'",
+        "detail": "core.apps",
         "documentation": {}
     },
     {
@@ -1727,33 +1754,6 @@
         "description": "storefront.wsgi",
         "peekOfCode": "application = get_wsgi_application()",
         "detail": "storefront.wsgi",
-        "documentation": {}
-    },
-    {
-        "label": "TagInline",
-        "kind": 6,
-        "importPath": "store_custom.admin",
-        "description": "store_custom.admin",
-        "peekOfCode": "class TagInline(GenericTabularInline):\n    autocomplete_fields = ['tag']\n    model = TaggedItem\nclass CustomProductAdmin(ProductAdminModel):\n    inlines = [TagInline]\nadmin.site.unregister(models.Product)\nadmin.site.register(models.Product, CustomProductAdmin)",
-        "detail": "store_custom.admin",
-        "documentation": {}
-    },
-    {
-        "label": "CustomProductAdmin",
-        "kind": 6,
-        "importPath": "store_custom.admin",
-        "description": "store_custom.admin",
-        "peekOfCode": "class CustomProductAdmin(ProductAdminModel):\n    inlines = [TagInline]\nadmin.site.unregister(models.Product)\nadmin.site.register(models.Product, CustomProductAdmin)",
-        "detail": "store_custom.admin",
-        "documentation": {}
-    },
-    {
-        "label": "StoreCustomConfig",
-        "kind": 6,
-        "importPath": "store_custom.apps",
-        "description": "store_custom.apps",
-        "peekOfCode": "class StoreCustomConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'store_custom'",
-        "detail": "store_custom.apps",
         "documentation": {}
     },
     {
