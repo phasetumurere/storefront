@@ -20,7 +20,7 @@ from .default_pagination import DefaultPagination
 from .filters import ProductFilter
 from .models import Cart, CartItem, Collection, OrderItem, Product, Review
 from .serializers import (AddCartItemSerializer, CartItemsSerializer, CartSerializer,
-    CollectionSerializer, ProductSerializer, ReviewSerializer)
+    CollectionSerializer, ProductSerializer, ReviewSerializer, UpdateCartItemSerializer)
 
 
 # Product View set
@@ -238,13 +238,19 @@ class CartViewSet(GenericViewSet,
 class CartItemsViewSet(ModelViewSet):
     # queryset = CartItem.objects.all()
     # serializer_class = CartItemsSerializer
+    http_method_names = ['get', 'post', 'patch', 'delete']
     
     def get_queryset(self):
         return CartItem.objects.filter(cart_id = self.kwargs['cart_pk']).select_related('product')
     
     def get_serializer_class(self):
+        
         if self.request.method == 'POST':
-            return AddCartItemSerializer       
+            return AddCartItemSerializer
+        
+        elif self.request.method == 'PATCH':
+            return UpdateCartItemSerializer  
+          
         return CartItemsSerializer
     
     def get_serializer_context(self):

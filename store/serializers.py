@@ -119,10 +119,15 @@ class AddCartItemSerializer(serializers.ModelSerializer):
                                     **self.validated_data)
         return self.instance
         
-        
 
+class UpdateCartItemSerializer(serializers.ModelSerializer):       
+    class Meta:
+        model = CartItem
+        fields = ['quantity']
         
-   
+    
+          
+
     # def order_count(self, product: Product):
     #     return product.orderitem_set.count()
     
