@@ -236,6 +236,22 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -301,6 +317,14 @@
     },
     {
         "label": "messages",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
         "importPath": "django.contrib",
         "description": "django.contrib",
         "isExtraImport": true,
@@ -549,6 +573,22 @@
         "documentation": {}
     },
     {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
         "label": "ContentType",
         "importPath": "django.contrib.contenttypes.models",
         "description": "django.contrib.contenttypes.models",
@@ -586,6 +626,14 @@
         "description": "django.contrib.contenttypes.fields",
         "isExtraImport": true,
         "detail": "django.contrib.contenttypes.fields",
+        "documentation": {}
+    },
+    {
+        "label": "AUTH_USER_MODEL",
+        "importPath": "storefront.settings",
+        "description": "storefront.settings",
+        "isExtraImport": true,
+        "detail": "storefront.settings",
         "documentation": {}
     },
     {
@@ -917,6 +965,14 @@
         "description": "django_filters.rest_framework",
         "isExtraImport": true,
         "detail": "django_filters.rest_framework",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "core.models",
+        "description": "core.models",
+        "isExtraImport": true,
+        "detail": "core.models",
         "documentation": {}
     },
     {
@@ -1310,6 +1366,15 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "store.migrations.0009_alter_customer_options_remove_customer_email_and_more",
+        "description": "store.migrations.0009_alter_customer_options_remove_customer_email_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('store', '0008_alter_cartitem_quantity'),\n        migrations.swappable_dependency(settings.AUTH_USER_MODEL),\n    ]\n    operations = [\n        migrations.AlterModelOptions(\n            name='customer',\n            options={'ordering': ['user__first_name', 'user__last_name']},\n        ),",
+        "detail": "store.migrations.0009_alter_customer_options_remove_customer_email_and_more",
+        "documentation": {}
+    },
+    {
         "label": "CollectionAdminModel",
         "kind": 6,
         "importPath": "store.admin",
@@ -1341,7 +1406,7 @@
         "kind": 6,
         "importPath": "store.admin",
         "description": "store.admin",
-        "peekOfCode": "class CustomerModelAdmin(admin.ModelAdmin):\n    list_display = ['first_name', 'last_name', 'membership', 'id','orders_count']\n    list_editable = ['membership']\n    list_per_page = 10\n    ordering = ['first_name', 'last_name']\n    search_fields = ['first_name__istartswith', 'last_name__istartswith']\n    @admin.display(ordering='first_name')\n    def orders_count(self, customer):\n        url = (reverse('admin:store_order_changelist')+\n        '?'+urlencode({'customer_id': str(customer.id)})) ",
+        "peekOfCode": "class CustomerModelAdmin(admin.ModelAdmin):\n    autocomplete_fields = ['user']\n    list_select_related = ['user']\n    list_display = ['first_name', 'last_name', 'membership', 'id','orders_count']\n    list_editable = ['membership']\n    list_per_page = 10    \n    ordering = ['user__first_name', 'user__last_name']\n    search_fields = ['first_name__istartswith', 'last_name__istartswith']\n    @admin.display(ordering='first_name')\n    def orders_count(self, customer):",
         "detail": "store.admin",
         "documentation": {}
     },
@@ -1422,7 +1487,7 @@
         "kind": 6,
         "importPath": "store.models",
         "description": "store.models",
-        "peekOfCode": "class Customer(models.Model):\n    MEMBERSHIP_BRONZE = 'B'\n    MEMBERSHIP_SILVER = 'S'\n    MBEMERSHIP_GOLD = 'G'\n    MEMBERSHIP_CHOICES = [\n        (MEMBERSHIP_BRONZE, 'Bronze'),\n        (MEMBERSHIP_SILVER, 'Silver'),\n        (MBEMERSHIP_GOLD, 'Gold')\n    ]\n    first_name = models.CharField(max_length=255)",
+        "peekOfCode": "class Customer(models.Model):\n    MEMBERSHIP_BRONZE = 'B'\n    MEMBERSHIP_SILVER = 'S'\n    MBEMERSHIP_GOLD = 'G'\n    MEMBERSHIP_CHOICES = [\n        (MEMBERSHIP_BRONZE, 'Bronze'),\n        (MEMBERSHIP_SILVER, 'Silver'),\n        (MBEMERSHIP_GOLD, 'Gold')\n    ]\n    #Removed just because of we're using user from the admin",
         "detail": "store.models",
         "documentation": {}
     },
