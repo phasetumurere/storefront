@@ -252,6 +252,14 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -1372,6 +1380,15 @@
         "description": "store.migrations.0009_alter_customer_options_remove_customer_email_and_more",
         "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('store', '0008_alter_cartitem_quantity'),\n        migrations.swappable_dependency(settings.AUTH_USER_MODEL),\n    ]\n    operations = [\n        migrations.AlterModelOptions(\n            name='customer',\n            options={'ordering': ['user__first_name', 'user__last_name']},\n        ),",
         "detail": "store.migrations.0009_alter_customer_options_remove_customer_email_and_more",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "store.migrations.0010_alter_order_options",
+        "description": "store.migrations.0010_alter_order_options",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('store', '0009_alter_customer_options_remove_customer_email_and_more'),\n    ]\n    operations = [\n        migrations.AlterModelOptions(\n            name='order',\n            options={'permissions': [('cancel_order', 'Can Cancel the order')]},\n        ),\n    ]",
+        "detail": "store.migrations.0010_alter_order_options",
         "documentation": {}
     },
     {

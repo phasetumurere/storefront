@@ -102,7 +102,11 @@ class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete = models.PROTECT)
     #if we delete the customer we don't delete Orders because the orders are our sells so they don't have to be deleted
     
-    #Sorting the customer
+    #Creating Custom Permissions for Order (Cancel the Order)
+    class Meta:
+        permissions = [
+            ('cancel_order', 'Can Cancel the order')]
+    
     
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete= models.PROTECT)
