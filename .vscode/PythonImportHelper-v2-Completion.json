@@ -476,6 +476,14 @@
         "documentation": {}
     },
     {
+        "label": "UserCreateSerializer",
+        "importPath": "djoser.serializers",
+        "description": "djoser.serializers",
+        "isExtraImport": true,
+        "detail": "djoser.serializers",
+        "documentation": {}
+    },
+    {
         "label": "TestCase",
         "importPath": "django.test",
         "description": "django.test",
@@ -1248,6 +1256,15 @@
         "documentation": {}
     },
     {
+        "label": "UserCreateSerializer",
+        "kind": 6,
+        "importPath": "core.serializers",
+        "description": "core.serializers",
+        "peekOfCode": "class UserCreateSerializer(BaseUserCreateSerializer):\n    class Meta(BaseUserCreateSerializer.Meta):\n        fields = ['id', 'username', 'password', 'email', 'first_name', 'last_name']",
+        "detail": "core.serializers",
+        "documentation": {}
+    },
+    {
         "label": "Migration",
         "kind": 6,
         "importPath": "likes.migrations.0001_initial",
@@ -1909,7 +1926,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "SIMPLE_JWT = {\n   'AUTH_HEADER_TYPES': ('JWT',),\n} #Specifying that JWT should be included in token as prefix\nAUTH_USER_MODEL = 'core.user'",
+        "peekOfCode": "SIMPLE_JWT = {\n   'AUTH_HEADER_TYPES': ('JWT',),\n} #Specifying that JWT should be included in token as prefix\nAUTH_USER_MODEL = 'core.user'\nDJOSER={\n    'SERIALIZERS':{\n        'user_create':'core.serializers.UserCreateSerializer'\n    }  \n}",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -1918,7 +1935,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "AUTH_USER_MODEL = 'core.user'",
+        "peekOfCode": "AUTH_USER_MODEL = 'core.user'\nDJOSER={\n    'SERIALIZERS':{\n        'user_create':'core.serializers.UserCreateSerializer'\n    }  \n}",
         "detail": "storefront.settings",
         "documentation": {}
     },
