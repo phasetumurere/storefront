@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_filters',
     'rest_framework',
+    'djoser',
     "debug_toolbar",
     'playground',
     'store',    
@@ -146,5 +147,12 @@ REST_FRAMEWORK = {
     # 'PAGE_SIZE':10,
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', Set Pagination Globry 
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', #next pge gonna take to product and skip other 10 but we use the upone
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        ), #Using Jason Web Authentication (JWA) as Authentication Engine
 }
+
+SIMPLE_JWT = {
+   'AUTH_HEADER_TYPES': ('JWT',),
+} #Specifying that JWT should be included in token as prefix
 AUTH_USER_MODEL = 'core.user'

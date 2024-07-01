@@ -1774,7 +1774,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "INSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'django_filters',\n    'rest_framework',\n    \"debug_toolbar\",",
+        "peekOfCode": "INSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'django_filters',\n    'rest_framework',\n    'djoser',",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -1882,7 +1882,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "STATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,\n    # 'PAGE_SIZE':10,\n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', Set Pagination Globry \n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', #next pge gonna take to product and skip other 10 but we use the upone\n}",
+        "peekOfCode": "STATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,\n    # 'PAGE_SIZE':10,\n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', Set Pagination Globry \n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', #next pge gonna take to product and skip other 10 but we use the upone\n    'DEFAULT_AUTHENTICATION_CLASSES': (",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -1891,7 +1891,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,\n    # 'PAGE_SIZE':10,\n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', Set Pagination Globry \n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', #next pge gonna take to product and skip other 10 but we use the upone\n}\nAUTH_USER_MODEL = 'core.user'",
+        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,\n    # 'PAGE_SIZE':10,\n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', Set Pagination Globry \n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', #next pge gonna take to product and skip other 10 but we use the upone\n    'DEFAULT_AUTHENTICATION_CLASSES': (\n        'rest_framework_simplejwt.authentication.JWTAuthentication',\n        ), #Using Jason Web Authentication (JWA) as Authentication Engine\n}",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -1900,7 +1900,16 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "REST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,\n    # 'PAGE_SIZE':10,\n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', Set Pagination Globry \n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', #next pge gonna take to product and skip other 10 but we use the upone\n}\nAUTH_USER_MODEL = 'core.user'",
+        "peekOfCode": "REST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,\n    # 'PAGE_SIZE':10,\n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', Set Pagination Globry \n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', #next pge gonna take to product and skip other 10 but we use the upone\n    'DEFAULT_AUTHENTICATION_CLASSES': (\n        'rest_framework_simplejwt.authentication.JWTAuthentication',\n        ), #Using Jason Web Authentication (JWA) as Authentication Engine\n}\nSIMPLE_JWT = {",
+        "detail": "storefront.settings",
+        "documentation": {}
+    },
+    {
+        "label": "SIMPLE_JWT",
+        "kind": 5,
+        "importPath": "storefront.settings",
+        "description": "storefront.settings",
+        "peekOfCode": "SIMPLE_JWT = {\n   'AUTH_HEADER_TYPES': ('JWT',),\n} #Specifying that JWT should be included in token as prefix\nAUTH_USER_MODEL = 'core.user'",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -1918,7 +1927,7 @@
         "kind": 5,
         "importPath": "storefront.urls",
         "description": "storefront.urls",
-        "peekOfCode": "admin.site.site_header = 'Storefront Admin'\nadmin.site.index_title = 'Admin Home'\nurlpatterns = [\n    path('admin/', admin.site.urls),\n    path('playground/', include('playground.urls')),\n    path(\"__debug__/\", include(\"debug_toolbar.urls\")),\n    path(\"store/\", include(\"store.urls\")),\n]",
+        "peekOfCode": "admin.site.site_header = 'Storefront Admin'\nadmin.site.index_title = 'Admin Home'\nurlpatterns = [\n    path('admin/', admin.site.urls),\n    path('playground/', include('playground.urls')),\n    path('auth/', include('djoser.urls')),\n    path('auth/', include('djoser.urls.jwt')),\n    path(\"__debug__/\", include(\"debug_toolbar.urls\")),\n    path(\"store/\", include(\"store.urls\")),\n]",
         "detail": "storefront.urls",
         "documentation": {}
     },
@@ -1927,7 +1936,7 @@
         "kind": 5,
         "importPath": "storefront.urls",
         "description": "storefront.urls",
-        "peekOfCode": "admin.site.index_title = 'Admin Home'\nurlpatterns = [\n    path('admin/', admin.site.urls),\n    path('playground/', include('playground.urls')),\n    path(\"__debug__/\", include(\"debug_toolbar.urls\")),\n    path(\"store/\", include(\"store.urls\")),\n]",
+        "peekOfCode": "admin.site.index_title = 'Admin Home'\nurlpatterns = [\n    path('admin/', admin.site.urls),\n    path('playground/', include('playground.urls')),\n    path('auth/', include('djoser.urls')),\n    path('auth/', include('djoser.urls.jwt')),\n    path(\"__debug__/\", include(\"debug_toolbar.urls\")),\n    path(\"store/\", include(\"store.urls\")),\n]",
         "detail": "storefront.urls",
         "documentation": {}
     },
@@ -1936,7 +1945,7 @@
         "kind": 5,
         "importPath": "storefront.urls",
         "description": "storefront.urls",
-        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n    path('playground/', include('playground.urls')),\n    path(\"__debug__/\", include(\"debug_toolbar.urls\")),\n    path(\"store/\", include(\"store.urls\")),\n]",
+        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n    path('playground/', include('playground.urls')),\n    path('auth/', include('djoser.urls')),\n    path('auth/', include('djoser.urls.jwt')),\n    path(\"__debug__/\", include(\"debug_toolbar.urls\")),\n    path(\"store/\", include(\"store.urls\")),\n]",
         "detail": "storefront.urls",
         "documentation": {}
     },
