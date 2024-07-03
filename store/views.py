@@ -8,7 +8,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 # from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import api_view 
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.mixins import ListModelMixin, CreateModelMixin, RetrieveModelMixin, DestroyModelMixin #Create a re useable codes
+from rest_framework.mixins import ListModelMixin, CreateModelMixin, RetrieveModelMixin, DestroyModelMixin, UpdateModelMixin #Create a re useable codes
 from rest_framework.response import Response
 from rest_framework.views import APIView #Class based Views
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
@@ -18,9 +18,9 @@ from storefront.settings import REST_FRAMEWORK
 from store.admin import OrderModelAdmin
 from .default_pagination import DefaultPagination
 from .filters import ProductFilter
-from .models import Cart, CartItem, Collection, OrderItem, Product, Review
+from .models import Cart, CartItem, Collection, OrderItem, Product, Review, Customer
 from .serializers import (AddCartItemSerializer, CartItemsSerializer, CartSerializer,
-    CollectionSerializer, ProductSerializer, ReviewSerializer, UpdateCartItemSerializer)
+    CollectionSerializer, ProductSerializer, ReviewSerializer, UpdateCartItemSerializer, CustomerSerializer)
 
 
 # Product View set
@@ -257,6 +257,11 @@ class CartItemsViewSet(ModelViewSet):
         return {'cart_id': self.kwargs['cart_pk']} # I'm going to need this cart_id in Serializer by self.context
    
 
+
+class CustomerViewSet(CreateModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
+    
 # Collection Generic Views
 # class CollectionList(ListCreateAPIView):
 #     queryset = Collection.objects.all()
