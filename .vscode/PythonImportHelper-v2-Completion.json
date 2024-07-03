@@ -1128,6 +1128,14 @@
         "documentation": {}
     },
     {
+        "label": "UpdateModelMixin",
+        "importPath": "rest_framework.mixins",
+        "description": "rest_framework.mixins",
+        "isExtraImport": true,
+        "detail": "rest_framework.mixins",
+        "documentation": {}
+    },
+    {
         "label": "Response",
         "importPath": "rest_framework.response",
         "description": "rest_framework.response",
@@ -1182,6 +1190,14 @@
         "description": "pathlib",
         "isExtraImport": true,
         "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
         "documentation": {}
     },
     {
@@ -1647,7 +1663,16 @@
         "kind": 6,
         "importPath": "store.serializers",
         "description": "store.serializers",
-        "peekOfCode": "class UpdateCartItemSerializer(serializers.ModelSerializer):       \n    class Meta:\n        model = CartItem\n        fields = ['quantity']\n    # def order_count(self, product: Product):\n    #     return product.orderitem_set.count()\n    # def password_varidation(self, data):\n    #     if data['password']!= data['confirm_password']:\n    #         return serializers.ValidationError(\"Passwords not match\")\n    #     return data ",
+        "peekOfCode": "class UpdateCartItemSerializer(serializers.ModelSerializer):       \n    class Meta:\n        model = CartItem\n        fields = ['quantity']\nclass CustomerSerializer(serializers.ModelSerializer):  \n    user_id = serializers.IntegerField()  \n    class Meta:\n        model = Customer\n        fields = ['id', 'user_id', 'phone', 'membership', 'birth_date']\n    # def order_count(self, product: Product):",
+        "detail": "store.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "CustomerSerializer",
+        "kind": 6,
+        "importPath": "store.serializers",
+        "description": "store.serializers",
+        "peekOfCode": "class CustomerSerializer(serializers.ModelSerializer):  \n    user_id = serializers.IntegerField()  \n    class Meta:\n        model = Customer\n        fields = ['id', 'user_id', 'phone', 'membership', 'birth_date']\n    # def order_count(self, product: Product):\n    #     return product.orderitem_set.count()\n    # def password_varidation(self, data):\n    #     if data['password']!= data['confirm_password']:\n    #         return serializers.ValidationError(\"Passwords not match\")",
         "detail": "store.serializers",
         "documentation": {}
     },
@@ -1656,7 +1681,7 @@
         "kind": 5,
         "importPath": "store.urls",
         "description": "store.urls",
-        "peekOfCode": "router = routers.DefaultRouter() # By using this Defaut \nrouter.register('products', views.ProductViewSet, basename='products')\nrouter.register('collections', views.CollectionViewset)\nrouter.register('carts', views.CartViewSet, basename='carts')\n#chird router \nproduct_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')\n#By setting loopup to product means that we gonna have product_pk\nproduct_router.register('review', views.ReviewViewSet, basename='product_review')\ncarts_router = routers.NestedDefaultRouter(router, 'carts', lookup = 'cart') #with this we gona have cart_pk in our CartItemsViewSet\ncarts_router.register('items', views.CartItemsViewSet, basename='cart-items')",
+        "peekOfCode": "router = routers.DefaultRouter() # By using this Defaut \nrouter.register('products', views.ProductViewSet, basename='products')\nrouter.register('collections', views.CollectionViewset)\nrouter.register('carts', views.CartViewSet, basename='carts')\nrouter.register('customers', views.CustomerViewSet)\n#chird router \nproduct_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')\n#By setting loopup to product means that we gonna have product_pk\nproduct_router.register('review', views.ReviewViewSet, basename='product_review')\ncarts_router = routers.NestedDefaultRouter(router, 'carts', lookup = 'cart') #with this we gona have cart_pk in our CartItemsViewSet",
         "detail": "store.urls",
         "documentation": {}
     },
@@ -1729,6 +1754,15 @@
         "importPath": "store.views",
         "description": "store.views",
         "peekOfCode": "class CartItemsViewSet(ModelViewSet):\n    # queryset = CartItem.objects.all()\n    # serializer_class = CartItemsSerializer\n    http_method_names = ['get', 'post', 'patch', 'delete']\n    def get_queryset(self):\n        return CartItem.objects.filter(cart_id = self.kwargs['cart_pk']).select_related('product')\n    def get_serializer_class(self):\n        if self.request.method == 'POST':\n            return AddCartItemSerializer\n        elif self.request.method == 'PATCH':",
+        "detail": "store.views",
+        "documentation": {}
+    },
+    {
+        "label": "CustomerViewSet",
+        "kind": 6,
+        "importPath": "store.views",
+        "description": "store.views",
+        "peekOfCode": "class CustomerViewSet(CreateModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):\n    queryset = Customer.objects.all()\n    serializer_class = CustomerSerializer\n# Collection Generic Views\n# class CollectionList(ListCreateAPIView):\n#     queryset = Collection.objects.all()\n#     serializer_class = CollectionSerializer\n#     def get_serializer_context(self):\n#         return {'request': self.request}\n##### Collection List Class & Function Based Views #####",
         "detail": "store.views",
         "documentation": {}
     },
@@ -1926,7 +1960,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "SIMPLE_JWT = {\n   'AUTH_HEADER_TYPES': ('JWT',),\n} #Specifying that JWT should be included in token as prefix\nAUTH_USER_MODEL = 'core.user'\nDJOSER={\n    'SERIALIZERS':{\n        'user_create':'core.serializers.UserCreateSerializer'\n    }  \n}",
+        "peekOfCode": "SIMPLE_JWT = {\n   'AUTH_HEADER_TYPES': ('JWT',),\n} #Specifying that JWT should be included in token as prefix\nAUTH_USER_MODEL = 'core.user'\nDJOSER={\n    'SERIALIZERS':{\n        'user_create':'core.serializers.UserCreateSerializer'\n    }  \n}\nfrom datetime import timedelta",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -1935,7 +1969,16 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "AUTH_USER_MODEL = 'core.user'\nDJOSER={\n    'SERIALIZERS':{\n        'user_create':'core.serializers.UserCreateSerializer'\n    }  \n}",
+        "peekOfCode": "AUTH_USER_MODEL = 'core.user'\nDJOSER={\n    'SERIALIZERS':{\n        'user_create':'core.serializers.UserCreateSerializer'\n    }  \n}\nfrom datetime import timedelta\nSIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days= 1)\n}",
+        "detail": "storefront.settings",
+        "documentation": {}
+    },
+    {
+        "label": "SIMPLE_JWT",
+        "kind": 5,
+        "importPath": "storefront.settings",
+        "description": "storefront.settings",
+        "peekOfCode": "SIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days= 1)\n}",
         "detail": "storefront.settings",
         "documentation": {}
     },
