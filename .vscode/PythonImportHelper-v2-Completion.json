@@ -484,6 +484,14 @@
         "documentation": {}
     },
     {
+        "label": "UserSerializer",
+        "importPath": "djoser.serializers",
+        "description": "djoser.serializers",
+        "isExtraImport": true,
+        "detail": "djoser.serializers",
+        "documentation": {}
+    },
+    {
         "label": "TestCase",
         "importPath": "django.test",
         "description": "django.test",
@@ -1276,7 +1284,16 @@
         "kind": 6,
         "importPath": "core.serializers",
         "description": "core.serializers",
-        "peekOfCode": "class UserCreateSerializer(BaseUserCreateSerializer):\n    class Meta(BaseUserCreateSerializer.Meta):\n        fields = ['id', 'username', 'password', 'email', 'first_name', 'last_name']",
+        "peekOfCode": "class UserCreateSerializer(BaseUserCreateSerializer):\n    class Meta(BaseUserCreateSerializer.Meta):\n        fields = ['id', 'username', 'password', 'email', 'first_name', 'last_name']\nclass UserSerializer(BaseUserSerializer):\n    class Meta(BaseUserSerializer.Meta):\n        fields = ['id', 'username', 'email', 'first_name', 'last_name']",
+        "detail": "core.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "UserSerializer",
+        "kind": 6,
+        "importPath": "core.serializers",
+        "description": "core.serializers",
+        "peekOfCode": "class UserSerializer(BaseUserSerializer):\n    class Meta(BaseUserSerializer.Meta):\n        fields = ['id', 'username', 'email', 'first_name', 'last_name']",
         "detail": "core.serializers",
         "documentation": {}
     },
@@ -1960,7 +1977,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "AUTH_USER_MODEL = 'core.user'\nDJOSER={\n    'SERIALIZERS':{\n        'user_create':'core.serializers.UserCreateSerializer'\n    }  \n}\nfrom datetime import timedelta\nSIMPLE_JWT = {\n    'AUTH_HEADER_TYPES': ('JWT',),#Specifying that JWT should be included in token as prefix\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days= 1)",
+        "peekOfCode": "AUTH_USER_MODEL = 'core.user'\nDJOSER={\n    'SERIALIZERS':{\n        'user_create':'core.serializers.UserCreateSerializer',\n        'current_user':'core.serializers.UserSerializer'\n    }  \n}\nfrom datetime import timedelta\nSIMPLE_JWT = {\n    'AUTH_HEADER_TYPES': ('JWT',),#Specifying that JWT should be included in token as prefix",
         "detail": "storefront.settings",
         "documentation": {}
     },
