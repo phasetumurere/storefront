@@ -1951,16 +1951,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "REST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,\n    # 'PAGE_SIZE':10,\n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', Set Pagination Globry \n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', #next pge gonna take to product and skip other 10 but we use the upone\n    'DEFAULT_AUTHENTICATION_CLASSES': (\n        'rest_framework_simplejwt.authentication.JWTAuthentication',\n        ), #Using Jason Web Authentication (JWA) as Authentication Engine\n}\nSIMPLE_JWT = {",
-        "detail": "storefront.settings",
-        "documentation": {}
-    },
-    {
-        "label": "SIMPLE_JWT",
-        "kind": 5,
-        "importPath": "storefront.settings",
-        "description": "storefront.settings",
-        "peekOfCode": "SIMPLE_JWT = {\n   'AUTH_HEADER_TYPES': ('JWT',),\n} #Specifying that JWT should be included in token as prefix\nAUTH_USER_MODEL = 'core.user'\nDJOSER={\n    'SERIALIZERS':{\n        'user_create':'core.serializers.UserCreateSerializer'\n    }  \n}\nfrom datetime import timedelta",
+        "peekOfCode": "REST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,\n    # 'PAGE_SIZE':10,\n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', Set Pagination Globry \n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', #next pge gonna take to product and skip other 10 but we use the upone\n    'DEFAULT_AUTHENTICATION_CLASSES': (\n        'rest_framework_simplejwt.authentication.JWTAuthentication',\n        ), #Using Jason Web Authentication (JWA) as Authentication Engine\n}\nAUTH_USER_MODEL = 'core.user'",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -1969,7 +1960,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "AUTH_USER_MODEL = 'core.user'\nDJOSER={\n    'SERIALIZERS':{\n        'user_create':'core.serializers.UserCreateSerializer'\n    }  \n}\nfrom datetime import timedelta\nSIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days= 1)\n}",
+        "peekOfCode": "AUTH_USER_MODEL = 'core.user'\nDJOSER={\n    'SERIALIZERS':{\n        'user_create':'core.serializers.UserCreateSerializer'\n    }  \n}\nfrom datetime import timedelta\nSIMPLE_JWT = {\n    'AUTH_HEADER_TYPES': ('JWT',),#Specifying that JWT should be included in token as prefix\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days= 1)",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -1978,7 +1969,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "SIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days= 1)\n}",
+        "peekOfCode": "SIMPLE_JWT = {\n    'AUTH_HEADER_TYPES': ('JWT',),#Specifying that JWT should be included in token as prefix\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days= 1)\n}",
         "detail": "storefront.settings",
         "documentation": {}
     },

@@ -152,9 +152,7 @@ REST_FRAMEWORK = {
         ), #Using Jason Web Authentication (JWA) as Authentication Engine
 }
 
-SIMPLE_JWT = {
-   'AUTH_HEADER_TYPES': ('JWT',),
-} #Specifying that JWT should be included in token as prefix
+
 
 AUTH_USER_MODEL = 'core.user'
 
@@ -166,5 +164,6 @@ DJOSER={
 
 from datetime import timedelta
 SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),#Specifying that JWT should be included in token as prefix
     "ACCESS_TOKEN_LIFETIME": timedelta(days= 1)
 }
