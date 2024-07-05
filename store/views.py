@@ -4,9 +4,11 @@ from django_filters.rest_framework import DjangoFilterBackend #Perform filters (
 
 
 from rest_framework import status
+from rest_framework.decorators import api_view, action 
 from rest_framework.filters import SearchFilter, OrderingFilter
 # from rest_framework.pagination import PageNumberPagination
-from rest_framework.decorators import api_view, action 
+
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.mixins import ListModelMixin, CreateModelMixin, RetrieveModelMixin, DestroyModelMixin, UpdateModelMixin #Create a re useable codes
 from rest_framework.response import Response
@@ -261,18 +263,27 @@ class CartItemsViewSet(ModelViewSet):
 class CustomerViewSet(CreateModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
+    # permission_classes = [IsAuthenticated]
     
-    @action(detail=False, methods= ['GET', 'PUT'])
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [AllowAny()]
+        else: return [IsAuthenticated()]
+    
+    @action(detail=False, methods= ['GET', 'PUT'])#,  permission_classes = [IsAuthenticated], 
     def me(self, request):
-        (customer, created) = Customer.objects.get_or_create(user_id=request.user.id)
-        if request.method == 'GET':            
-            serializer = CustomerSerializer(customer)
-            return Response(serializer.data)
-        elif request.method == 'PUT':
-            serializer = CustomerSerializer(customer, data=request.data)
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
-            return Response(serializer.data)
+        if request.user.is_authenticated:
+            (customer, created) = Customer.objects.get_or_create(user_id=request.user.id)
+            if request.method == 'GET':            
+                serializer = CustomerSerializer(customer)
+                return Response(serializer.data)
+            elif request.method == 'PUT':
+                serializer = CustomerSerializer(customer, data=request.data)
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+                return Response(serializer.data)
+        else: return Response(status=status.HTTP_401_UNAUTHORIZED)
+        # return Response(request.user.id)
     
     
     

@@ -150,8 +150,10 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         ), #Using Jason Web Authentication (JWA) as Authentication Engine
-}
+    
+    # 'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'] #All the endpoints requires to login
 
+}
 
 
 AUTH_USER_MODEL = 'core.user'
