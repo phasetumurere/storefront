@@ -1064,6 +1064,22 @@
         "documentation": {}
     },
     {
+        "label": "api_view",
+        "importPath": "rest_framework.decorators",
+        "description": "rest_framework.decorators",
+        "isExtraImport": true,
+        "detail": "rest_framework.decorators",
+        "documentation": {}
+    },
+    {
+        "label": "action",
+        "importPath": "rest_framework.decorators",
+        "description": "rest_framework.decorators",
+        "isExtraImport": true,
+        "detail": "rest_framework.decorators",
+        "documentation": {}
+    },
+    {
         "label": "SearchFilter",
         "importPath": "rest_framework.filters",
         "description": "rest_framework.filters",
@@ -1080,11 +1096,19 @@
         "documentation": {}
     },
     {
-        "label": "api_view",
-        "importPath": "rest_framework.decorators",
-        "description": "rest_framework.decorators",
+        "label": "IsAuthenticated",
+        "importPath": "rest_framework.permissions",
+        "description": "rest_framework.permissions",
         "isExtraImport": true,
-        "detail": "rest_framework.decorators",
+        "detail": "rest_framework.permissions",
+        "documentation": {}
+    },
+    {
+        "label": "AllowAny",
+        "importPath": "rest_framework.permissions",
+        "description": "rest_framework.permissions",
+        "isExtraImport": true,
+        "detail": "rest_framework.permissions",
         "documentation": {}
     },
     {
@@ -1680,7 +1704,7 @@
         "kind": 6,
         "importPath": "store.serializers",
         "description": "store.serializers",
-        "peekOfCode": "class UpdateCartItemSerializer(serializers.ModelSerializer):       \n    class Meta:\n        model = CartItem\n        fields = ['quantity']\nclass CustomerSerializer(serializers.ModelSerializer):  \n    user_id = serializers.IntegerField()  \n    class Meta:\n        model = Customer\n        fields = ['id', 'user_id', 'phone', 'membership', 'birth_date']\n    # def order_count(self, product: Product):",
+        "peekOfCode": "class UpdateCartItemSerializer(serializers.ModelSerializer):       \n    class Meta:\n        model = CartItem\n        fields = ['quantity']\nclass CustomerSerializer(serializers.ModelSerializer):  \n    user_id = serializers.IntegerField(read_only = True)  \n    class Meta:\n        model = Customer\n        fields = ['id', 'user_id', 'phone', 'membership', 'birth_date']\n    # def order_count(self, product: Product):",
         "detail": "store.serializers",
         "documentation": {}
     },
@@ -1689,7 +1713,7 @@
         "kind": 6,
         "importPath": "store.serializers",
         "description": "store.serializers",
-        "peekOfCode": "class CustomerSerializer(serializers.ModelSerializer):  \n    user_id = serializers.IntegerField()  \n    class Meta:\n        model = Customer\n        fields = ['id', 'user_id', 'phone', 'membership', 'birth_date']\n    # def order_count(self, product: Product):\n    #     return product.orderitem_set.count()\n    # def password_varidation(self, data):\n    #     if data['password']!= data['confirm_password']:\n    #         return serializers.ValidationError(\"Passwords not match\")",
+        "peekOfCode": "class CustomerSerializer(serializers.ModelSerializer):  \n    user_id = serializers.IntegerField(read_only = True)  \n    class Meta:\n        model = Customer\n        fields = ['id', 'user_id', 'phone', 'membership', 'birth_date']\n    # def order_count(self, product: Product):\n    #     return product.orderitem_set.count()\n    # def password_varidation(self, data):\n    #     if data['password']!= data['confirm_password']:\n    #         return serializers.ValidationError(\"Passwords not match\")",
         "detail": "store.serializers",
         "documentation": {}
     },
@@ -1779,7 +1803,7 @@
         "kind": 6,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "class CustomerViewSet(CreateModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):\n    queryset = Customer.objects.all()\n    serializer_class = CustomerSerializer\n# Collection Generic Views\n# class CollectionList(ListCreateAPIView):\n#     queryset = Collection.objects.all()\n#     serializer_class = CollectionSerializer\n#     def get_serializer_context(self):\n#         return {'request': self.request}\n##### Collection List Class & Function Based Views #####",
+        "peekOfCode": "class CustomerViewSet(CreateModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):\n    queryset = Customer.objects.all()\n    serializer_class = CustomerSerializer\n    # permission_classes = [IsAuthenticated]\n    def get_permissions(self):\n        if self.request.method == 'GET':\n            return [AllowAny()]\n        else: return [IsAuthenticated()]\n    @action(detail=False, methods= ['GET', 'PUT'])#,  permission_classes = [IsAuthenticated], \n    def me(self, request):",
         "detail": "store.views",
         "documentation": {}
     },
@@ -1959,7 +1983,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,\n    # 'PAGE_SIZE':10,\n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', Set Pagination Globry \n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', #next pge gonna take to product and skip other 10 but we use the upone\n    'DEFAULT_AUTHENTICATION_CLASSES': (\n        'rest_framework_simplejwt.authentication.JWTAuthentication',\n        ), #Using Jason Web Authentication (JWA) as Authentication Engine\n}",
+        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,\n    # 'PAGE_SIZE':10,\n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', Set Pagination Globry \n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', #next pge gonna take to product and skip other 10 but we use the upone\n    'DEFAULT_AUTHENTICATION_CLASSES': (\n        'rest_framework_simplejwt.authentication.JWTAuthentication',\n        ), #Using Jason Web Authentication (JWA) as Authentication Engine\n    # 'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'] #All the endpoints requires to login",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -1968,7 +1992,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "REST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,\n    # 'PAGE_SIZE':10,\n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', Set Pagination Globry \n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', #next pge gonna take to product and skip other 10 but we use the upone\n    'DEFAULT_AUTHENTICATION_CLASSES': (\n        'rest_framework_simplejwt.authentication.JWTAuthentication',\n        ), #Using Jason Web Authentication (JWA) as Authentication Engine\n}\nAUTH_USER_MODEL = 'core.user'",
+        "peekOfCode": "REST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,\n    # 'PAGE_SIZE':10,\n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', Set Pagination Globry \n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', #next pge gonna take to product and skip other 10 but we use the upone\n    'DEFAULT_AUTHENTICATION_CLASSES': (\n        'rest_framework_simplejwt.authentication.JWTAuthentication',\n        ), #Using Jason Web Authentication (JWA) as Authentication Engine\n    # 'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'] #All the endpoints requires to login\n}",
         "detail": "storefront.settings",
         "documentation": {}
     },

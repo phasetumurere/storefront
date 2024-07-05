@@ -1,3 +1,4 @@
+import django.contrib
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend #Perform filters (any field in any model)
@@ -21,6 +22,7 @@ from store.admin import OrderModelAdmin
 from .default_pagination import DefaultPagination
 from .filters import ProductFilter
 from .models import Cart, CartItem, Collection, OrderItem, Product, Review, Customer
+from .permissions import IsAdminOrReadOnly
 from .serializers import (AddCartItemSerializer, CartItemsSerializer, CartSerializer,
     CollectionSerializer, ProductSerializer, ReviewSerializer, UpdateCartItemSerializer, CustomerSerializer)
 
@@ -39,6 +41,7 @@ class ProductViewSet(ModelViewSet):
     ordering_fields = ['unit_price', 'last_update']
     # pagination_class = PageNumberPagination #Pagination Locally
     pagination_class = DefaultPagination
+    permission_classes = [IsAdminOrReadOnly]
     
 
     # def get_queryset(self):
@@ -195,6 +198,7 @@ class ProductViewSet(ModelViewSet):
 class CollectionViewset(ModelViewSet):
     queryset = Collection.objects.all()
     serializer_class = CollectionSerializer 
+    permission_classes = [IsAdminOrReadOnly]
        
     def get_serializer_context(self):
         return {'request': self.request}
@@ -260,17 +264,18 @@ class CartItemsViewSet(ModelViewSet):
    
 
 
-class CustomerViewSet(CreateModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):
+# class CustomerViewSet(CreateModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):
+class CustomerViewSet(ModelViewSet):        
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     
-    def get_permissions(self):
-        if self.request.method == 'GET':
-            return [AllowAny()]
-        else: return [IsAuthenticated()]
+    # def get_permissions(self):
+    #     if self.request.method == 'GET':
+    #         return [AllowAny()]
+    #     else: return [IsAuthenticated()]
     
-    @action(detail=False, methods= ['GET', 'PUT'])#,  permission_classes = [IsAuthenticated], 
+    @action(detail=False, methods= ['GET', 'PUT'], permission_classes = [IsAdminOrReadOnly])#,  permission_classes = [IsAuthenticated], 
     def me(self, request):
         if request.user.is_authenticated:
             (customer, created) = Customer.objects.get_or_create(user_id=request.user.id)
