@@ -9,7 +9,7 @@ from rest_framework.decorators import api_view, action
 from rest_framework.filters import SearchFilter, OrderingFilter
 # from rest_framework.pagination import PageNumberPagination
 
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated, AllowAny, DjangoModelPermissions
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.mixins import ListModelMixin, CreateModelMixin, RetrieveModelMixin, DestroyModelMixin, UpdateModelMixin #Create a re useable codes
 from rest_framework.response import Response
@@ -22,7 +22,7 @@ from store.admin import OrderModelAdmin
 from .default_pagination import DefaultPagination
 from .filters import ProductFilter
 from .models import Cart, CartItem, Collection, OrderItem, Product, Review, Customer
-from .permissions import IsAdminOrReadOnly
+from .permissions import IsAdminOrReadOnly, FullDjangoModelPermissions
 from .serializers import (AddCartItemSerializer, CartItemsSerializer, CartSerializer,
     CollectionSerializer, ProductSerializer, ReviewSerializer, UpdateCartItemSerializer, CustomerSerializer)
 
@@ -268,14 +268,15 @@ class CartItemsViewSet(ModelViewSet):
 class CustomerViewSet(ModelViewSet):        
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [FullDjangoModelPermissions]
     
     # def get_permissions(self):
     #     if self.request.method == 'GET':
     #         return [AllowAny()]
     #     else: return [IsAuthenticated()]
     
-    @action(detail=False, methods= ['GET', 'PUT'], permission_classes = [IsAdminOrReadOnly])#,  permission_classes = [IsAuthenticated], 
+    # @action(detail=False, methods= ['GET', 'PUT'], permission_classes = [IsAdminOrReadOnly])#, DjangoModelPermissions  permission_classes = [IsAuthenticated], 
+    @action(detail=False, methods= ['GET', 'PUT'], permission_classes = [IsAuthenticated])#, DjangoModelPermissions  permission_classes = [IsAuthenticated], 
     def me(self, request):
         if request.user.is_authenticated:
             (customer, created) = Customer.objects.get_or_create(user_id=request.user.id)

@@ -1129,6 +1129,14 @@
         "documentation": {}
     },
     {
+        "label": "DjangoModelPermissions",
+        "importPath": "rest_framework.permissions",
+        "description": "rest_framework.permissions",
+        "isExtraImport": true,
+        "detail": "rest_framework.permissions",
+        "documentation": {}
+    },
+    {
         "label": "ListCreateAPIView",
         "importPath": "rest_framework.generics",
         "description": "rest_framework.generics",
@@ -1658,7 +1666,16 @@
         "kind": 6,
         "importPath": "store.permissions",
         "description": "store.permissions",
-        "peekOfCode": "class IsAdminOrReadOnly(permissions.BasePermission):\n    def has_permission(self, request, view):\n        if request.method in permissions.SAFE_METHODS:\n            return True       \n        return bool(request.user and request.user.is_staff)",
+        "peekOfCode": "class IsAdminOrReadOnly(permissions.BasePermission):\n    def has_permission(self, request, view):\n        if request.method in permissions.SAFE_METHODS:\n            return True       \n        return bool(request.user and request.user.is_staff)\nclass FullDjangoModelPermissions(permissions.DjangoModelPermissions):\n    def __init__(self) -> None:\n        self.perms_map ={\n            'GET': ['%(app_label)s.view%(model_name)s']\n                       }",
+        "detail": "store.permissions",
+        "documentation": {}
+    },
+    {
+        "label": "FullDjangoModelPermissions",
+        "kind": 6,
+        "importPath": "store.permissions",
+        "description": "store.permissions",
+        "peekOfCode": "class FullDjangoModelPermissions(permissions.DjangoModelPermissions):\n    def __init__(self) -> None:\n        self.perms_map ={\n            'GET': ['%(app_label)s.view%(model_name)s']\n                       }",
         "detail": "store.permissions",
         "documentation": {}
     },
@@ -1829,7 +1846,7 @@
         "kind": 6,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "class CustomerViewSet(ModelViewSet):        \n    queryset = Customer.objects.all()\n    serializer_class = CustomerSerializer\n    permission_classes = [IsAuthenticated]\n    # def get_permissions(self):\n    #     if self.request.method == 'GET':\n    #         return [AllowAny()]\n    #     else: return [IsAuthenticated()]\n    @action(detail=False, methods= ['GET', 'PUT'], permission_classes = [IsAdminOrReadOnly])#,  permission_classes = [IsAuthenticated], \n    def me(self, request):",
+        "peekOfCode": "class CustomerViewSet(ModelViewSet):        \n    queryset = Customer.objects.all()\n    serializer_class = CustomerSerializer\n    permission_classes = [FullDjangoModelPermissions]\n    # def get_permissions(self):\n    #     if self.request.method == 'GET':\n    #         return [AllowAny()]\n    #     else: return [IsAuthenticated()]\n    # @action(detail=False, methods= ['GET', 'PUT'], permission_classes = [IsAdminOrReadOnly])#, DjangoModelPermissions  permission_classes = [IsAuthenticated], \n    @action(detail=False, methods= ['GET', 'PUT'], permission_classes = [IsAuthenticated])#, DjangoModelPermissions  permission_classes = [IsAuthenticated], ",
         "detail": "store.views",
         "documentation": {}
     },
