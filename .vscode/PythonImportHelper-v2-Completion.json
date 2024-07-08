@@ -292,6 +292,15 @@
         "documentation": {}
     },
     {
+        "label": "django.contrib",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
         "label": "admin",
         "importPath": "django.contrib",
         "description": "django.contrib",
@@ -1000,6 +1009,14 @@
         "documentation": {}
     },
     {
+        "label": "permissions",
+        "importPath": "rest_framework",
+        "description": "rest_framework",
+        "isExtraImport": true,
+        "detail": "rest_framework",
+        "documentation": {}
+    },
+    {
         "label": "serializers",
         "importPath": "rest_framework",
         "description": "rest_framework",
@@ -1637,6 +1654,15 @@
         "documentation": {}
     },
     {
+        "label": "IsAdminOrReadOnly",
+        "kind": 6,
+        "importPath": "store.permissions",
+        "description": "store.permissions",
+        "peekOfCode": "class IsAdminOrReadOnly(permissions.BasePermission):\n    def has_permission(self, request, view):\n        if request.method in permissions.SAFE_METHODS:\n            return True       \n        return bool(request.user and request.user.is_staff)",
+        "detail": "store.permissions",
+        "documentation": {}
+    },
+    {
         "label": "CollectionSerializer",
         "kind": 6,
         "importPath": "store.serializers",
@@ -1767,7 +1793,7 @@
         "kind": 6,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "class CollectionViewset(ModelViewSet):\n    queryset = Collection.objects.all()\n    serializer_class = CollectionSerializer \n    def get_serializer_context(self):\n        return {'request': self.request}\n    def destroy(self, request, *args, **kwargs):\n        if Product.objects.filter(category_id = kwargs['pk']).count() > 0:\n            return Response({'error':'This Collection can not be deleted because it has associated products'}, \n                            status= status.HTTP_400_BAD_REQUEST)\n        return super().destroy(request, *args, **kwargs)",
+        "peekOfCode": "class CollectionViewset(ModelViewSet):\n    queryset = Collection.objects.all()\n    serializer_class = CollectionSerializer \n    permission_classes = [IsAdminOrReadOnly]\n    def get_serializer_context(self):\n        return {'request': self.request}\n    def destroy(self, request, *args, **kwargs):\n        if Product.objects.filter(category_id = kwargs['pk']).count() > 0:\n            return Response({'error':'This Collection can not be deleted because it has associated products'}, \n                            status= status.HTTP_400_BAD_REQUEST)",
         "detail": "store.views",
         "documentation": {}
     },
@@ -1803,7 +1829,7 @@
         "kind": 6,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "class CustomerViewSet(CreateModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):\n    queryset = Customer.objects.all()\n    serializer_class = CustomerSerializer\n    # permission_classes = [IsAuthenticated]\n    def get_permissions(self):\n        if self.request.method == 'GET':\n            return [AllowAny()]\n        else: return [IsAuthenticated()]\n    @action(detail=False, methods= ['GET', 'PUT'])#,  permission_classes = [IsAuthenticated], \n    def me(self, request):",
+        "peekOfCode": "class CustomerViewSet(ModelViewSet):        \n    queryset = Customer.objects.all()\n    serializer_class = CustomerSerializer\n    permission_classes = [IsAuthenticated]\n    # def get_permissions(self):\n    #     if self.request.method == 'GET':\n    #         return [AllowAny()]\n    #     else: return [IsAuthenticated()]\n    @action(detail=False, methods= ['GET', 'PUT'], permission_classes = [IsAdminOrReadOnly])#,  permission_classes = [IsAuthenticated], \n    def me(self, request):",
         "detail": "store.views",
         "documentation": {}
     },
