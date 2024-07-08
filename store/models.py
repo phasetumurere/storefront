@@ -4,6 +4,7 @@ from django.core.validators import MinValueValidator
 from django.conf import settings
 from django.contrib import admin
 
+import rest_framework
 from uuid import uuid4
 from core.models import User
 from storefront.settings import AUTH_USER_MODEL
@@ -83,6 +84,7 @@ class Customer(models.Model):
     
     class Meta:
         ordering = ['user__first_name','user__last_name']
+        permissions = [('view_history', 'Can View History')]
     
     
 class Order(models.Model):

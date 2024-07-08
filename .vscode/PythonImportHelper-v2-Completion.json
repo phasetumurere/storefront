@@ -260,6 +260,14 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -1001,11 +1009,12 @@
         "documentation": {}
     },
     {
-        "label": "User",
-        "importPath": "core.models",
-        "description": "core.models",
+        "label": "rest_framework",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "core.models",
+        "importPath": "rest_framework",
+        "description": "rest_framework",
+        "detail": "rest_framework",
         "documentation": {}
     },
     {
@@ -1030,6 +1039,14 @@
         "description": "rest_framework",
         "isExtraImport": true,
         "detail": "rest_framework",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "core.models",
+        "description": "core.models",
+        "isExtraImport": true,
+        "detail": "core.models",
         "documentation": {}
     },
     {
@@ -1488,6 +1505,15 @@
         "description": "store.migrations.0010_alter_order_options",
         "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('store', '0009_alter_customer_options_remove_customer_email_and_more'),\n    ]\n    operations = [\n        migrations.AlterModelOptions(\n            name='order',\n            options={'permissions': [('cancel_order', 'Can Cancel the order')]},\n        ),\n    ]",
         "detail": "store.migrations.0010_alter_order_options",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "store.migrations.0011_alter_customer_options",
+        "description": "store.migrations.0011_alter_customer_options",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('store', '0010_alter_order_options'),\n    ]\n    operations = [\n        migrations.AlterModelOptions(\n            name='customer',\n            options={'ordering': ['user__first_name', 'user__last_name'], 'permissions': [('view_history', 'Can View History')]},\n        ),\n    ]",
+        "detail": "store.migrations.0011_alter_customer_options",
         "documentation": {}
     },
     {
