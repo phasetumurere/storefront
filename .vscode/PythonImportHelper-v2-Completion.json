@@ -1137,19 +1137,19 @@
         "documentation": {}
     },
     {
-        "label": "ListCreateAPIView",
-        "importPath": "rest_framework.generics",
-        "description": "rest_framework.generics",
+        "label": "IsAdminUser",
+        "importPath": "rest_framework.permissions",
+        "description": "rest_framework.permissions",
         "isExtraImport": true,
-        "detail": "rest_framework.generics",
+        "detail": "rest_framework.permissions",
         "documentation": {}
     },
     {
-        "label": "RetrieveUpdateDestroyAPIView",
-        "importPath": "rest_framework.generics",
-        "description": "rest_framework.generics",
+        "label": "DjangoModelPermissionsOrAnonReadOnly",
+        "importPath": "rest_framework.permissions",
+        "description": "rest_framework.permissions",
         "isExtraImport": true,
-        "detail": "rest_framework.generics",
+        "detail": "rest_framework.permissions",
         "documentation": {}
     },
     {
@@ -1846,7 +1846,7 @@
         "kind": 6,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "class CustomerViewSet(ModelViewSet):        \n    queryset = Customer.objects.all()\n    serializer_class = CustomerSerializer\n    permission_classes = [FullDjangoModelPermissions]\n    # def get_permissions(self):\n    #     if self.request.method == 'GET':\n    #         return [AllowAny()]\n    #     else: return [IsAuthenticated()]\n    # @action(detail=False, methods= ['GET', 'PUT'], permission_classes = [IsAdminOrReadOnly])#, DjangoModelPermissions  permission_classes = [IsAuthenticated], \n    @action(detail=False, methods= ['GET', 'PUT'], permission_classes = [IsAuthenticated])#, DjangoModelPermissions  permission_classes = [IsAuthenticated], ",
+        "peekOfCode": "class CustomerViewSet(ModelViewSet):        \n    queryset = Customer.objects.all()\n    serializer_class = CustomerSerializer\n    permission_classes = [IsAdminUser]\n    # permission_classes = [FullDjangoModelPermissions]\n    # def get_permissions(self):\n    #     if self.request.method == 'GET':\n    #         return [AllowAny()]\n    #     else: return [IsAuthenticated()]\n    # @action(detail=False, methods= ['GET', 'PUT'], permission_classes = [IsAdminOrReadOnly])#, DjangoModelPermissions  permission_classes = [IsAuthenticated], ",
         "detail": "store.views",
         "documentation": {}
     },
