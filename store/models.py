@@ -35,7 +35,7 @@ class Product(models.Model):
     unit_price = models.DecimalField(max_digits=6, decimal_places=2, validators=[MinValueValidator(1)])
     inventory = models.IntegerField(validators=[MinValueValidator(2)])
     last_update = models.DateTimeField(auto_now = True)
-    category = models.ForeignKey(Collection, on_delete=models.PROTECT) 
+    category = models.ForeignKey(Collection, on_delete=models.PROTECT, related_name='collection_id') 
     # Models. protct, if we accidentally delete collection we don't hae to delete all the products in that category
     promotions = models.ManyToManyField(Promotion, blank=True)
 
@@ -111,7 +111,7 @@ class Order(models.Model):
     
     
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete= models.PROTECT)
+    order = models.ForeignKey(Order, on_delete= models.PROTECT, related_name='items')
     product = models.ForeignKey(Product, on_delete= models.PROTECT)
     quantity = models.PositiveSmallIntegerField()
     unit_price = models.DecimalField(max_digits=4, decimal_places=2)

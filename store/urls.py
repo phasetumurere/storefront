@@ -13,6 +13,7 @@ router.register('products', views.ProductViewSet, basename='products')
 router.register('collections', views.CollectionViewset)
 router.register('carts', views.CartViewSet, basename='carts')
 router.register('customers', views.CustomerViewSet)
+router.register('orders', views.OrderViewSet)
 
 #chird router 
 product_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')
@@ -24,7 +25,7 @@ carts_router.register('items', views.CartItemsViewSet, basename='cart-items')
 # pprint(router.urls)
 urlpatterns = [
      path('', include(router.urls+product_router.urls+carts_router.urls)),
-     path('orders/', views.orders) ,
+     
      # path('', include(router.urls+carts_router.urls))
 ]
 # urlpatterns = [

@@ -1,7 +1,7 @@
 import django.db
 import django.db.models
 from rest_framework import serializers
-from .models import Cart, Collection, Product, Review, CartItem, Customer
+from .models import Cart, Collection, Product, Review, CartItem, Customer, Order, OrderItem
 from decimal import Decimal
 
 # class CollectionSerializer(serializers.Serializer):
@@ -131,6 +131,19 @@ class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = ['id', 'user_id', 'phone', 'membership', 'birth_date']
+
+class OderItemsSerializer(serializers.ModelSerializer):
+    product = SimpleProductSerializer()
+    class Meta:
+        model = OrderItem
+        fields = ['id', 'product', 'unit_price', 'quantity']        
+
+class OrderSerializer(serializers.ModelSerializer):
+    items = OderItemsSerializer(many=True)
+    class Meta:
+        model = Order
+        fields =['id', 'customer', 'placed_at', 'payment_status', 'items']
+        
         
         
     

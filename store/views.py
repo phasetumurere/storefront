@@ -20,10 +20,11 @@ from storefront.settings import REST_FRAMEWORK
 from store.admin import OrderModelAdmin
 from .default_pagination import DefaultPagination
 from .filters import ProductFilter
-from .models import Cart, CartItem, Collection, OrderItem, Product, Review, Customer
+from .models import Cart, CartItem, Collection, OrderItem, Product, Review, Customer, Order
 from .permissions import IsAdminOrReadOnly, FullDjangoModelPermissions, ViewCustomerHistoryPermission
 from .serializers import (AddCartItemSerializer, CartItemsSerializer, CartSerializer,
-    CollectionSerializer, ProductSerializer, ReviewSerializer, UpdateCartItemSerializer, CustomerSerializer)
+    CollectionSerializer, CustomerSerializer, OrderSerializer, ProductSerializer, ReviewSerializer,
+    UpdateCartItemSerializer)
 
 
 # Product View set
@@ -293,6 +294,12 @@ class CustomerViewSet(ModelViewSet):
                 return Response(serializer.data)
         else: return Response(status=status.HTTP_401_UNAUTHORIZED)
         # return Response(request.user.id)
+    
+
+class OrderViewSet(ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticated]
     
     
     

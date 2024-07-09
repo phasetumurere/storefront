@@ -268,6 +268,38 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -1517,6 +1549,24 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "store.migrations.0012_alter_orderitem_order",
+        "description": "store.migrations.0012_alter_orderitem_order",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('store', '0011_alter_customer_options'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='orderitem',\n            name='order',\n            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='items', to='store.order'),\n        ),",
+        "detail": "store.migrations.0012_alter_orderitem_order",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "store.migrations.0013_alter_product_category",
+        "description": "store.migrations.0013_alter_product_category",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('store', '0012_alter_orderitem_order'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='product',\n            name='category',\n            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='collection_id', to='store.collection'),\n        ),",
+        "detail": "store.migrations.0013_alter_product_category",
+        "documentation": {}
+    },
+    {
         "label": "CollectionAdminModel",
         "kind": 6,
         "importPath": "store.admin",
@@ -1620,7 +1670,7 @@
         "kind": 6,
         "importPath": "store.models",
         "description": "store.models",
-        "peekOfCode": "class Product(models.Model):\n    title = models.CharField(max_length=255)\n    slug = models.SlugField()\n    description = models.TextField(null = True, blank=True)\n    unit_price = models.DecimalField(max_digits=6, decimal_places=2, validators=[MinValueValidator(1)])\n    inventory = models.IntegerField(validators=[MinValueValidator(2)])\n    last_update = models.DateTimeField(auto_now = True)\n    category = models.ForeignKey(Collection, on_delete=models.PROTECT) \n    # Models. protct, if we accidentally delete collection we don't hae to delete all the products in that category\n    promotions = models.ManyToManyField(Promotion, blank=True)",
+        "peekOfCode": "class Product(models.Model):\n    title = models.CharField(max_length=255)\n    slug = models.SlugField()\n    description = models.TextField(null = True, blank=True)\n    unit_price = models.DecimalField(max_digits=6, decimal_places=2, validators=[MinValueValidator(1)])\n    inventory = models.IntegerField(validators=[MinValueValidator(2)])\n    last_update = models.DateTimeField(auto_now = True)\n    category = models.ForeignKey(Collection, on_delete=models.PROTECT, related_name='collection_id') \n    # Models. protct, if we accidentally delete collection we don't hae to delete all the products in that category\n    promotions = models.ManyToManyField(Promotion, blank=True)",
         "detail": "store.models",
         "documentation": {}
     },
@@ -1647,7 +1697,7 @@
         "kind": 6,
         "importPath": "store.models",
         "description": "store.models",
-        "peekOfCode": "class OrderItem(models.Model):\n    order = models.ForeignKey(Order, on_delete= models.PROTECT)\n    product = models.ForeignKey(Product, on_delete= models.PROTECT)\n    quantity = models.PositiveSmallIntegerField()\n    unit_price = models.DecimalField(max_digits=4, decimal_places=2)\n    #One to One relationship between Customer and Address\nclass Address(models.Model):\n    city = models.CharField(max_length= 255)\n    street = models.CharField(max_length= 255)\n    customer = models.OneToOneField(Customer, ",
+        "peekOfCode": "class OrderItem(models.Model):\n    order = models.ForeignKey(Order, on_delete= models.PROTECT, related_name='items')\n    product = models.ForeignKey(Product, on_delete= models.PROTECT)\n    quantity = models.PositiveSmallIntegerField()\n    unit_price = models.DecimalField(max_digits=4, decimal_places=2)\n    #One to One relationship between Customer and Address\nclass Address(models.Model):\n    city = models.CharField(max_length= 255)\n    street = models.CharField(max_length= 255)\n    customer = models.OneToOneField(Customer, ",
         "detail": "store.models",
         "documentation": {}
     },
@@ -1782,7 +1832,7 @@
         "kind": 6,
         "importPath": "store.serializers",
         "description": "store.serializers",
-        "peekOfCode": "class UpdateCartItemSerializer(serializers.ModelSerializer):       \n    class Meta:\n        model = CartItem\n        fields = ['quantity']\nclass CustomerSerializer(serializers.ModelSerializer):  \n    user_id = serializers.IntegerField(read_only = True)  \n    class Meta:\n        model = Customer\n        fields = ['id', 'user_id', 'phone', 'membership', 'birth_date']\n    # def order_count(self, product: Product):",
+        "peekOfCode": "class UpdateCartItemSerializer(serializers.ModelSerializer):       \n    class Meta:\n        model = CartItem\n        fields = ['quantity']\nclass CustomerSerializer(serializers.ModelSerializer):  \n    user_id = serializers.IntegerField(read_only = True)  \n    class Meta:\n        model = Customer\n        fields = ['id', 'user_id', 'phone', 'membership', 'birth_date']\nclass OderItemsSerializer(serializers.ModelSerializer):",
         "detail": "store.serializers",
         "documentation": {}
     },
@@ -1791,7 +1841,25 @@
         "kind": 6,
         "importPath": "store.serializers",
         "description": "store.serializers",
-        "peekOfCode": "class CustomerSerializer(serializers.ModelSerializer):  \n    user_id = serializers.IntegerField(read_only = True)  \n    class Meta:\n        model = Customer\n        fields = ['id', 'user_id', 'phone', 'membership', 'birth_date']\n    # def order_count(self, product: Product):\n    #     return product.orderitem_set.count()\n    # def password_varidation(self, data):\n    #     if data['password']!= data['confirm_password']:\n    #         return serializers.ValidationError(\"Passwords not match\")",
+        "peekOfCode": "class CustomerSerializer(serializers.ModelSerializer):  \n    user_id = serializers.IntegerField(read_only = True)  \n    class Meta:\n        model = Customer\n        fields = ['id', 'user_id', 'phone', 'membership', 'birth_date']\nclass OderItemsSerializer(serializers.ModelSerializer):\n    product = SimpleProductSerializer()\n    class Meta:\n        model = OrderItem\n        fields = ['id', 'product', 'unit_price', 'quantity']        ",
+        "detail": "store.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "OderItemsSerializer",
+        "kind": 6,
+        "importPath": "store.serializers",
+        "description": "store.serializers",
+        "peekOfCode": "class OderItemsSerializer(serializers.ModelSerializer):\n    product = SimpleProductSerializer()\n    class Meta:\n        model = OrderItem\n        fields = ['id', 'product', 'unit_price', 'quantity']        \nclass OrderSerializer(serializers.ModelSerializer):\n    items = OderItemsSerializer(many=True)\n    class Meta:\n        model = Order\n        fields =['id', 'customer', 'placed_at', 'payment_status', 'items']",
+        "detail": "store.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "OrderSerializer",
+        "kind": 6,
+        "importPath": "store.serializers",
+        "description": "store.serializers",
+        "peekOfCode": "class OrderSerializer(serializers.ModelSerializer):\n    items = OderItemsSerializer(many=True)\n    class Meta:\n        model = Order\n        fields =['id', 'customer', 'placed_at', 'payment_status', 'items']\n    # def order_count(self, product: Product):\n    #     return product.orderitem_set.count()\n    # def password_varidation(self, data):\n    #     if data['password']!= data['confirm_password']:\n    #         return serializers.ValidationError(\"Passwords not match\")",
         "detail": "store.serializers",
         "documentation": {}
     },
@@ -1800,7 +1868,7 @@
         "kind": 5,
         "importPath": "store.urls",
         "description": "store.urls",
-        "peekOfCode": "router = routers.DefaultRouter() # By using this Defaut \nrouter.register('products', views.ProductViewSet, basename='products')\nrouter.register('collections', views.CollectionViewset)\nrouter.register('carts', views.CartViewSet, basename='carts')\nrouter.register('customers', views.CustomerViewSet)\n#chird router \nproduct_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')\n#By setting loopup to product means that we gonna have product_pk\nproduct_router.register('review', views.ReviewViewSet, basename='product_review')\ncarts_router = routers.NestedDefaultRouter(router, 'carts', lookup = 'cart') #with this we gona have cart_pk in our CartItemsViewSet",
+        "peekOfCode": "router = routers.DefaultRouter() # By using this Defaut \nrouter.register('products', views.ProductViewSet, basename='products')\nrouter.register('collections', views.CollectionViewset)\nrouter.register('carts', views.CartViewSet, basename='carts')\nrouter.register('customers', views.CustomerViewSet)\nrouter.register('orders', views.OrderViewSet)\n#chird router \nproduct_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')\n#By setting loopup to product means that we gonna have product_pk\nproduct_router.register('review', views.ReviewViewSet, basename='product_review')",
         "detail": "store.urls",
         "documentation": {}
     },
@@ -1809,7 +1877,7 @@
         "kind": 5,
         "importPath": "store.urls",
         "description": "store.urls",
-        "peekOfCode": "product_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')\n#By setting loopup to product means that we gonna have product_pk\nproduct_router.register('review', views.ReviewViewSet, basename='product_review')\ncarts_router = routers.NestedDefaultRouter(router, 'carts', lookup = 'cart') #with this we gona have cart_pk in our CartItemsViewSet\ncarts_router.register('items', views.CartItemsViewSet, basename='cart-items')\n# pprint(router.urls)\nurlpatterns = [\n     path('', include(router.urls+product_router.urls+carts_router.urls)),\n     path('orders/', views.orders) ,\n     # path('', include(router.urls+carts_router.urls))",
+        "peekOfCode": "product_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')\n#By setting loopup to product means that we gonna have product_pk\nproduct_router.register('review', views.ReviewViewSet, basename='product_review')\ncarts_router = routers.NestedDefaultRouter(router, 'carts', lookup = 'cart') #with this we gona have cart_pk in our CartItemsViewSet\ncarts_router.register('items', views.CartItemsViewSet, basename='cart-items')\n# pprint(router.urls)\nurlpatterns = [\n     path('', include(router.urls+product_router.urls+carts_router.urls)),\n     # path('', include(router.urls+carts_router.urls))\n]",
         "detail": "store.urls",
         "documentation": {}
     },
@@ -1818,7 +1886,7 @@
         "kind": 5,
         "importPath": "store.urls",
         "description": "store.urls",
-        "peekOfCode": "carts_router = routers.NestedDefaultRouter(router, 'carts', lookup = 'cart') #with this we gona have cart_pk in our CartItemsViewSet\ncarts_router.register('items', views.CartItemsViewSet, basename='cart-items')\n# pprint(router.urls)\nurlpatterns = [\n     path('', include(router.urls+product_router.urls+carts_router.urls)),\n     path('orders/', views.orders) ,\n     # path('', include(router.urls+carts_router.urls))\n]\n# urlpatterns = [\n#     path('', include(router.urls)),",
+        "peekOfCode": "carts_router = routers.NestedDefaultRouter(router, 'carts', lookup = 'cart') #with this we gona have cart_pk in our CartItemsViewSet\ncarts_router.register('items', views.CartItemsViewSet, basename='cart-items')\n# pprint(router.urls)\nurlpatterns = [\n     path('', include(router.urls+product_router.urls+carts_router.urls)),\n     # path('', include(router.urls+carts_router.urls))\n]\n# urlpatterns = [\n#     path('', include(router.urls)),\n#     # path('products/', views.ProductList.as_view()),",
         "detail": "store.urls",
         "documentation": {}
     },
@@ -1827,7 +1895,7 @@
         "kind": 5,
         "importPath": "store.urls",
         "description": "store.urls",
-        "peekOfCode": "urlpatterns = [\n     path('', include(router.urls+product_router.urls+carts_router.urls)),\n     path('orders/', views.orders) ,\n     # path('', include(router.urls+carts_router.urls))\n]\n# urlpatterns = [\n#     path('', include(router.urls)),\n#     # path('products/', views.ProductList.as_view()),\n#     path('orders/', views.orders)\n#     # path('products/<int:pk>', views.ProductDetails.as_view()),",
+        "peekOfCode": "urlpatterns = [\n     path('', include(router.urls+product_router.urls+carts_router.urls)),\n     # path('', include(router.urls+carts_router.urls))\n]\n# urlpatterns = [\n#     path('', include(router.urls)),\n#     # path('products/', views.ProductList.as_view()),\n#     path('orders/', views.orders)\n#     # path('products/<int:pk>', views.ProductDetails.as_view()),\n#     # path('collections/', views.CollectionList.as_view()),",
         "detail": "store.urls",
         "documentation": {}
     },
@@ -1882,6 +1950,15 @@
         "importPath": "store.views",
         "description": "store.views",
         "peekOfCode": "class CustomerViewSet(ModelViewSet):        \n    queryset = Customer.objects.all()\n    serializer_class = CustomerSerializer\n    permission_classes = [FullDjangoModelPermissions]\n    # permission_classes = [FullDjangoModelPermissions]\n    # def get_permissions(self):\n    #     if self.request.method == 'GET':\n    #         return [AllowAny()]\n    #     else: return [IsAuthenticated()]\n    @action(detail=True, permission_classes = [ViewCustomerHistoryPermission])",
+        "detail": "store.views",
+        "documentation": {}
+    },
+    {
+        "label": "OrderViewSet",
+        "kind": 6,
+        "importPath": "store.views",
+        "description": "store.views",
+        "peekOfCode": "class OrderViewSet(ModelViewSet):\n    queryset = Order.objects.all()\n    serializer_class = OrderSerializer\n    permission_classes = [IsAuthenticated]\n# Collection Generic Views\n# class CollectionList(ListCreateAPIView):\n#     queryset = Collection.objects.all()\n#     serializer_class = CollectionSerializer\n#     def get_serializer_context(self):\n#         return {'request': self.request}",
         "detail": "store.views",
         "documentation": {}
     },
