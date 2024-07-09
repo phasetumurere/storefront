@@ -1958,7 +1958,7 @@
         "kind": 6,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "class OrderViewSet(ModelViewSet):\n    # queryset = Order.objects.all()\n    serializer_class = OrderSerializer\n    permission_classes = [IsAuthenticated]\n    def get_queryset(self):\n        user = self.request.user\n        if user.is_staff: \n            return Order.objects.all()\n        else:\n            (customer_id, created) = Customer.objects.only('id').get_or_create(user_id = user.id)",
+        "peekOfCode": "class OrderViewSet(ModelViewSet):\n    # queryset = Order.objects.all()\n    serializer_class = OrderSerializer\n    permission_classes = [IsAuthenticated]\n    def get_queryset(self):\n        user = self.request.user\n        if user.is_staff: \n            return Order.objects.all()\n        else:\n            (customer_id, created) = Customer.objects.only('id').get_or_create(user_id = user.id) #Somehow an Issue because we will end up with creating some other records in DB yet the function was for reading the data",
         "detail": "store.views",
         "documentation": {}
     },

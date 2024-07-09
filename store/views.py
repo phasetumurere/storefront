@@ -306,7 +306,7 @@ class OrderViewSet(ModelViewSet):
         if user.is_staff: 
             return Order.objects.all()
         else:
-            (customer_id, created) = Customer.objects.only('id').get_or_create(user_id = user.id)
+            (customer_id, created) = Customer.objects.only('id').get_or_create(user_id = user.id) #Somehow an Issue because we will end up with creating some other records in DB yet the function was for reading the data
             return Order.objects.filter(customer_id = customer_id)
     
     
