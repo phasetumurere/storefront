@@ -13,7 +13,7 @@ router.register('products', views.ProductViewSet, basename='products')
 router.register('collections', views.CollectionViewset)
 router.register('carts', views.CartViewSet, basename='carts')
 router.register('customers', views.CustomerViewSet)
-router.register('orders', views.OrderViewSet)
+router.register('orders', views.OrderViewSet, basename= 'orders')
 
 #chird router 
 product_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')

@@ -1868,7 +1868,7 @@
         "kind": 5,
         "importPath": "store.urls",
         "description": "store.urls",
-        "peekOfCode": "router = routers.DefaultRouter() # By using this Defaut \nrouter.register('products', views.ProductViewSet, basename='products')\nrouter.register('collections', views.CollectionViewset)\nrouter.register('carts', views.CartViewSet, basename='carts')\nrouter.register('customers', views.CustomerViewSet)\nrouter.register('orders', views.OrderViewSet)\n#chird router \nproduct_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')\n#By setting loopup to product means that we gonna have product_pk\nproduct_router.register('review', views.ReviewViewSet, basename='product_review')",
+        "peekOfCode": "router = routers.DefaultRouter() # By using this Defaut \nrouter.register('products', views.ProductViewSet, basename='products')\nrouter.register('collections', views.CollectionViewset)\nrouter.register('carts', views.CartViewSet, basename='carts')\nrouter.register('customers', views.CustomerViewSet)\nrouter.register('orders', views.OrderViewSet, basename= 'orders')\n#chird router \nproduct_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')\n#By setting loopup to product means that we gonna have product_pk\nproduct_router.register('review', views.ReviewViewSet, basename='product_review')",
         "detail": "store.urls",
         "documentation": {}
     },
@@ -1958,7 +1958,7 @@
         "kind": 6,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "class OrderViewSet(ModelViewSet):\n    queryset = Order.objects.all()\n    serializer_class = OrderSerializer\n    permission_classes = [IsAuthenticated]\n# Collection Generic Views\n# class CollectionList(ListCreateAPIView):\n#     queryset = Collection.objects.all()\n#     serializer_class = CollectionSerializer\n#     def get_serializer_context(self):\n#         return {'request': self.request}",
+        "peekOfCode": "class OrderViewSet(ModelViewSet):\n    # queryset = Order.objects.all()\n    serializer_class = OrderSerializer\n    permission_classes = [IsAuthenticated]\n    def get_queryset(self):\n        user = self.request.user\n        if user.is_staff: \n            return Order.objects.all()\n        else:\n            (customer_id, created) = Customer.objects.only('id').get_or_create(user_id = user.id)",
         "detail": "store.views",
         "documentation": {}
     },
