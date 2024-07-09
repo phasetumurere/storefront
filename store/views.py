@@ -301,6 +301,7 @@ class OrderViewSet(ModelViewSet):
     # serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
     
+    
     def get_queryset(self):
         user = self.request.user
         if user.is_staff: 
@@ -309,8 +310,17 @@ class OrderViewSet(ModelViewSet):
             (customer_id, created) = Customer.objects.only('id').get_or_create(user_id = user.id) #Somehow an Issue because we will end up with creating some other records in DB yet the function was for reading the data
             return Order.objects.filter(customer_id = customer_id)
     
-    def get_serializer_context(self):
-        return {'user_id': self.request.user.id}
+    # def get_serializer_context(self):
+    #     return {'user_id': self.request.user.id}
+       
+    def create(self, request, *args, **kwargs):
+        serializer = SaveOrderSerializer(data=request.data, 
+                                     context = {'user_id': self.request.user.id})
+        serializer.is_valid(raise_exception=True)
+        order = serializer.save() 
+        serializer = OrderSerializer(order)
+        return Response(serializer.data)
+    
     
     def get_serializer_class(self):
         if self.request.method == 'POST':

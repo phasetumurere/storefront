@@ -98,8 +98,7 @@ class AddCartItemSerializer(serializers.ModelSerializer):
         
     class Meta:
         model = CartItem
-        fields = ['id', 'product_id', 'quantity']
-        
+
     def validate_product_id(self, Value):
         if not Product.objects.filter(pk =Value).exists():
             raise serializers.ValidationError(f"No Product with id {Value} found")
@@ -150,6 +149,15 @@ class OrderSerializer(serializers.ModelSerializer):
 class SaveOrderSerializer(serializers.Serializer):
     cart_id = serializers.UUIDField()
     
+    def validate_cart_id(self, cart_id):
+        
+        if CartItem.objects.filter(cart_id=cart_id).count() == 0:
+            raise serializers.ValidationError('Shopping cart is Emplty')
+        if not Cart.objects.filter(pk = cart_id).exists():
+            raise serializers.ValidationError('No Cart with this ID ')
+        
+        return cart_id
+    
     with transaction.atomic():
         
         def save(self, **kwargs):
@@ -171,6 +179,7 @@ class SaveOrderSerializer(serializers.Serializer):
             ]
             OrderItem.objects.bulk_create(order_items)
             Cart.objects.filter(pk = cart_id).delete()
+            return order
         
             
     
