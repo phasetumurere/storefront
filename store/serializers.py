@@ -149,7 +149,8 @@ class OrderSerializer(serializers.ModelSerializer):
         
 class SaveOrderSerializer(serializers.Serializer):
     cart_id = serializers.UUIDField()
-    with transaction():
+    
+    with transaction.atomic():
         
         def save(self, **kwargs):
             # print(self.validated_data['cart_id'])
