@@ -148,7 +148,7 @@ class OrderSerializer(serializers.ModelSerializer):
         fields =['id', 'customer', 'placed_at', 'payment_status', 'items']
         
         
-class SaveOrderSerializer(serializers.Serializer):
+class CreateOrderSerializer(serializers.Serializer):
     cart_id = serializers.UUIDField()
     
     def validate_cart_id(self, cart_id):

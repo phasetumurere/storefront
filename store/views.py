@@ -24,7 +24,7 @@ from .models import Cart, CartItem, Collection, OrderItem, Product, Review, Cust
 from .permissions import IsAdminOrReadOnly, FullDjangoModelPermissions, ViewCustomerHistoryPermission
 from .serializers import (AddCartItemSerializer, CartItemsSerializer, CartSerializer,
     CollectionSerializer, CustomerSerializer, OrderSerializer, ProductSerializer, ReviewSerializer,
-    UpdateCartItemSerializer, SaveOrderSerializer)
+    UpdateCartItemSerializer, CreateOrderSerializer)
 
 
 # Product View set
@@ -281,7 +281,7 @@ class CustomerViewSet(ModelViewSet):
     
     # @action(detail=False, methods= ['GET', 'PUT'], permission_classes = [IsAdminOrReadOnly])#, DjangoModelPermissions  permission_classes = [IsAuthenticated], 
     @action(detail=False, methods= ['GET', 'PUT'], permission_classes = [IsAuthenticated])#, FullDjangoModelPermissions  permission_classes = [IsAuthenticated], 
-    def me(self, request):
+    def me(self, request):        
         if request.user.is_authenticated:
             (customer, created) = Customer.objects.get_or_create(user_id=request.user.id)
             if request.method == 'GET':            
@@ -320,7 +320,7 @@ class OrderViewSet(ModelViewSet):
     #     return {'user_id': self.request.user.id}
        
     def create(self, request, *args, **kwargs):
-        serializer = SaveOrderSerializer(data=request.data, 
+        serializer = CreateOrderSerializer(data=request.data, 
                                      context = {'user_id': self.request.user.id})
         serializer.is_valid(raise_exception=True)
         order = serializer.save() 
@@ -330,7 +330,7 @@ class OrderViewSet(ModelViewSet):
     
     def get_serializer_class(self):
         if self.request.method == 'POST':
-            return SaveOrderSerializer
+            return CreateOrderSerializer
         return OrderSerializer
     
     
