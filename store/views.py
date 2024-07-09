@@ -24,7 +24,7 @@ from .models import Cart, CartItem, Collection, OrderItem, Product, Review, Cust
 from .permissions import IsAdminOrReadOnly, FullDjangoModelPermissions, ViewCustomerHistoryPermission
 from .serializers import (AddCartItemSerializer, CartItemsSerializer, CartSerializer,
     CollectionSerializer, CustomerSerializer, OrderSerializer, ProductSerializer, ReviewSerializer,
-    UpdateCartItemSerializer)
+    UpdateCartItemSerializer, SaveOrderSerializer)
 
 
 # Product View set
@@ -298,7 +298,7 @@ class CustomerViewSet(ModelViewSet):
 
 class OrderViewSet(ModelViewSet):
     # queryset = Order.objects.all()
-    serializer_class = OrderSerializer
+    # serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
     
     def get_queryset(self):
@@ -309,6 +309,13 @@ class OrderViewSet(ModelViewSet):
             (customer_id, created) = Customer.objects.only('id').get_or_create(user_id = user.id) #Somehow an Issue because we will end up with creating some other records in DB yet the function was for reading the data
             return Order.objects.filter(customer_id = customer_id)
     
+    def get_serializer_context(self):
+        return {'user_id': self.request.user.id}
+    
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return SaveOrderSerializer
+        return OrderSerializer
     
     
 # Collection Generic Views
