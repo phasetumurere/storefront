@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend #Perform filters (any field in any model)
 
 
-import rest_framework
+from rest_framework import status
 from rest_framework.decorators import api_view, action 
 from rest_framework.filters import SearchFilter, OrderingFilter
 # from rest_framework.pagination import PageNumberPagination
@@ -252,8 +252,6 @@ class CartItemsViewSet(ModelViewSet):
     def get_serializer_class(self):
         
         if self.request.method == 'POST':
-            # if self.request.user.id != self.kwargs['cart_pk']:
-            #     return Response('OK')
             return AddCartItemSerializer
         
         elif self.request.method == 'PATCH':

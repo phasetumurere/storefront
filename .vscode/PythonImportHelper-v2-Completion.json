@@ -1130,6 +1130,14 @@
         "documentation": {}
     },
     {
+        "label": "status",
+        "importPath": "rest_framework",
+        "description": "rest_framework",
+        "isExtraImport": true,
+        "detail": "rest_framework",
+        "documentation": {}
+    },
+    {
         "label": "User",
         "importPath": "core.models",
         "description": "core.models",
@@ -2050,7 +2058,7 @@
         "kind": 6,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "class CartItemsViewSet(ModelViewSet):\n    # queryset = CartItem.objects.all()\n    # serializer_class = CartItemsSerializer\n    http_method_names = ['get', 'post', 'patch', 'delete']\n    def get_queryset(self):\n        return CartItem.objects.filter(cart_id = self.kwargs['cart_pk']).select_related('product')\n    def get_serializer_class(self):\n        if self.request.method == 'POST':\n            # if self.request.user.id != self.kwargs['cart_pk']:\n            #     return Response('OK')",
+        "peekOfCode": "class CartItemsViewSet(ModelViewSet):\n    # queryset = CartItem.objects.all()\n    # serializer_class = CartItemsSerializer\n    http_method_names = ['get', 'post', 'patch', 'delete']\n    def get_queryset(self):\n        return CartItem.objects.filter(cart_id = self.kwargs['cart_pk']).select_related('product')\n    def get_serializer_class(self):\n        if self.request.method == 'POST':\n            return AddCartItemSerializer\n        elif self.request.method == 'PATCH':",
         "detail": "store.views",
         "documentation": {}
     },
