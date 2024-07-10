@@ -130,7 +130,8 @@ class CustomerModelAdmin(admin.ModelAdmin):
     #         )
  
  #Editing children using inlines example we want to add new OrderItem (Manage them to an order)
-class OrderItemInline(admin.TabularInline): # TabularInline same as StackedInline
+# @admin.register(models.OrderItem) 
+class OrderItemInline(admin.StackedInline): # TabularInline same as StackedInline
     model = models.OrderItem
     autocomplete_fields=['product']
     extra=1
@@ -144,4 +145,12 @@ class OrderModelAdmin(admin.ModelAdmin):
     list_display = ['id', 'placed_at', 'customer']
     list_select_related = ['customer']  
     list_per_page = 10
-    
+
+class CartItemInline(admin.StackedInline): # TabularInline same as StackedInline
+    model = models.CartItem
+    autocomplete_fields=['product']
+    extra=1
+@admin.register(models.Cart)
+class CartModelAdmin(admin.ModelAdmin):
+    list_display = ['id', 'created_at']
+    # list_select_related=['cartitem_set']

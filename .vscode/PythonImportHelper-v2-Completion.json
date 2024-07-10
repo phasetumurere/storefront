@@ -1130,14 +1130,6 @@
         "documentation": {}
     },
     {
-        "label": "status",
-        "importPath": "rest_framework",
-        "description": "rest_framework",
-        "isExtraImport": true,
-        "detail": "rest_framework",
-        "documentation": {}
-    },
-    {
         "label": "User",
         "importPath": "core.models",
         "description": "core.models",
@@ -1689,7 +1681,7 @@
         "kind": 6,
         "importPath": "store.admin",
         "description": "store.admin",
-        "peekOfCode": "class OrderItemInline(admin.TabularInline): # TabularInline same as StackedInline\n    model = models.OrderItem\n    autocomplete_fields=['product']\n    extra=1\n@admin.register(models.Order)\nclass OrderModelAdmin(admin.ModelAdmin):\n    autocomplete_fields=['customer']\n    inlines =[OrderItemInline]\n    list_display = ['id', 'placed_at', 'customer']\n    list_select_related = ['customer']  ",
+        "peekOfCode": "class OrderItemInline(admin.StackedInline): # TabularInline same as StackedInline\n    model = models.OrderItem\n    autocomplete_fields=['product']\n    extra=1\n@admin.register(models.Order)\nclass OrderModelAdmin(admin.ModelAdmin):\n    autocomplete_fields=['customer']\n    inlines =[OrderItemInline]\n    list_display = ['id', 'placed_at', 'customer']\n    list_select_related = ['customer']  ",
         "detail": "store.admin",
         "documentation": {}
     },
@@ -1698,7 +1690,25 @@
         "kind": 6,
         "importPath": "store.admin",
         "description": "store.admin",
-        "peekOfCode": "class OrderModelAdmin(admin.ModelAdmin):\n    autocomplete_fields=['customer']\n    inlines =[OrderItemInline]\n    list_display = ['id', 'placed_at', 'customer']\n    list_select_related = ['customer']  \n    list_per_page = 10",
+        "peekOfCode": "class OrderModelAdmin(admin.ModelAdmin):\n    autocomplete_fields=['customer']\n    inlines =[OrderItemInline]\n    list_display = ['id', 'placed_at', 'customer']\n    list_select_related = ['customer']  \n    list_per_page = 10\nclass CartItemInline(admin.StackedInline): # TabularInline same as StackedInline\n    model = models.CartItem\n    autocomplete_fields=['product']\n    extra=1",
+        "detail": "store.admin",
+        "documentation": {}
+    },
+    {
+        "label": "CartItemInline",
+        "kind": 6,
+        "importPath": "store.admin",
+        "description": "store.admin",
+        "peekOfCode": "class CartItemInline(admin.StackedInline): # TabularInline same as StackedInline\n    model = models.CartItem\n    autocomplete_fields=['product']\n    extra=1\n@admin.register(models.Cart)\nclass CartModelAdmin(admin.ModelAdmin):\n    list_display = ['id', 'created_at']\n    # list_select_related=['cartitem_set']",
+        "detail": "store.admin",
+        "documentation": {}
+    },
+    {
+        "label": "CartModelAdmin",
+        "kind": 6,
+        "importPath": "store.admin",
+        "description": "store.admin",
+        "peekOfCode": "class CartModelAdmin(admin.ModelAdmin):\n    list_display = ['id', 'created_at']\n    # list_select_related=['cartitem_set']",
         "detail": "store.admin",
         "documentation": {}
     },
@@ -2040,7 +2050,7 @@
         "kind": 6,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "class CartItemsViewSet(ModelViewSet):\n    # queryset = CartItem.objects.all()\n    # serializer_class = CartItemsSerializer\n    http_method_names = ['get', 'post', 'patch', 'delete']\n    def get_queryset(self):\n        return CartItem.objects.filter(cart_id = self.kwargs['cart_pk']).select_related('product')\n    def get_serializer_class(self):\n        if self.request.method == 'POST':\n            return AddCartItemSerializer\n        elif self.request.method == 'PATCH':",
+        "peekOfCode": "class CartItemsViewSet(ModelViewSet):\n    # queryset = CartItem.objects.all()\n    # serializer_class = CartItemsSerializer\n    http_method_names = ['get', 'post', 'patch', 'delete']\n    def get_queryset(self):\n        return CartItem.objects.filter(cart_id = self.kwargs['cart_pk']).select_related('product')\n    def get_serializer_class(self):\n        if self.request.method == 'POST':\n            # if self.request.user.id != self.kwargs['cart_pk']:\n            #     return Response('OK')",
         "detail": "store.views",
         "documentation": {}
     },
