@@ -822,6 +822,15 @@
         "documentation": {}
     },
     {
+        "label": "django.core.exceptions",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "django.core.exceptions",
+        "description": "django.core.exceptions",
+        "detail": "django.core.exceptions",
+        "documentation": {}
+    },
+    {
         "label": "ObjectDoesNotExist",
         "importPath": "django.core.exceptions",
         "description": "django.core.exceptions",
@@ -1046,6 +1055,15 @@
         "description": "django.db.models.query",
         "isExtraImport": true,
         "detail": "django.db.models.query",
+        "documentation": {}
+    },
+    {
+        "label": "django.http",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "django.http",
+        "description": "django.http",
+        "detail": "django.http",
         "documentation": {}
     },
     {
@@ -2058,7 +2076,7 @@
         "kind": 6,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "class CartItemsViewSet(ModelViewSet):\n    # queryset = CartItem.objects.all()\n    # serializer_class = CartItemsSerializer\n    http_method_names = ['get', 'post', 'patch', 'delete']\n    def get_queryset(self):\n        return CartItem.objects.filter(cart_id = self.kwargs['cart_pk']).select_related('product')\n    def get_serializer_class(self):\n        if self.request.method == 'POST':\n            return AddCartItemSerializer\n        elif self.request.method == 'PATCH':",
+        "peekOfCode": "class CartItemsViewSet(ModelViewSet):\n    # queryset = CartItem.objects.all()\n    # serializer_class = CartItemsSerializer\n    http_method_names = ['get', 'post', 'patch', 'delete']\n    def get_queryset(self):\n        return CartItem.objects.filter(cart_id = self.kwargs['cart_pk']).select_related('product')\n    # def get_queryset(self):\n    #     from rest_framework import serializers\n    #     cart_id = self.kwargs['cart_pk']\n    #     cart_items = CartItem.objects.filter(cart_id=cart_id).select_related('product')",
         "detail": "store.views",
         "documentation": {}
     },

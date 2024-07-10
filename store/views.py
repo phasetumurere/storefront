@@ -248,7 +248,13 @@ class CartItemsViewSet(ModelViewSet):
     
     def get_queryset(self):
         return CartItem.objects.filter(cart_id = self.kwargs['cart_pk']).select_related('product')
-    
+    # def get_queryset(self):
+    #     from rest_framework import serializers
+    #     cart_id = self.kwargs['cart_pk']
+    #     cart_items = CartItem.objects.filter(cart_id=cart_id).select_related('product')
+    #     if not cart_items.exists():
+    #         raise serializers.ValidationError("Cart does not exist")
+    #     return cart_items
     def get_serializer_class(self):
         
         if self.request.method == 'POST':

@@ -1,7 +1,9 @@
 from decimal import Decimal
+import django.core.exceptions
 import django.db
 import django.db.models
 from django.db import transaction
+import django.http
 from rest_framework import serializers
 from .models import Cart, Collection, Product, Review, CartItem, Customer, Order, OrderItem
 from .signals import order_created
@@ -110,6 +112,10 @@ class AddCartItemSerializer(serializers.ModelSerializer):
         product_id = self.validated_data['product_id']
         quantity = self.validated_data['quantity']
         cart_id = self.context['cart_id']
+        # cart = Cart.
+        if not Cart.objects.filter(pk = cart_id).exists():
+            raise serializers.ValidationError(f'you have deleted this Cart {cart_id} to proceed create new one')
+            
         try:
             cart_item = CartItem.objects.get(cart_id=cart_id, product_id = product_id)
             # Update the Cart or CartItem 
