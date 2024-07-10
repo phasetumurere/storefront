@@ -308,6 +308,14 @@
         "documentation": {}
     },
     {
+        "label": "transaction",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "migrations",
         "importPath": "django.db",
         "description": "django.db",
@@ -1859,7 +1867,25 @@
         "kind": 6,
         "importPath": "store.serializers",
         "description": "store.serializers",
-        "peekOfCode": "class OrderSerializer(serializers.ModelSerializer):\n    items = OderItemsSerializer(many=True)\n    class Meta:\n        model = Order\n        fields =['id', 'customer', 'placed_at', 'payment_status', 'items']\n    # def order_count(self, product: Product):\n    #     return product.orderitem_set.count()\n    # def password_varidation(self, data):\n    #     if data['password']!= data['confirm_password']:\n    #         return serializers.ValidationError(\"Passwords not match\")",
+        "peekOfCode": "class OrderSerializer(serializers.ModelSerializer):\n    items = OderItemsSerializer(many=True)\n    class Meta:\n        model = Order\n        fields =['id', 'customer', 'placed_at', 'payment_status', 'items']\nclass CreateOrderSerializer(serializers.Serializer):\n    cart_id = serializers.UUIDField()\n    def validate_cart_id(self, cart_id):\n        if CartItem.objects.filter(cart_id=cart_id).count() == 0:\n            raise serializers.ValidationError('Shopping cart is Emplty')",
+        "detail": "store.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "CreateOrderSerializer",
+        "kind": 6,
+        "importPath": "store.serializers",
+        "description": "store.serializers",
+        "peekOfCode": "class CreateOrderSerializer(serializers.Serializer):\n    cart_id = serializers.UUIDField()\n    def validate_cart_id(self, cart_id):\n        if CartItem.objects.filter(cart_id=cart_id).count() == 0:\n            raise serializers.ValidationError('Shopping cart is Emplty')\n        if not Cart.objects.filter(pk = cart_id).exists():\n            raise serializers.ValidationError('No Cart with this ID ')\n        return cart_id\n    with transaction.atomic():\n        def save(self, **kwargs):",
+        "detail": "store.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "UpdateOrderSerializer",
+        "kind": 6,
+        "importPath": "store.serializers",
+        "description": "store.serializers",
+        "peekOfCode": "class UpdateOrderSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Order\n        fields = ['payment_status']                \n    # def order_count(self, product: Product):\n    #     return product.orderitem_set.count()\n    # def password_varidation(self, data):\n    #     if data['password']!= data['confirm_password']:\n    #         return serializers.ValidationError(\"Passwords not match\")\n    #     return data ",
         "detail": "store.serializers",
         "documentation": {}
     },
@@ -1958,7 +1984,7 @@
         "kind": 6,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "class OrderViewSet(ModelViewSet):\n    # queryset = Order.objects.all()\n    serializer_class = OrderSerializer\n    permission_classes = [IsAuthenticated]\n    def get_queryset(self):\n        user = self.request.user\n        if user.is_staff: \n            return Order.objects.all()\n        else:\n            (customer_id, created) = Customer.objects.only('id').get_or_create(user_id = user.id) #Somehow an Issue because we will end up with creating some other records in DB yet the function was for reading the data",
+        "peekOfCode": "class OrderViewSet(ModelViewSet):\n    http_method_names = ['get', 'post', 'patch', 'delete', 'head', 'options']\n    def get_permissions(self):\n        if self.request.method in ['PATCH', 'DELETE']:\n            return [IsAdminUser()]\n        return [IsAuthenticated()]\n    # queryset = Order.objects.all()\n    # serializer_class = OrderSerializer\n    permission_classes = [IsAuthenticated]\n    def get_queryset(self):",
         "detail": "store.views",
         "documentation": {}
     },

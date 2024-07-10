@@ -24,7 +24,7 @@ from .models import Cart, CartItem, Collection, OrderItem, Product, Review, Cust
 from .permissions import IsAdminOrReadOnly, FullDjangoModelPermissions, ViewCustomerHistoryPermission
 from .serializers import (AddCartItemSerializer, CartItemsSerializer, CartSerializer,
     CollectionSerializer, CustomerSerializer, OrderSerializer, ProductSerializer, ReviewSerializer,
-    UpdateCartItemSerializer, CreateOrderSerializer)
+    UpdateCartItemSerializer, CreateOrderSerializer, UpdateOrderSerializer)
 
 
 # Product View set
@@ -331,6 +331,8 @@ class OrderViewSet(ModelViewSet):
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return CreateOrderSerializer
+        elif self.request.method == 'PATCH':
+            return UpdateOrderSerializer
         return OrderSerializer
     
     
