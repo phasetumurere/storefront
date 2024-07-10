@@ -670,6 +670,14 @@
         "documentation": {}
     },
     {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
         "label": "ContentType",
         "importPath": "django.contrib.contenttypes.models",
         "description": "django.contrib.contenttypes.models",
@@ -707,6 +715,14 @@
         "description": "django.contrib.contenttypes.fields",
         "isExtraImport": true,
         "detail": "django.contrib.contenttypes.fields",
+        "documentation": {}
+    },
+    {
+        "label": "AUTH_USER_MODEL",
+        "importPath": "storefront.settings",
+        "description": "storefront.settings",
+        "isExtraImport": true,
+        "detail": "storefront.settings",
         "documentation": {}
     },
     {
@@ -1095,6 +1111,22 @@
         "description": "decimal",
         "isExtraImport": true,
         "detail": "decimal",
+        "documentation": {}
+    },
+    {
+        "label": "receiver",
+        "importPath": "django.dispatch",
+        "description": "django.dispatch",
+        "isExtraImport": true,
+        "detail": "django.dispatch",
+        "documentation": {}
+    },
+    {
+        "label": "post_save",
+        "importPath": "django.db.models.signals",
+        "description": "django.db.models.signals",
+        "isExtraImport": true,
+        "detail": "django.db.models.signals",
         "documentation": {}
     },
     {
@@ -1633,7 +1665,7 @@
         "kind": 6,
         "importPath": "store.apps",
         "description": "store.apps",
-        "peekOfCode": "class StoreConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'store'",
+        "peekOfCode": "class StoreConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'store'\n    def ready(self) -> None:\n        import store.signals\n        # return super().ready()",
         "detail": "store.apps",
         "documentation": {}
     },
@@ -1887,6 +1919,15 @@
         "description": "store.serializers",
         "peekOfCode": "class UpdateOrderSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Order\n        fields = ['payment_status']                \n    # def order_count(self, product: Product):\n    #     return product.orderitem_set.count()\n    # def password_varidation(self, data):\n    #     if data['password']!= data['confirm_password']:\n    #         return serializers.ValidationError(\"Passwords not match\")\n    #     return data ",
         "detail": "store.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "create_customer_for_new_user",
+        "kind": 2,
+        "importPath": "store.signals",
+        "description": "store.signals",
+        "peekOfCode": "def create_customer_for_new_user(sender, **kwargs):\n    if kwargs['created']:\n        Customer.objects.create(user = kwargs['instance'])",
+        "detail": "store.signals",
         "documentation": {}
     },
     {

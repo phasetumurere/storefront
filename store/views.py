@@ -283,7 +283,7 @@ class CustomerViewSet(ModelViewSet):
     @action(detail=False, methods= ['GET', 'PUT'], permission_classes = [IsAuthenticated])#, FullDjangoModelPermissions  permission_classes = [IsAuthenticated], 
     def me(self, request):        
         if request.user.is_authenticated:
-            (customer, created) = Customer.objects.get_or_create(user_id=request.user.id)
+            customer = Customer.objects.get(user_id=request.user.id)
             if request.method == 'GET':            
                 serializer = CustomerSerializer(customer)
                 return Response(serializer.data)
@@ -313,7 +313,8 @@ class OrderViewSet(ModelViewSet):
         if user.is_staff: 
             return Order.objects.all()
         else:
-            (customer_id, created) = Customer.objects.only('id').get_or_create(user_id = user.id) #Somehow an Issue because we will end up with creating some other records in DB yet the function was for reading the data
+            # (customer_id, created) = Customer.objects.only('id').get_or_create(user_id = user.id) #Somehow an Issue because we will end up with creating some other records in DB yet the function was for reading the data
+            customer_id = Customer.objects.only('id').get(user_id = user.id) #Somehow an Issue because we will end up with creating some other records in DB yet the function was for reading the data
             return Order.objects.filter(customer_id = customer_id)
     
     # def get_serializer_context(self):
