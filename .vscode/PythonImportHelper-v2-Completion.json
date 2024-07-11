@@ -116,6 +116,14 @@
         "documentation": {}
     },
     {
+        "label": "connection",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "migrations",
         "importPath": "django.db",
         "description": "django.db",
@@ -1000,6 +1008,39 @@
         "documentation": {}
     },
     {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "BaseCommand",
+        "importPath": "django.core.management.base",
+        "description": "django.core.management.base",
+        "isExtraImport": true,
+        "detail": "django.core.management.base",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
         "label": "django.core.validators",
         "kind": 6,
         "isExtraImport": true,
@@ -1356,28 +1397,11 @@
         "documentation": {}
     },
     {
-        "label": "os",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "os",
-        "description": "os",
-        "detail": "os",
-        "documentation": {}
-    },
-    {
         "label": "get_asgi_application",
         "importPath": "django.core.asgi",
         "description": "django.core.asgi",
         "isExtraImport": true,
         "detail": "django.core.asgi",
-        "documentation": {}
-    },
-    {
-        "label": "Path",
-        "importPath": "pathlib",
-        "description": "pathlib",
-        "isExtraImport": true,
-        "detail": "pathlib",
         "documentation": {}
     },
     {
@@ -1538,6 +1562,15 @@
         "description": "playground.views",
         "peekOfCode": "def generic_relationship(request):\n    queryset = TaggedItem.objects.get_tags_for(Product, 1)\n    querry_set = Product.objects.all()\n    list(querry_set)\n    # # Create a new Collection\n    # collection = Collection()\n    # collection.title = 'Mododka'\n    # collection.featured_product = Product(pk=1)\n    # collection.save()\n    #Updating Collection",
         "detail": "playground.views",
+        "documentation": {}
+    },
+    {
+        "label": "Command",
+        "kind": 6,
+        "importPath": "store.management.commands.seed_db",
+        "description": "store.management.commands.seed_db",
+        "peekOfCode": "class Command(BaseCommand):\n    help = 'Populate the database with Collections and Products'\n    def handle(self, *args, **options):\n        print('Populating database..')\n        current_dir = os.path.dirname(__file__)\n        # print(current_dir)\n        file_path = os.path.join(current_dir, 'seed.sql')\n        sql = Path(file_path).read_text()\n        with connection.cursor() as cursor:\n            cursor.execute(sql)",
+        "detail": "store.management.commands.seed_db",
         "documentation": {}
     },
     {
@@ -2202,7 +2235,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "WSGI_APPLICATION = 'storefront.wsgi.application'\n# Database\n# https://docs.djangoproject.com/en/5.0/ref/settings/#databases\nDATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.mysql',\n        'NAME': 'storefront',\n        'HOST': 'localhost',\n        'USER': 'root',\n        'PASSWORD': 'Madede_11',",
+        "peekOfCode": "WSGI_APPLICATION = 'storefront.wsgi.application'\n# Database\n# https://docs.djangoproject.com/en/5.0/ref/settings/#databases\nDATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.mysql',\n        'NAME': 'storefront3',\n        'HOST': 'localhost',\n        'USER': 'root',\n        'PASSWORD': 'Madede_11',",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -2211,7 +2244,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "DATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.mysql',\n        'NAME': 'storefront',\n        'HOST': 'localhost',\n        'USER': 'root',\n        'PASSWORD': 'Madede_11',\n        'PORT': '3307'\n    }\n}",
+        "peekOfCode": "DATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.mysql',\n        'NAME': 'storefront3',\n        'HOST': 'localhost',\n        'USER': 'root',\n        'PASSWORD': 'Madede_11',\n        'PORT': '3307'\n    }\n}",
         "detail": "storefront.settings",
         "documentation": {}
     },
