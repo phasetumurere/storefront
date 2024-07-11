@@ -18,13 +18,17 @@ class CollectionSerializer(serializers.ModelSerializer):
         model = Collection
         fields = ['id', 'title', 'product_count']
         
-    product_count = serializers.SerializerMethodField(method_name='products_associated_count')
+    product_count = serializers.SerializerMethodField(method_name='get_product_count')
     # product_count = serializers.IntegerField(read_only=True)
     
 
-    def products_associated_count(self, collection: Collection):
-        return collection.product_set.count()
-
+    def get_product_count(self, collection: Collection):
+        return collection.products.count()
+    # def get_product_count(self, obj):
+    #     return obj.products.count()
+    
+    # def get_product_count(self, collection):
+    #     return Collection.featured_product.count()
 
 # class ProductSerializer(serializers.Serializer):
 class ProductSerializer(serializers.ModelSerializer):
