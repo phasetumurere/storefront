@@ -742,6 +742,14 @@
         "documentation": {}
     },
     {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
         "label": "ContentType",
         "importPath": "django.contrib.contenttypes.models",
         "description": "django.contrib.contenttypes.models",
@@ -807,6 +815,22 @@
     },
     {
         "label": "REST_FRAMEWORK",
+        "importPath": "storefront.settings",
+        "description": "storefront.settings",
+        "isExtraImport": true,
+        "detail": "storefront.settings",
+        "documentation": {}
+    },
+    {
+        "label": "DEBUG",
+        "importPath": "storefront.settings",
+        "description": "storefront.settings",
+        "isExtraImport": true,
+        "detail": "storefront.settings",
+        "documentation": {}
+    },
+    {
+        "label": "MEDIA_URL",
         "importPath": "storefront.settings",
         "description": "storefront.settings",
         "isExtraImport": true,
@@ -1442,6 +1466,14 @@
         "description": "datetime",
         "isExtraImport": true,
         "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "static",
+        "importPath": "django.conf.urls.static",
+        "description": "django.conf.urls.static",
+        "isExtraImport": true,
+        "detail": "django.conf.urls.static",
         "documentation": {}
     },
     {
@@ -2312,7 +2344,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "LANGUAGE_CODE = 'en-us'\nTIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "peekOfCode": "LANGUAGE_CODE = 'en-us'\nTIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = 'static/'\nMEDIA_URL = '/media/'\nMEDIA_ROOT = os.path.join(BASE_DIR, 'media')\n# Default primary key field type",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -2321,7 +2353,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "TIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {",
+        "peekOfCode": "TIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = 'static/'\nMEDIA_URL = '/media/'\nMEDIA_ROOT = os.path.join(BASE_DIR, 'media')\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -2330,7 +2362,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,",
+        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = 'static/'\nMEDIA_URL = '/media/'\nMEDIA_ROOT = os.path.join(BASE_DIR, 'media')\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -2339,7 +2371,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,\n    # 'PAGE_SIZE':10,",
+        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = 'static/'\nMEDIA_URL = '/media/'\nMEDIA_ROOT = os.path.join(BASE_DIR, 'media')\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -2348,7 +2380,25 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "STATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,\n    # 'PAGE_SIZE':10,\n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', Set Pagination Globry \n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', #next pge gonna take to product and skip other 10 but we use the upone\n    'DEFAULT_AUTHENTICATION_CLASSES': (",
+        "peekOfCode": "STATIC_URL = 'static/'\nMEDIA_URL = '/media/'\nMEDIA_ROOT = os.path.join(BASE_DIR, 'media')\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,\n    # 'PAGE_SIZE':10,\n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', Set Pagination Globry ",
+        "detail": "storefront.settings",
+        "documentation": {}
+    },
+    {
+        "label": "MEDIA_URL",
+        "kind": 5,
+        "importPath": "storefront.settings",
+        "description": "storefront.settings",
+        "peekOfCode": "MEDIA_URL = '/media/'\nMEDIA_ROOT = os.path.join(BASE_DIR, 'media')\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,\n    # 'PAGE_SIZE':10,\n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', Set Pagination Globry \n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', #next pge gonna take to product and skip other 10 but we use the upone",
+        "detail": "storefront.settings",
+        "documentation": {}
+    },
+    {
+        "label": "MEDIA_ROOT",
+        "kind": 5,
+        "importPath": "storefront.settings",
+        "description": "storefront.settings",
+        "peekOfCode": "MEDIA_ROOT = os.path.join(BASE_DIR, 'media')\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nREST_FRAMEWORK = {\n    'COERCE_DECIMAL_TO_STRING': False,\n    # 'PAGE_SIZE':10,\n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', Set Pagination Globry \n    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', #next pge gonna take to product and skip other 10 but we use the upone\n    'DEFAULT_AUTHENTICATION_CLASSES': (",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -2402,7 +2452,7 @@
         "kind": 5,
         "importPath": "storefront.urls",
         "description": "storefront.urls",
-        "peekOfCode": "admin.site.index_title = 'Admin Home'\nurlpatterns = [\n    path('admin/', admin.site.urls),\n    path('playground/', include('playground.urls')),\n    path('auth/', include('djoser.urls')),\n    path('auth/', include('djoser.urls.jwt')),\n    path(\"__debug__/\", include(\"debug_toolbar.urls\")),\n    path(\"store/\", include(\"store.urls\")),\n]",
+        "peekOfCode": "admin.site.index_title = 'Admin Home'\nurlpatterns = [\n    path('admin/', admin.site.urls),\n    path('playground/', include('playground.urls')),\n    path('auth/', include('djoser.urls')),\n    path('auth/', include('djoser.urls.jwt')),\n    path(\"__debug__/\", include(\"debug_toolbar.urls\")),\n    path(\"store/\", include(\"store.urls\")),\n]\nif settings.DEBUG:",
         "detail": "storefront.urls",
         "documentation": {}
     },
@@ -2411,7 +2461,7 @@
         "kind": 5,
         "importPath": "storefront.urls",
         "description": "storefront.urls",
-        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n    path('playground/', include('playground.urls')),\n    path('auth/', include('djoser.urls')),\n    path('auth/', include('djoser.urls.jwt')),\n    path(\"__debug__/\", include(\"debug_toolbar.urls\")),\n    path(\"store/\", include(\"store.urls\")),\n]",
+        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n    path('playground/', include('playground.urls')),\n    path('auth/', include('djoser.urls')),\n    path('auth/', include('djoser.urls.jwt')),\n    path(\"__debug__/\", include(\"debug_toolbar.urls\")),\n    path(\"store/\", include(\"store.urls\")),\n]\nif settings.DEBUG:\n    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)",
         "detail": "storefront.urls",
         "documentation": {}
     },
