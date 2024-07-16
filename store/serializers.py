@@ -5,7 +5,8 @@ import django.db.models
 from django.db import transaction
 import django.http
 from rest_framework import serializers
-from .models import Cart, Collection, Product, Review, CartItem, Customer, Order, OrderItem
+from .models import (Cart, CartItem, Collection, Customer, Order, OrderItem, Product, ProductImage,
+    Review)
 from .signals import order_created
 
 # class CollectionSerializer(serializers.Serializer):
@@ -202,7 +203,16 @@ class UpdateOrderSerializer(serializers.ModelSerializer):
 
     # def order_count(self, product: Product):
     #     return product.orderitem_set.count()
+
+
+class ProductImageSerializer(serializers.ModelSerializer):
     
+    def create(self, validated_data):
+        product_id = self.context['product_id']
+        return ProductImage.objects.create(product_id=product_id, **validated_data)
+    class Meta:
+        model = ProductImage
+        fields = ['id', 'image']    
     
     # def password_varidation(self, data):
     #     if data['password']!= data['confirm_password']:

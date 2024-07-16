@@ -20,10 +20,11 @@ from storefront.settings import REST_FRAMEWORK
 from store.admin import OrderModelAdmin
 from .default_pagination import DefaultPagination
 from .filters import ProductFilter
-from .models import Cart, CartItem, Collection, OrderItem, Product, Review, Customer, Order
+from .models import (Cart, CartItem, Collection, Customer, Order, OrderItem, Product, ProductImage,
+    Review)
 from .permissions import IsAdminOrReadOnly, FullDjangoModelPermissions, ViewCustomerHistoryPermission
 from .serializers import (AddCartItemSerializer, CartItemsSerializer, CartSerializer,
-    CollectionSerializer, CustomerSerializer, OrderSerializer, ProductSerializer, ReviewSerializer,
+    CollectionSerializer, CustomerSerializer, OrderSerializer, ProductImageSerializer, ProductSerializer, ReviewSerializer,
     UpdateCartItemSerializer, CreateOrderSerializer, UpdateOrderSerializer)
 
 
@@ -342,7 +343,16 @@ class OrderViewSet(ModelViewSet):
             return UpdateOrderSerializer
         return OrderSerializer
     
+
+class ProductImageViewSet(ModelViewSet):
+    serializer_class = ProductImageSerializer 
     
+    def get_queryset(self):
+        return ProductImage.objects.filter(product_id = self.kwargs['product_pk'])
+    
+    def get_serializer_context(self):
+        return {'product_id': self.kwargs['product_pk']}
+       
 # Collection Generic Views
 # class CollectionList(ListCreateAPIView):
 #     queryset = Collection.objects.all()

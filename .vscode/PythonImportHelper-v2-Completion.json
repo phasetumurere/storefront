@@ -2144,7 +2144,16 @@
         "kind": 6,
         "importPath": "store.serializers",
         "description": "store.serializers",
-        "peekOfCode": "class UpdateOrderSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Order\n        fields = ['payment_status']                \n    # def order_count(self, product: Product):\n    #     return product.orderitem_set.count()\n    # def password_varidation(self, data):\n    #     if data['password']!= data['confirm_password']:\n    #         return serializers.ValidationError(\"Passwords not match\")\n    #     return data ",
+        "peekOfCode": "class UpdateOrderSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Order\n        fields = ['payment_status']                \n    # def order_count(self, product: Product):\n    #     return product.orderitem_set.count()\nclass ProductImageSerializer(serializers.ModelSerializer):\n    def create(self, validated_data):\n        product_id = self.context['product_id']\n        return ProductImage.objects.create(product_id=product_id, **validated_data)",
+        "detail": "store.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "ProductImageSerializer",
+        "kind": 6,
+        "importPath": "store.serializers",
+        "description": "store.serializers",
+        "peekOfCode": "class ProductImageSerializer(serializers.ModelSerializer):\n    def create(self, validated_data):\n        product_id = self.context['product_id']\n        return ProductImage.objects.create(product_id=product_id, **validated_data)\n    class Meta:\n        model = ProductImage\n        fields = ['id', 'image']    \n    # def password_varidation(self, data):\n    #     if data['password']!= data['confirm_password']:\n    #         return serializers.ValidationError(\"Passwords not match\")",
         "detail": "store.serializers",
         "documentation": {}
     },
@@ -2162,7 +2171,7 @@
         "kind": 5,
         "importPath": "store.urls",
         "description": "store.urls",
-        "peekOfCode": "product_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')\n#By setting loopup to product means that we gonna have product_pk\nproduct_router.register('review', views.ReviewViewSet, basename='product_review')\ncarts_router = routers.NestedDefaultRouter(router, 'carts', lookup = 'cart') #with this we gona have cart_pk in our CartItemsViewSet\ncarts_router.register('items', views.CartItemsViewSet, basename='cart-items')\n# pprint(router.urls)\nurlpatterns = [\n     path('', include(router.urls+product_router.urls+carts_router.urls)),\n     # path('', include(router.urls+carts_router.urls))\n]",
+        "peekOfCode": "product_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')\n#By setting loopup to product means that we gonna have product_pk\nproduct_router.register('review', views.ReviewViewSet, basename='product_review')\nproduct_router.register('images', views.ProductImageViewSet, basename='product-images')\ncarts_router = routers.NestedDefaultRouter(router, 'carts', lookup = 'cart') #with this we gona have cart_pk in our CartItemsViewSet\ncarts_router.register('items', views.CartItemsViewSet, basename='cart-items')\n# pprint(router.urls)\nurlpatterns = [\n     path('', include(router.urls+product_router.urls+carts_router.urls)),\n     # path('', include(router.urls+carts_router.urls))",
         "detail": "store.urls",
         "documentation": {}
     },
@@ -2244,6 +2253,15 @@
         "importPath": "store.views",
         "description": "store.views",
         "peekOfCode": "class OrderViewSet(ModelViewSet):\n    http_method_names = ['get', 'post', 'patch', 'delete', 'head', 'options']\n    def get_permissions(self):\n        if self.request.method in ['PATCH', 'DELETE']:\n            return [IsAdminUser()]\n        return [IsAuthenticated()]\n    # queryset = Order.objects.all()\n    # serializer_class = OrderSerializer\n    permission_classes = [IsAuthenticated]\n    def get_queryset(self):",
+        "detail": "store.views",
+        "documentation": {}
+    },
+    {
+        "label": "ProductImageViewSet",
+        "kind": 6,
+        "importPath": "store.views",
+        "description": "store.views",
+        "peekOfCode": "class ProductImageViewSet(ModelViewSet):\n    serializer_class = ProductImageSerializer \n    def get_queryset(self):\n        return ProductImage.objects.filter(product_id = self.kwargs['product_pk'])\n    def get_serializer_context(self):\n        return {'product_id': self.kwargs['product_pk']}\n# Collection Generic Views\n# class CollectionList(ListCreateAPIView):\n#     queryset = Collection.objects.all()\n#     serializer_class = CollectionSerializer",
         "detail": "store.views",
         "documentation": {}
     },

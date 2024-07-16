@@ -19,6 +19,7 @@ router.register('orders', views.OrderViewSet, basename= 'orders')
 product_router = routers.NestedDefaultRouter(router, 'products', lookup = 'product')
 #By setting loopup to product means that we gonna have product_pk
 product_router.register('review', views.ReviewViewSet, basename='product_review')
+product_router.register('images', views.ProductImageViewSet, basename='product-images')
 
 carts_router = routers.NestedDefaultRouter(router, 'carts', lookup = 'cart') #with this we gona have cart_pk in our CartItemsViewSet
 carts_router.register('items', views.CartItemsViewSet, basename='cart-items')
