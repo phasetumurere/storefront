@@ -340,6 +340,22 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -1773,6 +1789,15 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "store.migrations.0016_alter_product_category_productimage",
+        "description": "store.migrations.0016_alter_product_category_productimage",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('store', '0015_alter_collection_featured_product'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='product',\n            name='category',\n            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='products', to='store.collection'),\n        ),",
+        "detail": "store.migrations.0016_alter_product_category_productimage",
+        "documentation": {}
+    },
+    {
         "label": "create_customer_for_new_user",
         "kind": 2,
         "importPath": "store.signals.handlers",
@@ -1904,6 +1929,15 @@
         "importPath": "store.models",
         "description": "store.models",
         "peekOfCode": "class Product(models.Model):\n    title = models.CharField(max_length=255)\n    slug = models.SlugField()\n    description = models.TextField(null = True, blank=True)\n    unit_price = models.DecimalField(max_digits=6, decimal_places=2, validators=[MinValueValidator(1)])\n    inventory = models.IntegerField(validators=[MinValueValidator(2)])\n    last_update = models.DateTimeField(auto_now = True)\n    category = models.ForeignKey(Collection, on_delete=models.PROTECT, related_name='products') \n    # Models. protct, if we accidentally delete collection we don't hae to delete all the products in that category\n    promotions = models.ManyToManyField(Promotion, blank=True)",
+        "detail": "store.models",
+        "documentation": {}
+    },
+    {
+        "label": "ProductImage",
+        "kind": 6,
+        "importPath": "store.models",
+        "description": "store.models",
+        "peekOfCode": "class ProductImage(models.Model):\n    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')\n    image = models.ImageField(upload_to= 'store/images')\nclass Customer(models.Model):\n    MEMBERSHIP_BRONZE = 'B'\n    MEMBERSHIP_SILVER = 'S'\n    MBEMERSHIP_GOLD = 'G'\n    MEMBERSHIP_CHOICES = [\n        (MEMBERSHIP_BRONZE, 'Bronze'),\n        (MEMBERSHIP_SILVER, 'Silver'),",
         "detail": "store.models",
         "documentation": {}
     },
