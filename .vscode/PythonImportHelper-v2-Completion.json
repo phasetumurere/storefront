@@ -919,6 +919,14 @@
         "documentation": {}
     },
     {
+        "label": "ValidationError",
+        "importPath": "django.core.exceptions",
+        "description": "django.core.exceptions",
+        "isExtraImport": true,
+        "detail": "django.core.exceptions",
+        "documentation": {}
+    },
+    {
         "label": "django.db.models",
         "kind": 6,
         "isExtraImport": true,
@@ -1274,6 +1282,14 @@
         "description": "core.models",
         "isExtraImport": true,
         "detail": "core.models",
+        "documentation": {}
+    },
+    {
+        "label": "validate_file_size",
+        "importPath": "store.validators",
+        "description": "store.validators",
+        "isExtraImport": true,
+        "detail": "store.validators",
         "documentation": {}
     },
     {
@@ -1937,7 +1953,7 @@
         "kind": 6,
         "importPath": "store.models",
         "description": "store.models",
-        "peekOfCode": "class ProductImage(models.Model):\n    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')\n    image = models.ImageField(upload_to= 'store/images')\nclass Customer(models.Model):\n    MEMBERSHIP_BRONZE = 'B'\n    MEMBERSHIP_SILVER = 'S'\n    MBEMERSHIP_GOLD = 'G'\n    MEMBERSHIP_CHOICES = [\n        (MEMBERSHIP_BRONZE, 'Bronze'),\n        (MEMBERSHIP_SILVER, 'Silver'),",
+        "peekOfCode": "class ProductImage(models.Model):\n    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')\n    image = models.ImageField(upload_to= 'store/images', validators= [validate_file_size])\nclass Customer(models.Model):\n    MEMBERSHIP_BRONZE = 'B'\n    MEMBERSHIP_SILVER = 'S'\n    MBEMERSHIP_GOLD = 'G'\n    MEMBERSHIP_CHOICES = [\n        (MEMBERSHIP_BRONZE, 'Bronze'),\n        (MEMBERSHIP_SILVER, 'Silver'),",
         "detail": "store.models",
         "documentation": {}
     },
@@ -2191,6 +2207,15 @@
         "description": "store.urls",
         "peekOfCode": "urlpatterns = [\n     path('', include(router.urls+product_router.urls+carts_router.urls)),\n     # path('', include(router.urls+carts_router.urls))\n]\n# urlpatterns = [\n#     path('', include(router.urls)),\n#     # path('products/', views.ProductList.as_view()),\n#     path('orders/', views.orders)\n#     # path('products/<int:pk>', views.ProductDetails.as_view()),\n#     # path('collections/', views.CollectionList.as_view()),",
         "detail": "store.urls",
+        "documentation": {}
+    },
+    {
+        "label": "validate_file_size",
+        "kind": 2,
+        "importPath": "store.validators",
+        "description": "store.validators",
+        "peekOfCode": "def validate_file_size(file):\n    max_file_size_kb = 50\n    if file.size > max_file_size_kb * 1024:\n        raise ValidationError(f'Files size can not be larger than {max_file_size_kb} KB')",
+        "detail": "store.validators",
         "documentation": {}
     },
     {
