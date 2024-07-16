@@ -31,13 +31,23 @@ class CollectionSerializer(serializers.ModelSerializer):
     # def get_product_count(self, collection):
     #     return Collection.featured_product.count()
 
-# class ProductSerializer(serializers.Serializer):
+class ProductImageSerializer(serializers.ModelSerializer):
+    
+    def create(self, validated_data):
+        product_id = self.context['product_id']
+        return ProductImage.objects.create(product_id=product_id, **validated_data)
+    class Meta:
+        model = ProductImage
+        fields = ['id', 'image']    
+    
 class ProductSerializer(serializers.ModelSerializer):
+    images = ProductImageSerializer(many = True, read_only = True)
+    
     # ####### Modal Serialization###
     class Meta:
         model = Product
         # fields = ['id', 'title', 'slug', 'description', 'inventory','category', 'price', 'price_with_tax', 'associated_orders']
-        fields = ['id', 'title', 'slug', 'description', 'inventory','category', 'price', 'price_with_tax']
+        fields = ['id', 'title', 'slug', 'description', 'inventory','category', 'price', 'price_with_tax', 'images']
     # id = serializers.IntegerField()
     # title = serializers.CharField(max_length=255)
     price = serializers.DecimalField(max_digits=6, decimal_places=2, source="unit_price")
@@ -205,15 +215,7 @@ class UpdateOrderSerializer(serializers.ModelSerializer):
     #     return product.orderitem_set.count()
 
 
-class ProductImageSerializer(serializers.ModelSerializer):
-    
-    def create(self, validated_data):
-        product_id = self.context['product_id']
-        return ProductImage.objects.create(product_id=product_id, **validated_data)
-    class Meta:
-        model = ProductImage
-        fields = ['id', 'image']    
-    
+
     # def password_varidation(self, data):
     #     if data['password']!= data['confirm_password']:
     #         return serializers.ValidationError("Passwords not match")

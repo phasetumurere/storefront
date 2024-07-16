@@ -2041,11 +2041,20 @@
         "documentation": {}
     },
     {
+        "label": "ProductImageSerializer",
+        "kind": 6,
+        "importPath": "store.serializers",
+        "description": "store.serializers",
+        "peekOfCode": "class ProductImageSerializer(serializers.ModelSerializer):\n    def create(self, validated_data):\n        product_id = self.context['product_id']\n        return ProductImage.objects.create(product_id=product_id, **validated_data)\n    class Meta:\n        model = ProductImage\n        fields = ['id', 'image']    \nclass ProductSerializer(serializers.ModelSerializer):\n    images = ProductImageSerializer(many = True, read_only = True)\n    # ####### Modal Serialization###",
+        "detail": "store.serializers",
+        "documentation": {}
+    },
+    {
         "label": "ProductSerializer",
         "kind": 6,
         "importPath": "store.serializers",
         "description": "store.serializers",
-        "peekOfCode": "class ProductSerializer(serializers.ModelSerializer):\n    # ####### Modal Serialization###\n    class Meta:\n        model = Product\n        # fields = ['id', 'title', 'slug', 'description', 'inventory','category', 'price', 'price_with_tax', 'associated_orders']\n        fields = ['id', 'title', 'slug', 'description', 'inventory','category', 'price', 'price_with_tax']\n    # id = serializers.IntegerField()\n    # title = serializers.CharField(max_length=255)\n    price = serializers.DecimalField(max_digits=6, decimal_places=2, source=\"unit_price\")\n    price_with_tax = serializers.SerializerMethodField(method_name= 'calculate_tax')",
+        "peekOfCode": "class ProductSerializer(serializers.ModelSerializer):\n    images = ProductImageSerializer(many = True, read_only = True)\n    # ####### Modal Serialization###\n    class Meta:\n        model = Product\n        # fields = ['id', 'title', 'slug', 'description', 'inventory','category', 'price', 'price_with_tax', 'associated_orders']\n        fields = ['id', 'title', 'slug', 'description', 'inventory','category', 'price', 'price_with_tax', 'images']\n    # id = serializers.IntegerField()\n    # title = serializers.CharField(max_length=255)\n    price = serializers.DecimalField(max_digits=6, decimal_places=2, source=\"unit_price\")",
         "detail": "store.serializers",
         "documentation": {}
     },
@@ -2144,16 +2153,7 @@
         "kind": 6,
         "importPath": "store.serializers",
         "description": "store.serializers",
-        "peekOfCode": "class UpdateOrderSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Order\n        fields = ['payment_status']                \n    # def order_count(self, product: Product):\n    #     return product.orderitem_set.count()\nclass ProductImageSerializer(serializers.ModelSerializer):\n    def create(self, validated_data):\n        product_id = self.context['product_id']\n        return ProductImage.objects.create(product_id=product_id, **validated_data)",
-        "detail": "store.serializers",
-        "documentation": {}
-    },
-    {
-        "label": "ProductImageSerializer",
-        "kind": 6,
-        "importPath": "store.serializers",
-        "description": "store.serializers",
-        "peekOfCode": "class ProductImageSerializer(serializers.ModelSerializer):\n    def create(self, validated_data):\n        product_id = self.context['product_id']\n        return ProductImage.objects.create(product_id=product_id, **validated_data)\n    class Meta:\n        model = ProductImage\n        fields = ['id', 'image']    \n    # def password_varidation(self, data):\n    #     if data['password']!= data['confirm_password']:\n    #         return serializers.ValidationError(\"Passwords not match\")",
+        "peekOfCode": "class UpdateOrderSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Order\n        fields = ['payment_status']                \n    # def order_count(self, product: Product):\n    #     return product.orderitem_set.count()\n    # def password_varidation(self, data):\n    #     if data['password']!= data['confirm_password']:\n    #         return serializers.ValidationError(\"Passwords not match\")\n    #     return data ",
         "detail": "store.serializers",
         "documentation": {}
     },
@@ -2198,7 +2198,7 @@
         "kind": 6,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "class ProductViewSet(ModelViewSet):\n    queryset = Product.objects.all()\n    serializer_class = ProductSerializer\n    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]\n    # filterset_fields = ['category_id']\n    filterset_class = ProductFilter\n    search_fields = ['title', 'description']\n    # search_fields = ['title', 'description', 'category__title'] # Search in related data\n    ordering_fields = ['unit_price', 'last_update']\n    # pagination_class = PageNumberPagination #Pagination Locally",
+        "peekOfCode": "class ProductViewSet(ModelViewSet):\n    queryset = Product.objects.prefetch_related('images').all()\n    serializer_class = ProductSerializer\n    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]\n    # filterset_fields = ['category_id']\n    filterset_class = ProductFilter\n    search_fields = ['title', 'description']\n    # search_fields = ['title', 'description', 'category__title'] # Search in related data\n    ordering_fields = ['unit_price', 'last_update']\n    # pagination_class = PageNumberPagination #Pagination Locally",
         "detail": "store.views",
         "documentation": {}
     },
