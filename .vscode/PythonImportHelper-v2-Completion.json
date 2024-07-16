@@ -1138,6 +1138,14 @@
         "documentation": {}
     },
     {
+        "label": "FileExtensionValidator",
+        "importPath": "django.core.validators",
+        "description": "django.core.validators",
+        "isExtraImport": true,
+        "detail": "django.core.validators",
+        "documentation": {}
+    },
+    {
         "label": "uuid",
         "kind": 6,
         "isExtraImport": true,
@@ -1953,7 +1961,7 @@
         "kind": 6,
         "importPath": "store.models",
         "description": "store.models",
-        "peekOfCode": "class ProductImage(models.Model):\n    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')\n    image = models.ImageField(upload_to= 'store/images', validators= [validate_file_size])\nclass Customer(models.Model):\n    MEMBERSHIP_BRONZE = 'B'\n    MEMBERSHIP_SILVER = 'S'\n    MBEMERSHIP_GOLD = 'G'\n    MEMBERSHIP_CHOICES = [\n        (MEMBERSHIP_BRONZE, 'Bronze'),\n        (MEMBERSHIP_SILVER, 'Silver'),",
+        "peekOfCode": "class ProductImage(models.Model):\n    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')\n    image = models.ImageField(upload_to= 'store/images', validators= [validate_file_size])\n    # image = models.FileField(upload_to= 'store/images', validators= [FileExtensionValidator(allowed_extensions=['pdf'])])\nclass Customer(models.Model):\n    MEMBERSHIP_BRONZE = 'B'\n    MEMBERSHIP_SILVER = 'S'\n    MBEMERSHIP_GOLD = 'G'\n    MEMBERSHIP_CHOICES = [\n        (MEMBERSHIP_BRONZE, 'Bronze'),",
         "detail": "store.models",
         "documentation": {}
     },
@@ -2214,7 +2222,7 @@
         "kind": 2,
         "importPath": "store.validators",
         "description": "store.validators",
-        "peekOfCode": "def validate_file_size(file):\n    max_file_size_kb = 50\n    if file.size > max_file_size_kb * 1024:\n        raise ValidationError(f'Files size can not be larger than {max_file_size_kb} KB')",
+        "peekOfCode": "def validate_file_size(file):\n    max_file_size_kb = 50\n    if file.size > max_file_size_kb * 1024:\n        raise ValidationError(f'Files size can not be larger than {max_file_size_kb} KB!')",
         "detail": "store.validators",
         "documentation": {}
     },
