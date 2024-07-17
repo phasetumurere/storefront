@@ -59,8 +59,17 @@ class InventoryFiltering(admin.SimpleListFilter):
 # class TagInline(GenericTabularInline):
 #     autocomplete_fields = ['tag']
 #     model = TaggedItem
+ 
+
+class ProductImageInline(admin.TabularInline):
+    model = models.ProductImage
+    readonly_fields = ['thumbnails']
     
-    
+    def thumbnails(self, instance):
+        if instance.image.name != '':
+            return format_html(f'<img src="{instance.image.url}" class="thumbnail" />')
+        return ''
+         
     
 # Register your models here.
 @admin.register(models.Product)
@@ -68,6 +77,7 @@ class ProductAdminModel(admin.ModelAdmin):
     autocomplete_fields =['category']
     prepopulated_fields = {'slug': ['title']}
     # readonly_fields = ['slug']
+    inlines = [ProductImageInline]
     actions = ['clear_inventory'] #Actions to display (pass the name of custom action methos ad a string)
     list_display = ['title','slug', 'unit_price', 'category_title', 'inventory_status']
     list_editable = ['unit_price']
@@ -78,8 +88,6 @@ class ProductAdminModel(admin.ModelAdmin):
     search_fields = ['title__istartswith']
         # search_fields = ['first_name__istartswith', 'last_name__istartswith']
 
-    
-    
     def category_title(self, product):
         return product.category.title
     
@@ -97,8 +105,13 @@ class ProductAdminModel(admin.ModelAdmin):
         updated_count = querryset.update(inventory=0)
         self.message_user(
             request,
-            f'{updated_count} products were successifully updated.', messages.ERROR) # Every modal admin contains this method for showing the message to the user
-        
+            f'{updated_count} products were successifully updated.', messages.ERROR)
+        # Every modal admin contains this method for showing the message to the user
+
+    class Media:
+        css={
+            'all':['store/styles.css']
+        }        
 
 @admin.register(models.Customer)
 class CustomerModelAdmin(admin.ModelAdmin):
