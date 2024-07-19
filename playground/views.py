@@ -135,14 +135,23 @@ def generic_relationship(request):
         #Send Emails
         from django.core.mail import send_mail, mail_admins, BadHeaderError, EmailMessage
         from storefront import settings
+        from templated_mail.mail import BaseEmailMessage
         
         try:
             # send_mail('subject', 'message', 'from', ['to'])
             # send_mail('subject', 'message', settings.DEFAULT_FROM_EMAIL, ['student2@me.me']) #SEND TO NORMAL USER
             # mail_admins('subject', 'message', html_message='the HTML message') #Send to the Admin of the site this from is root@localhost
-            message = EmailMessage('subject', 'The plain Message', 'phase@me.me', ['studen1@me.me'])
-            message.attach_file('playground/static/images/Phase.jpg')
-            message.send()
+            # message = EmailMessage('subject', 'The plain Message', 'phase@me.me', ['student1@me.me'])
+            # message.attach_file('playground/static/images/Phase.jpg')
+            # message.send()
+            
+            message = BaseEmailMessage(
+                template_name= 'emails/hello.html',
+                context= {'name': 'Phase'}
+            )
+            message.send(['student2@me.me'])
+            
+            
         except BadHeaderError:
             pass
     
