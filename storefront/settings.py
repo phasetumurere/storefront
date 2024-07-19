@@ -174,7 +174,7 @@ DJOSER={
 }
 
 from datetime import timedelta
-from storefront.settings import EMAIL_HOST
+# from storefront.settings import EMAIL_HOST
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),#Specifying that JWT should be included in token as prefix
     "ACCESS_TOKEN_LIFETIME": timedelta(days= 1)
@@ -186,3 +186,7 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 2525
 DEFAULT_FROM_EMAIL = 'phase@me.me'
+
+ADMINS = [(
+    'Phase','Phase@me.me' #Admin Name and Email
+           )]

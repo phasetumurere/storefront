@@ -846,14 +846,6 @@
         "documentation": {}
     },
     {
-        "label": "EMAIL_HOST",
-        "importPath": "storefront.settings",
-        "description": "storefront.settings",
-        "isExtraImport": true,
-        "detail": "storefront.settings",
-        "documentation": {}
-    },
-    {
         "label": "DEBUG",
         "importPath": "storefront.settings",
         "description": "storefront.settings",
@@ -2535,7 +2527,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "AUTH_USER_MODEL = 'core.user'\nDJOSER={\n    'SERIALIZERS':{\n        'user_create':'core.serializers.UserCreateSerializer',\n        'current_user':'core.serializers.UserSerializer'\n    }  \n}\nfrom datetime import timedelta\nfrom storefront.settings import EMAIL_HOST\nSIMPLE_JWT = {",
+        "peekOfCode": "AUTH_USER_MODEL = 'core.user'\nDJOSER={\n    'SERIALIZERS':{\n        'user_create':'core.serializers.UserCreateSerializer',\n        'current_user':'core.serializers.UserSerializer'\n    }  \n}\nfrom datetime import timedelta\n# from storefront.settings import EMAIL_HOST\nSIMPLE_JWT = {",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -2553,7 +2545,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'\nEMAIL_HOST = 'localhost'\nEMAIL_HOST_USER = ''\nEMAIL_HOST_PASSWORD = ''\nEMAIL_PORT = 2525\nDEFAULT_FROM_EMAIL = 'phase@me.me'",
+        "peekOfCode": "EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'\nEMAIL_HOST = 'localhost'\nEMAIL_HOST_USER = ''\nEMAIL_HOST_PASSWORD = ''\nEMAIL_PORT = 2525\nDEFAULT_FROM_EMAIL = 'phase@me.me'\nADMINS = [(\n    'Phase','Phase@me.me' #Admin Name and Email\n           )]",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -2562,7 +2554,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "EMAIL_HOST = 'localhost'\nEMAIL_HOST_USER = ''\nEMAIL_HOST_PASSWORD = ''\nEMAIL_PORT = 2525\nDEFAULT_FROM_EMAIL = 'phase@me.me'",
+        "peekOfCode": "EMAIL_HOST = 'localhost'\nEMAIL_HOST_USER = ''\nEMAIL_HOST_PASSWORD = ''\nEMAIL_PORT = 2525\nDEFAULT_FROM_EMAIL = 'phase@me.me'\nADMINS = [(\n    'Phase','Phase@me.me' #Admin Name and Email\n           )]",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -2571,7 +2563,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "EMAIL_HOST_USER = ''\nEMAIL_HOST_PASSWORD = ''\nEMAIL_PORT = 2525\nDEFAULT_FROM_EMAIL = 'phase@me.me'",
+        "peekOfCode": "EMAIL_HOST_USER = ''\nEMAIL_HOST_PASSWORD = ''\nEMAIL_PORT = 2525\nDEFAULT_FROM_EMAIL = 'phase@me.me'\nADMINS = [(\n    'Phase','Phase@me.me' #Admin Name and Email\n           )]",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -2580,7 +2572,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "EMAIL_HOST_PASSWORD = ''\nEMAIL_PORT = 2525\nDEFAULT_FROM_EMAIL = 'phase@me.me'",
+        "peekOfCode": "EMAIL_HOST_PASSWORD = ''\nEMAIL_PORT = 2525\nDEFAULT_FROM_EMAIL = 'phase@me.me'\nADMINS = [(\n    'Phase','Phase@me.me' #Admin Name and Email\n           )]",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -2589,7 +2581,7 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "EMAIL_PORT = 2525\nDEFAULT_FROM_EMAIL = 'phase@me.me'",
+        "peekOfCode": "EMAIL_PORT = 2525\nDEFAULT_FROM_EMAIL = 'phase@me.me'\nADMINS = [(\n    'Phase','Phase@me.me' #Admin Name and Email\n           )]",
         "detail": "storefront.settings",
         "documentation": {}
     },
@@ -2598,7 +2590,16 @@
         "kind": 5,
         "importPath": "storefront.settings",
         "description": "storefront.settings",
-        "peekOfCode": "DEFAULT_FROM_EMAIL = 'phase@me.me'",
+        "peekOfCode": "DEFAULT_FROM_EMAIL = 'phase@me.me'\nADMINS = [(\n    'Phase','Phase@me.me' #Admin Name and Email\n           )]",
+        "detail": "storefront.settings",
+        "documentation": {}
+    },
+    {
+        "label": "ADMINS",
+        "kind": 5,
+        "importPath": "storefront.settings",
+        "description": "storefront.settings",
+        "peekOfCode": "ADMINS = [(\n    'Phase','Phase@me.me' #Admin Name and Email\n           )]",
         "detail": "storefront.settings",
         "documentation": {}
     },

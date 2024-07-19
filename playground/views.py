@@ -131,5 +131,19 @@ def generic_relationship(request):
         item.quantity = 1
         item.unit_price = 10
         item.save()
+        
+        #Send Emails
+        from django.core.mail import send_mail, mail_admins, BadHeaderError, EmailMessage
+        from storefront import settings
+        
+        try:
+            # send_mail('subject', 'message', 'from', ['to'])
+            # send_mail('subject', 'message', settings.DEFAULT_FROM_EMAIL, ['student2@me.me']) #SEND TO NORMAL USER
+            # mail_admins('subject', 'message', html_message='the HTML message') #Send to the Admin of the site this from is root@localhost
+            message = EmailMessage('subject', 'The plain Message', 'phase@me.me', ['studen1@me.me'])
+            message.attach_file('playground/static/images/Phase.jpg')
+            message.send()
+        except BadHeaderError:
+            pass
     
     return render(request, 'hello_world.html', {'tags': list(queryset)})
